@@ -4,15 +4,9 @@ import restProvider from "ra-data-simple-rest";
 
 const Dashboard = () => {
   return (
-    <Admin dataProvider={restProvider("http://localhost:8080")}>
+    <Admin dataProvider={restProvider("https://iac-api.herokuapp.com")}>
       <Resource
-        name='Leaves Type'
-        // list={ProspectList}
-        // edit={ProspectEdit}
-        // icon={AiOutlineUsergroupAdd}
-      />
-      <Resource
-        name='Leaves Requist'
+        name='prospect'
         // list={ProspectList}
         // edit={ProspectEdit}
         // icon={AiOutlineUsergroupAdd}
