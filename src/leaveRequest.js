@@ -66,21 +66,21 @@ const background = createTheme({
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
-      color: lightBlue[600],
+      color: "#90A4AE",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: lightBlue[600],
+      borderBottomColor: "#B0BEC5",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: lightBlue[400],
+        borderColor: "#546E7A",
       },
       "&:hover fieldset": {
-        borderColor: lightBlue[800],
+        borderColor: "#616161",
       },
 
       "&.Mui-focused fieldset": {
-        borderColor: lightBlue[400],
+        borderColor: "#282828",
       },
     },
   },
