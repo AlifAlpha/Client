@@ -9,7 +9,7 @@ import { BiListPlus } from "react-icons/bi";
 
 const Dashboard = () => {
   return (
-    <Admin dataProvider={restProvider("https://iac-api.herokuapp.com")}>
+    <Admin dataProvider={restProvider("http://localhost:8080")}>
       <Resource
         name='leavetype'
         option={{ label: "Leave types" }}
