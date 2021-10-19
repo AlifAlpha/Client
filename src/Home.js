@@ -5,7 +5,7 @@ const Home = () => {
     <>
       <h1>Hello world</h1>
       <p>Front end Home Page</p>
-      <Link to='/leaverequist'>Click me</Link>
+      <Link to='/leaverequest'>Click me</Link>
       <Link to='/dashboard'>dashboard here</Link>
     </>
   );

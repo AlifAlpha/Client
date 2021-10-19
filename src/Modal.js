@@ -35,8 +35,8 @@ export default function Modal({ open, setModal }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
-            Votre demande a été envoyée avec succès, vous serez contacté dans
-            les plus brefs délais
+            Your leave request has been successfully sent. You will be contacted
+            as soon as possible
           </DialogContentText>
         </DialogContent>
         <DialogActions>

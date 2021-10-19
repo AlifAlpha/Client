@@ -4,36 +4,36 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-import logo from "./img/logoISESCO.png";
-import bginsc from "./img/backgroundimageleaveform.png";
-import { lightBlue /*teal */ } from "@material-ui/core/colors";
+// import logo from "./img/logoiac.png";
+// import bginsc from "./img/bginscription.png";
+import { lightBlue, teal } from "@material-ui/core/colors";
 import { withStyles } from "@material-ui/core/styles";
 import {
   CardMedia,
   FormControl,
   FormHelperText,
-  // FormLabel,
+  FormLabel,
 } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Pattern } from "./pattern";
-import Modal from "./Modal";
+// import Modal from "./Modal";
 
 const background = createTheme({
   overrides: {
     MuiCssBaseline: {
       "@global": {
         body: {
-          // backgroundColor: "#d3d3d3",
-          background: `url(${bginsc}) `,
+          // backgroundColor: "#c9e9f6",
+          // background: `url(${bginsc}) `,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: " cover",
@@ -44,43 +44,43 @@ const background = createTheme({
   },
 });
 
-// const BlueCheckbox = withStyles({
-//   root: {
-//     color: lightBlue[400],
-//     "&$checked": {
-//       color: lightBlue[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
-// const TealCheckbox = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
+const BlueCheckbox = withStyles({
+  root: {
+    color: lightBlue[400],
+    "&$checked": {
+      color: lightBlue[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color='default' {...props} />);
+const TealCheckbox = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color='default' {...props} />);
 
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
-      color: "#90A4AE",
+      color: lightBlue[600],
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "#B0BEC5",
+      borderBottomColor: lightBlue[600],
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#546E7A",
+        borderColor: lightBlue[400],
       },
       "&:hover fieldset": {
-        borderColor: "#616161",
+        borderColor: lightBlue[800],
       },
 
       "&.Mui-focused fieldset": {
-        borderColor: "#282828",
+        borderColor: lightBlue[400],
       },
     },
   },
@@ -132,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: "16px",
   },
   left: {
-    backgroundColor: "#282828",
+    backgroundColor: "rgba(10,170,188,1)",
     width: "50%",
   },
 
@@ -154,17 +154,17 @@ const useStyles = makeStyles((theme) => ({
   formside: {},
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background: "#282828",
+    background: "#0aaabc",
     width: "30%",
     height: "40px",
   },
 }));
 
-const LeaveRequist = () => {
+const LeaveRequestForm = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
-  const [leaves, setLeaves] = useState([]);
-  // const [courses, setCourses] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -175,14 +175,14 @@ const LeaveRequist = () => {
   const [feedback, setFeedback] = useState({ open: false });
 
   useEffect(() => {
-    fetch("http://localhost:8080/leavetype").then(async (res) => {
+    fetch("https://iac-api.herokuapp.com/cities").then(async (res) => {
       const data = await res.json();
-      setLeaves(data);
+      setCities(data);
     });
-    // fetch("https://iacapi.herokuapp.com/courses").then(async (res) => {
-    //   const data = await res.json();
-    //   setCourses(data);
-    // });
+    fetch("https://iac-api.herokuapp.com/courses").then(async (res) => {
+      const data = await res.json();
+      setCourses(data);
+    });
   }, []);
 
   const handleSubmit = (e) => {
@@ -233,7 +233,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
 
-      fetch("https://iacapi.herokuapp.com/inscription", {
+      fetch("https://iac-api.herokuapp.com/inscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -273,7 +273,7 @@ const LeaveRequist = () => {
                     <CardMedia
                       component='img'
                       alt='Contemplative Reptile'
-                      image={logo}
+                      // image={logo}
                     />
                   </Grid>
                 </Grid>
@@ -286,7 +286,7 @@ const LeaveRequist = () => {
                     component='h1'
                     variant='h4'
                   >
-                    Leave Form
+                    Inscription
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -323,7 +323,7 @@ const LeaveRequist = () => {
                     className={classes.formControl}
                   >
                     <InputLabel htmlFor='outlined-age-native-simple'>
-                      Leaves Type
+                      City
                     </InputLabel>
                     <Select
                       name='city'
@@ -336,10 +336,10 @@ const LeaveRequist = () => {
                       error={cityError}
                     >
                       <option aria-label='None' value='' />
-                      {leaves &&
-                        leaves.map((leave) => (
-                          <option key={leave.id} value={leave.id}>
-                            {leave.name}
+                      {cities &&
+                        cities.map((city) => (
+                          <option key={city.id} value={city.id}>
+                            {city.name}
                           </option>
                         ))}
                     </Select>
@@ -377,7 +377,7 @@ const LeaveRequist = () => {
                 {/* sselect section */}
 
                 <Grid container>
-                  {/* <FormLabel component='legend' className={classes.legend}>
+                  <FormLabel component='legend' className={classes.legend}>
                     Language
                   </FormLabel>
                   <Grid className={classes.checks} container>
@@ -391,12 +391,12 @@ const LeaveRequist = () => {
                         />
                       ) : null;
                     })}
-                  </Grid> */}
+                  </Grid>
 
-                  {/* <FormLabel className={classes.legend} component='legend'>
+                  <FormLabel className={classes.legend} component='legend'>
                     Certificate
-                  </FormLabel> */}
-                  {/* <Grid xs={12} className={classes.checks} container>
+                  </FormLabel>
+                  <Grid xs={12} className={classes.checks} container>
                     {courses.map((course) => {
                       return course.coursType === "certificate" ? (
                         <FormControlLabel
@@ -407,7 +407,7 @@ const LeaveRequist = () => {
                         />
                       ) : null;
                     })}
-                  </Grid> */}
+                  </Grid>
                 </Grid>
                 {courseError && (
                   <FormHelperText error>
@@ -424,7 +424,7 @@ const LeaveRequist = () => {
                     disabled={loading}
                   >
                     {loading && <CircularProgress size={20} />}
-                    {!loading && "Submit "}
+                    {!loading && "Inscription"}
                   </Button>
                 </Grid>
               </Grid>
@@ -446,9 +446,9 @@ const LeaveRequist = () => {
           </MuiAlert>
         </Snackbar>
       </Container>
-      <Modal open={modal} setModal={setModal} />
+      {/* <Modal open={modal} setModal={setModal} /> */}
     </MuiThemeProvider>
   );
 };
 
-export default LeaveRequist;
+export default LeaveRequestForm;
