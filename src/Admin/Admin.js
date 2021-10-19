@@ -6,10 +6,19 @@ import { ListLeaveType } from "./components/leaveTypes/ListLeaveType";
 import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
 import { UpdateLeaveType } from "./components/leaveTypes/UpdateLeavetype";
 import { BiListPlus } from "react-icons/bi";
+import { AiOutlineUser } from "react-icons/ai";
+import { auth } from "./authProvider";
+import UserList from "./components/users/UserList";
+import UserCreate from "./components/users/UserCreate";
+import UserEdit from "./components/users/UserEdit";
 
 const Dashboard = () => {
   return (
-    <Admin dataProvider={restProvider("https://iac-api.herokuapp.com")}>
+    <Admin
+      authProvider={auth}
+      auth={auth}
+      dataProvider={restProvider("http://localhost:8080")}
+    >
       <Resource
         name='leavetype'
         option={{ label: "Leave types" }}
@@ -23,6 +32,13 @@ const Dashboard = () => {
         // list={ProspectList}
         // edit={ProspectEdit}
         // icon={AiOutlineUsergroupAdd}
+      />
+      <Resource
+        name='user'
+        list={UserList}
+        create={UserCreate}
+        edit={UserEdit}
+        icon={AiOutlineUser}
       />
     </Admin>
   );
