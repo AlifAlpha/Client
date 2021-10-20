@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,19 +14,13 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageleaveform.png";
-import { lightBlue /*teal */ } from "@material-ui/core/colors";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  CardMedia,
-  FormControl,
-  FormHelperText,
-  // FormLabel,
-} from "@material-ui/core";
+import { CardMedia, FormControl, FormHelperText } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Pattern } from "./pattern";
 import Modal from "./Modal";
-
+import { MobileDatePicker } from "@mui/lab";
 const background = createTheme({
   overrides: {
     MuiCssBaseline: {
@@ -167,13 +161,14 @@ const LeaveRequist = () => {
   const [employees, setEmployees] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
-  const [cityError, setCityError] = useState(false);
-  const [courseError, setCourseError] = useState(false);
+  const [endError, setEndError] = useState(false);
+  const [startError, setStartError] = useState(false);
+  const [leaveError, setLeaveError] = useState(false);
+  const [substitutError, setSubstitutError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
-
+  const [start, setStart] = React.useState("");
+  const [end, setEnd] = React.useState("");
   useEffect(() => {
     fetch("http://localhost:8080/leavetype").then(async (res) => {
       const data = await res.json();
@@ -190,10 +185,10 @@ const LeaveRequist = () => {
     const formData = new FormData(e.target);
     setFnError(false);
     setLnError(false);
-    setEmailError(false);
-    setPhoneError(false);
-    setCityError(false);
-    setCourseError(false);
+    setEndError(false);
+    setStartError(false);
+    setLeaveError(false);
+    setSubstitutError(false);
     let x = 0;
     if (!Pattern.name.test(formData.get("firstName"))) {
       setFnError(true);
@@ -203,37 +198,36 @@ const LeaveRequist = () => {
       setLnError(true);
       x++;
     }
-    if (!Pattern.email.test(formData.get("email"))) {
-      setEmailError(true);
+    if (!Pattern.name.test(formData.get("lastName"))) {
+      setEndError(true);
       x++;
     }
-    if (!Pattern.phone.test(formData.get("phone"))) {
-      setPhoneError(true);
+    if (!Pattern.name.test(formData.get("lastName"))) {
+      setStartError(true);
       x++;
     }
-    if (!formData.get("city")) {
-      setCityError(true);
+    if (!formData.get("leavetype")) {
+      setLeaveError(true);
       x++;
     }
-    if (
-      ![...formData.getAll("langue"), ...formData.getAll("certificate")].length
-    ) {
-      setCourseError(true);
+    if (!formData.get("substitut")) {
+      setSubstitutError(true);
       x++;
     }
+
     const obj = {
       name: `${formData.get("firstName")} ${formData.get("lastName")}`,
-      city: formData.get("city"),
-      email: formData.get("email"),
-      phoneNumber: formData.get("phone"),
-      cours: [...formData.getAll("langue"), ...formData.getAll("certificate")],
+      leaveType: formData.get("leavetype"),
+      start: formData.get("start"),
+      end: formData.get("end"),
+      substitut: formData.get("substitut"),
     };
 
-    console.log(obj);
+    console.log(x, obj);
     if (!x) {
       setLoading(true);
-
-      fetch("https://iacapi.herokuapp.com/inscription", {
+      console.log(obj);
+      fetch("http://localhost:8080/leaves", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -326,14 +320,14 @@ const LeaveRequist = () => {
                       Leaves Type
                     </InputLabel>
                     <Select
-                      name='city'
+                      name='leavetype'
                       native
                       inputProps={{
                         id: "ERRRRRR",
                       }}
                       fullWidth
-                      label='City'
-                      error={cityError}
+                      label='Leave  Type'
+                      error={leaveError}
                     >
                       <option aria-label='None' value='' />
                       {leaves &&
@@ -343,77 +337,108 @@ const LeaveRequist = () => {
                           </option>
                         ))}
                     </Select>
-                    {cityError && (
-                      <FormHelperText error>City is required!</FormHelperText>
+                    {leaveError && (
+                      <FormHelperText error>
+                        Leave Type is required!
+                      </FormHelperText>
                     )}
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    fullWidth
-                    id='email'
-                    label='Email Address'
-                    name='email'
-                    autoComplete='email'
-                    error={emailError}
-                    helperText={emailError && "Invalid email"}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      label='Start'
+                      inputFormat='MM/dd/yyyy'
+                      value={start}
+                      onChange={(newValue) => {
+                        setStart(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='start'
+                          variant='outlined'
+                          required
+                          error={startError}
+                          helperText={startError && "Invalid date"}
+                        />
+                      )}
+                    />
+                    {/* <MobileDatePicker
+                      label='For mobile'
+                      value={start}
+                      onChange={(newValue) => {
+                        setStart(newValue);
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                    /> */}
+                  </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    fullWidth
-                    id='phone'
-                    label='Phone number'
-                    name='phone'
-                    autoComplete='Phone'
-                    error={phoneError}
-                    helperText={phoneError && "Invalid phone number"}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      label='End'
+                      inputFormat='MM/dd/yyyy'
+                      value={end}
+                      onChange={(newValue) => {
+                        setEnd(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='end'
+                          variant='outlined'
+                          required
+                          error={endError}
+                          helperText={endError && "Invalid date"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
                 </Grid>
                 {/* sselect section */}
 
                 <Grid container>
-                  {/* <FormLabel component='legend' className={classes.legend}>
-                    Language
-                  </FormLabel>
-                  <Grid className={classes.checks} container>
-                    {courses.map((course) => {
-                      return course.coursType === "langue" ? (
-                        <FormControlLabel
-                          key={course.id}
-                          control={<BlueCheckbox name='langue' />}
-                          label={course.name}
-                          value={course.id}
-                        />
-                      ) : null;
-                    })}
-                  </Grid> */}
-
-                  {/* <FormLabel className={classes.legend} component='legend'>
-                    Certificate
-                  </FormLabel> */}
-                  {/* <Grid xs={12} className={classes.checks} container>
-                    {courses.map((course) => {
-                      return course.coursType === "certificate" ? (
-                        <FormControlLabel
-                          key={course.id}
-                          control={<TealCheckbox name='certificate' />}
-                          label={course.name}
-                          value={course.id}
-                        />
-                      ) : null;
-                    })}
-                  </Grid> */}
+                  <FormControl
+                    fullWidth
+                    variant='outlined'
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor='outlined-age-native-simple'>
+                      Substitut
+                    </InputLabel>
+                    <Select
+                      name='substitut'
+                      native
+                      inputProps={{
+                        id: "ERRRRRR",
+                      }}
+                      fullWidth
+                      label='Substitut'
+                      error={substitutError}
+                    >
+                      <option aria-label='None' value='' />
+                      {employees &&
+                        employees.map((employee) => (
+                          <option key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </option>
+                        ))}
+                    </Select>
+                    {substitutError && (
+                      <FormHelperText error>
+                        Substitut is required!
+                      </FormHelperText>
+                    )}
+                  </FormControl>
                 </Grid>
-                {courseError && (
+                {/* {courseError && (
                   <FormHelperText error>
                     At least one certificate or language must be checked.
                   </FormHelperText>
-                )}
+                )} */}
                 <Grid item xs={12}>
                   <Button
                     type='submit'

@@ -17,7 +17,7 @@ import UserList from "./components/users/UserList";
 import UserCreate from "./components/users/UserCreate";
 import UserEdit from "./components/users/UserEdit";
 import { EmployeeEdit } from "./components/Employee/EditEmployee";
-import { LeaveList } from "./components/leaves/ListLeave";
+import LeaveList from "./components/leaves/ListLeave";
 import { UpdateLeave } from "./components/leaves/updateLeave";
 
 const Dashboard = () => {
