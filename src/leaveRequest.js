@@ -14,7 +14,7 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageleaveform.png";
-// import { lightBlue /*teal */ } from "@material-ui/core/colors";
+import { lightBlue /*teal */ } from "@material-ui/core/colors";
 import { withStyles } from "@material-ui/core/styles";
 import {
   CardMedia,
@@ -109,6 +109,7 @@ const CustomField = withStyles({
 //     // "MuiSelect-root MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input"
 //   },
 // })(Select);
+
 const useStyles = makeStyles((theme) => ({
   container: {
     borderRadius: "15px",
@@ -163,7 +164,7 @@ const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
   const [leaves, setLeaves] = useState([]);
-  // const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -178,10 +179,10 @@ const LeaveRequist = () => {
       const data = await res.json();
       setLeaves(data);
     });
-    // fetch("https://iacapi.herokuapp.com/courses").then(async (res) => {
-    //   const data = await res.json();
-    //   setCourses(data);
-    // });
+    fetch("http://localhost:8080/employee").then(async (res) => {
+      const data = await res.json();
+      setEmployees(data);
+    });
   }, []);
 
   const handleSubmit = (e) => {

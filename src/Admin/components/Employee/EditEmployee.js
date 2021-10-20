@@ -1,4 +1,4 @@
-import { Edit, SimpleForm, TextInput, EmailInput } from "ra-ui-materialui";
+import { Edit, SimpleForm, TextInput } from "ra-ui-materialui";
 import React from "react";
 
 export const EmployeeEdit = (props) => (
