@@ -1,7 +1,7 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
 import restProvider from "ra-data-simple-rest";
-// import { ListGuesser, EditGuesser } from "react-admin";
+import { ListGuesser, EditGuesser } from "react-admin";
 import { ListLeaveType } from "./components/leaveTypes/ListLeaveType";
 import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
 import { UpdateLeaveType } from "./components/leaveTypes/UpdateLeavetype";
@@ -17,6 +17,7 @@ import UserList from "./components/users/UserList";
 import UserCreate from "./components/users/UserCreate";
 import UserEdit from "./components/users/UserEdit";
 import { EmployeeEdit } from "./components/Employee/EditEmployee";
+import { LeaveList } from "./components/leaves/ListLeave";
 
 const Dashboard = () => {
   return (
@@ -51,6 +52,13 @@ const Dashboard = () => {
         list={EmployeeList}
         create={CreateEmployee}
         edit={EmployeeEdit}
+        // icon={BiListPlus}
+      />
+      <Resource
+        name='leaves'
+        list={LeaveList}
+        // create={CreateEmployee}
+        // edit={EmployeeEdit}
         // icon={BiListPlus}
       />
     </Admin>
