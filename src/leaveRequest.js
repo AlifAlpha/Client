@@ -164,7 +164,7 @@ const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
   const [leaves, setLeaves] = useState([]);
-  // const [courses, setCourses] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
   const [emailError, setEmailError] = useState(false);
