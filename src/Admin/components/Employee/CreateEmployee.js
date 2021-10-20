@@ -1,7 +1,7 @@
 import React from "react";
 import { Create, SimpleForm, TextInput } from "react-admin";
 
-export const CreateEmployee = (props) => {
+const CreateEmployee = (props) => {
   return (
     <Create title='create employee' {...props}>
       <SimpleForm>
@@ -13,3 +13,5 @@ export const CreateEmployee = (props) => {
     </Create>
   );
 };
+
+export default CreateEmployee;

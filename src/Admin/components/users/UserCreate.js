@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BooleanInput,
   PasswordInput,
@@ -6,7 +7,6 @@ import {
   TextInput,
   Create,
 } from "ra-ui-materialui";
-import React from "react";
 
 const UserCreate = (props) => {
   return (

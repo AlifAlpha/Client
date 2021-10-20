@@ -1,15 +1,11 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
 import restProvider from "ra-data-simple-rest";
-// import { ListGuesser, EditGuesser } from "react-admin";
 import { ListLeaveType } from "./components/leaveTypes/ListLeaveType";
 import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
 import { UpdateLeaveType } from "./components/leaveTypes/UpdateLeavetype";
-import { CreateEmployee } from "./components/Employee/CreateEmployee";
+import CreateEmployee from "./components/Employee/CreateEmployee";
 import { EmployeeList } from "./components/Employee/ListEmployee";
-
-// import EditEmployee from "./components/Employee/EditEmployee";
-
 import { BiListPlus } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import { auth } from "./authProvider";
