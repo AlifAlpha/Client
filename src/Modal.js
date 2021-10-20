@@ -31,7 +31,7 @@ export default function Modal({ open, setModal }) {
           className={classes.title}
           id='alert-dialog-title'
         >
-          {"Merci pour votre inscription"}
+          {"Thank you"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>

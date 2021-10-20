@@ -11,7 +11,8 @@ import { EmployeeList } from "./components/Employee/ListEmployee";
 // import EditEmployee from "./components/Employee/EditEmployee";
 
 import { BiListPlus } from "react-icons/bi";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
+import { BsPersonCircle } from "react-icons/bs";
 import { auth } from "./authProvider";
 import UserList from "./components/users/UserList";
 import UserCreate from "./components/users/UserCreate";
@@ -47,14 +48,14 @@ const Dashboard = () => {
         list={EmployeeList}
         create={CreateEmployee}
         edit={EmployeeEdit}
-        // icon={BiListPlus}
+        icon={BsPersonCircle}
       />
       <Resource
         name='leaves'
         list={LeaveList}
         // create={CreateEmployee}
         edit={UpdateLeave}
-        // icon={BiListPlus}
+        icon={AiOutlinePauseCircle}
       />
     </Admin>
   );
