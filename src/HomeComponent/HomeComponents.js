@@ -26,7 +26,9 @@ export const PageTitle = styled.h1`
   font-size: 50px;
   color: #282828;
   @media screen and (max-width: 768px) {
-    font-size: 40px;
+    font-size: 20px;
+    left: 50%;
+    top: 10%;
   }
 `;
 
