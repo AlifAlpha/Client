@@ -20,7 +20,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Pattern } from "./pattern";
 import Modal from "./Modal";
-import { MobileDatePicker } from "@mui/lab";
+import { MobileDatePicker, TimePicker } from "@mui/lab";
+
 const background = createTheme({
   overrides: {
     MuiCssBaseline: {
@@ -157,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
 const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
-  const [leaves, setLeaves] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
@@ -168,11 +169,11 @@ const LeaveRequist = () => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
   const [start, setStart] = React.useState("");
-  const [end, setEnd] = React.useState("");
+  const [time, setTime] = React.useState("");
   useEffect(() => {
-    fetch("https://icesco.herokuapp.com/leavetype").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
-      setLeaves(data);
+      setDepartments(data);
     });
     fetch("https://icesco.herokuapp.com/employee").then(async (res) => {
       const data = await res.json();
@@ -219,7 +220,7 @@ const LeaveRequist = () => {
       name: `${formData.get("firstName")} ${formData.get("lastName")}`,
       leaveType: formData.get("leavetype"),
       start: formData.get("start"),
-      end: formData.get("end"),
+      time: formData.get("time"),
       substitut: formData.get("substitut"),
     };
 
@@ -227,7 +228,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/leaves", {
+      fetch("https://icesco.herokuapp.com/department", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -280,29 +281,65 @@ const LeaveRequist = () => {
                     component='h1'
                     variant='h4'
                   >
-                    Leave Form
+                    IT requirements
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='fname'
-                    name='firstName'
+                    autoComplete='ename'
+                    name='eventName'
                     variant='outlined'
                     required
-                    id='firstName'
-                    label='First Name'
+                    id='eventName'
+                    label='Event Name'
                     autoFocus
                     fullWidth
                     error={fnError}
-                    helperText={fnError && "Invalid first name"}
+                    helperText={fnError && "Invalid event name"}
                   />
                 </Grid>
+
+                <Grid container>
+                  <FormControl
+                    fullWidth
+                    variant='outlined'
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor='outlined-age-native-simple'>
+                      Event coordinator
+                    </InputLabel>
+                    <Select
+                      name='substitut'
+                      native
+                      inputProps={{
+                        id: "ERRRRRR",
+                      }}
+                      fullWidth
+                      label='Substitut'
+                      error={substitutError}
+                    >
+                      <option aria-label='None' value='' />
+                      {employees &&
+                        employees.map((employee) => (
+                          <option key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </option>
+                        ))}
+                    </Select>
+                    {substitutError && (
+                      <FormHelperText error>
+                        Coordinator is required!
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
+
                 <Grid item xs={12}>
                   <CustomField
                     variant='outlined'
                     required
-                    id='lastName'
-                    label='Last Name'
+                    id='Phone'
+                    label='Phone'
                     name='lastName'
                     autoComplete='lname'
                     fullWidth
@@ -317,7 +354,7 @@ const LeaveRequist = () => {
                     className={classes.formControl}
                   >
                     <InputLabel htmlFor='outlined-age-native-simple'>
-                      Leaves Type
+                      Department
                     </InputLabel>
                     <Select
                       name='leavetype'
@@ -330,10 +367,10 @@ const LeaveRequist = () => {
                       error={leaveError}
                     >
                       <option aria-label='None' value='' />
-                      {leaves &&
-                        leaves.map((leave) => (
-                          <option key={leave.id} value={leave.id}>
-                            {leave.name}
+                      {departments &&
+                        departments.map((obj) => (
+                          <option key={obj.id} value={obj.id}>
+                            {obj.name}
                           </option>
                         ))}
                     </Select>
@@ -377,22 +414,21 @@ const LeaveRequist = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MobileDatePicker
-                      label='End'
-                      inputFormat='MM/dd/yyyy'
-                      value={end}
+                    <TimePicker
+                      label='Time'
+                      value={time}
                       onChange={(newValue) => {
-                        setEnd(newValue);
+                        setTime(newValue);
                       }}
                       renderInput={(params) => (
                         <CustomField
                           {...params}
                           fullWidth
-                          name='end'
+                          name='time'
                           variant='outlined'
                           required
                           error={endError}
-                          helperText={endError && "Invalid date"}
+                          helperText={endError && "Invalid time"}
                         />
                       )}
                     />
@@ -407,7 +443,7 @@ const LeaveRequist = () => {
                     className={classes.formControl}
                   >
                     <InputLabel htmlFor='outlined-age-native-simple'>
-                      Substitut
+                      Setup needed
                     </InputLabel>
                     <Select
                       name='substitut'
@@ -429,7 +465,7 @@ const LeaveRequist = () => {
                     </Select>
                     {substitutError && (
                       <FormHelperText error>
-                        Substitut is required!
+                        Setup needed is required!
                       </FormHelperText>
                     )}
                   </FormControl>
