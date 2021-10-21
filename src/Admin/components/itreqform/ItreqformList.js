@@ -1,8 +1,11 @@
 import {
+  ChipField,
   Datagrid,
   DateField,
   List,
+  ReferenceArrayField,
   ReferenceField,
+  SingleFieldList,
   TextField,
 } from "ra-ui-materialui";
 import React from "react";
@@ -31,15 +34,16 @@ export const ItreqformList = (props) => (
       <DateField source='start' />
       <TextField source='time' />
       <TextField source='location' />
-      <ReferenceField
+      <ReferenceArrayField
         sortable={false}
-        label='Need'
-        source='Itreq'
+        label='Needs'
+        source='itreq'
         reference='itreq'
       >
-        <TextField source='name' />
-      </ReferenceField>
-      <TextField source='itreq' />
+        <SingleFieldList>
+          <ChipField source='name' />
+        </SingleFieldList>
+      </ReferenceArrayField>
     </Datagrid>
   </List>
 );

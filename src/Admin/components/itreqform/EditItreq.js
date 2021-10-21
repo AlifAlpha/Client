@@ -1,8 +1,10 @@
 import {
   DateInput,
   Edit,
-  ReferenceField,
+  ReferenceArrayInput,
+  // ReferenceField,
   ReferenceInput,
+  SelectArrayInput,
   SelectInput,
   SimpleForm,
   TextInput,
@@ -23,14 +25,9 @@ export const ItreqformEdit = (props) => (
         <SelectInput optionText='name' />
       </ReferenceInput>
       <TextInput source='phone' />
-      <ReferenceInput
-        sortable={false}
-        label='Departement'
-        source='department'
-        reference='department'
-      >
-        <SelectInput optionText='name' />
-      </ReferenceInput>
+      <ReferenceArrayInput source='itreq' reference='itreq'>
+        <SelectArrayInput optionText='name' />
+      </ReferenceArrayInput>
       <DateInput source='start' />
       <TextInput source='time' />
       <TextInput source='location' />
