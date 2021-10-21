@@ -21,6 +21,9 @@ const Home = () => {
         <Link style={{ textDecoration: "none" }} to='/leaverequest'>
           <Btn>Fill in</Btn>
         </Link>
+        <Link style={{ textDecoration: "none" }} to='/it'>
+          <Btn>IT requests</Btn>
+        </Link>
       </BtnContainer>
     </HomeContainer>
   );

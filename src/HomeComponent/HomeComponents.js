@@ -34,7 +34,7 @@ export const PageTitle = styled.h1`
 
 export const BtnContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 
   place-items: center;
 `;
