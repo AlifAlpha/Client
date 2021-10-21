@@ -37,6 +37,9 @@ export const BtnContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 
   place-items: center;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Btn = styled.div`
@@ -59,6 +62,7 @@ export const Btn = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 20px;
 
+    margin-bottom: 30px;
     padding: 10px 20px;
   }
 `;

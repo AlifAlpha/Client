@@ -22,7 +22,9 @@ import EditDepartments from "./components/department/EditDepartments";
 import ItreqList from "./components/Itrequest/ItreqList";
 import CreateItreq from "./components/Itrequest/CreateItreq";
 import EditItreq from "./components/Itrequest/EditItreq";
-// import { EditGuesser, ListGuesser } from "ra-ui-materialui";
+import { EditGuesser, ListGuesser } from "ra-ui-materialui";
+import ItreqformList from "./components/itreqform/ItreqformList";
+import ItreqformEdit from "./components/itreqform/EditItreq";
 
 const Dashboard = () => {
   return (
@@ -71,6 +73,13 @@ const Dashboard = () => {
         list={ItreqList}
         create={CreateItreq}
         edit={EditItreq}
+        // icon={AiOutlinePauseCircle}
+      />
+      <Resource
+        name='itreqform'
+        list={ItreqformList}
+        // create={CreateItreq}
+        edit={ItreqformEdit}
         // icon={AiOutlinePauseCircle}
       />
     </Admin>
