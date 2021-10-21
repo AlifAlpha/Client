@@ -16,6 +16,13 @@ import UserEdit from "./components/users/UserEdit";
 import { EmployeeEdit } from "./components/Employee/EditEmployee";
 import LeaveList from "./components/leaves/ListLeave";
 import { UpdateLeave } from "./components/leaves/updateLeave";
+import DepartmentsList from "./components/department/DepartmentsList";
+import CreateDepartment from "./components/department/CreateDepartments";
+import EditDepartments from "./components/department/EditDepartments";
+import ItreqList from "./components/Itrequest/ItreqList";
+import CreateItreq from "./components/Itrequest/CreateItreq";
+import EditItreq from "./components/Itrequest/EditItreq";
+// import { EditGuesser, ListGuesser } from "ra-ui-materialui";
 
 const Dashboard = () => {
   return (
@@ -26,7 +33,6 @@ const Dashboard = () => {
     >
       <Resource
         name='leavetype'
-        option={{ label: "Leave types" }}
         list={ListLeaveType}
         create={CreateLeavetype}
         edit={UpdateLeaveType}
@@ -52,6 +58,20 @@ const Dashboard = () => {
         // create={CreateEmployee}
         edit={UpdateLeave}
         icon={AiOutlinePauseCircle}
+      />
+      <Resource
+        name='department'
+        list={DepartmentsList}
+        create={CreateDepartment}
+        edit={EditDepartments}
+        // icon={AiOutlinePauseCircle}
+      />
+      <Resource
+        name='itreq'
+        list={ItreqList}
+        create={CreateItreq}
+        edit={EditItreq}
+        // icon={AiOutlinePauseCircle}
       />
     </Admin>
   );
