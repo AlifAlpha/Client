@@ -160,6 +160,7 @@ const LeaveRequist = () => {
   const [modal, setModal] = useState(false);
   const [departments, setDepartments] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [itreq, setItreq] = useState([]);
   const [fnError, setFnError] = useState(false);
   const [lnError, setLnError] = useState(false);
   const [endError, setEndError] = useState(false);
@@ -178,6 +179,10 @@ const LeaveRequist = () => {
     fetch("https://icesco.herokuapp.com/employee").then(async (res) => {
       const data = await res.json();
       setEmployees(data);
+    });
+    fetch("https://icesco.herokuapp.com/itreq").then(async (res) => {
+      const data = await res.json();
+      setItreq(data);
     });
   }, []);
 
@@ -436,6 +441,20 @@ const LeaveRequist = () => {
                 </Grid>
                 {/* sselect section */}
 
+                <Grid item xs={12}>
+                  <CustomField
+                    autoComplete='location'
+                    name='location'
+                    variant='outlined'
+                    required
+                    id='location'
+                    label='Event location'
+                    autoFocus
+                    fullWidth
+                    error={fnError}
+                    helperText={fnError && "Invalid location name"}
+                  />
+                </Grid>
                 <Grid container>
                   <FormControl
                     fullWidth
@@ -456,10 +475,10 @@ const LeaveRequist = () => {
                       error={substitutError}
                     >
                       <option aria-label='None' value='' />
-                      {employees &&
-                        employees.map((employee) => (
-                          <option key={employee.id} value={employee.id}>
-                            {employee.name}
+                      {itreq &&
+                        itreq.map((itreq) => (
+                          <option key={itreq.id} value={itreq.id}>
+                            {itreq.name}
                           </option>
                         ))}
                     </Select>
