@@ -4,7 +4,13 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import {
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  FormLabel,
+  Snackbar,
+} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -18,9 +24,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { CardMedia, FormControl, FormHelperText } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import { Pattern } from "./pattern";
+// import { Pattern } from "./pattern";
 import Modal from "./Modal";
 import { MobileDatePicker, TimePicker } from "@mui/lab";
+import { teal } from "@material-ui/core/colors";
 
 const background = createTheme({
   overrides: {
@@ -48,15 +55,15 @@ const background = createTheme({
 //   },
 //   checked: {},
 // })((props) => <Checkbox color='default' {...props} />);
-// const TealCheckbox = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
+const TealCheckbox = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color='default' {...props} />);
 
 const CustomField = withStyles({
   root: {
@@ -118,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
   },
   checks: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr ",
+    gridTemplateColumns: "1fr 1fr ",
   },
   right: {
     background: "#fff",
@@ -161,12 +168,16 @@ const LeaveRequist = () => {
   const [departments, setDepartments] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [itreq, setItreq] = useState([]);
-  const [fnError, setFnError] = useState(false);
-  const [lnError, setLnError] = useState(false);
-  const [endError, setEndError] = useState(false);
+  // const [eventName, setEventName] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
   const [startError, setStartError] = useState(false);
-  const [leaveError, setLeaveError] = useState(false);
-  const [substitutError, setSubstitutError] = useState(false);
+  // const [leaveError, setLeaveError] = useState(false);
+  const [eventNameError, setEventNameError] = useState(false);
+  const [timeError, setTimeError] = useState(false);
+  // const [itreqError, setItreqError] = useState(false);
+  const [deptError, setDeptError] = useState(false);
+  const [coordError, setcoordError] = useState(false);
+  const [locationError, setlocationError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
   const [start, setStart] = React.useState("");
@@ -189,51 +200,64 @@ const LeaveRequist = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    setFnError(false);
-    setLnError(false);
-    setEndError(false);
+    setEventNameError(false);
+    setcoordError(false);
+    setPhoneError(false);
+    setDeptError(false);
     setStartError(false);
-    setLeaveError(false);
-    setSubstitutError(false);
+    setTimeError(false);
+    setlocationError(false);
+    // setItreqError(false);
     let x = 0;
-    if (!Pattern.name.test(formData.get("firstName"))) {
-      setFnError(true);
+    if (!formData.get("eventName")) {
+      setEventNameError(true);
       x++;
     }
-    if (!Pattern.name.test(formData.get("lastName"))) {
-      setLnError(true);
+    if (!formData.get("eventCoordinator")) {
+      setcoordError(true);
       x++;
     }
-    if (!Pattern.name.test(formData.get("lastName"))) {
-      setEndError(true);
+    if (!formData.get("phone")) {
+      setPhoneError(true);
       x++;
     }
-    if (!Pattern.name.test(formData.get("lastName"))) {
+    if (!formData.get("start")) {
       setStartError(true);
       x++;
     }
-    if (!formData.get("leavetype")) {
-      setLeaveError(true);
+    if (!formData.get("time")) {
+      setTimeError(true);
       x++;
     }
-    if (!formData.get("substitut")) {
-      setSubstitutError(true);
+    if (!formData.get("department")) {
+      setDeptError(true);
       x++;
     }
+    if (!formData.get("location")) {
+      setlocationError(true);
+      x++;
+    }
+    // if (!formData.get("location")) {
+    //   setItreqError(true);
+    //   x++;
+    // }
 
     const obj = {
-      name: `${formData.get("firstName")} ${formData.get("lastName")}`,
-      leaveType: formData.get("leavetype"),
+      eventName: formData.get("eventName"),
+      eventCoordinator: formData.get("eventCoordinator"),
+      phone: formData.get("phone"),
+      department: formData.get("department"),
       start: formData.get("start"),
       time: formData.get("time"),
-      substitut: formData.get("substitut"),
+      location: formData.get("location"),
+      itreq: [...formData.getAll("itreq")],
     };
 
     console.log(x, obj);
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/department", {
+      fetch("https://icesco.herokuapp.com/itreqform", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -299,8 +323,8 @@ const LeaveRequist = () => {
                     label='Event Name'
                     autoFocus
                     fullWidth
-                    error={fnError}
-                    helperText={fnError && "Invalid event name"}
+                    error={eventNameError}
+                    helperText={eventNameError && "Invalid event name"}
                   />
                 </Grid>
 
@@ -314,14 +338,14 @@ const LeaveRequist = () => {
                       Event coordinator
                     </InputLabel>
                     <Select
-                      name='substitut'
+                      name='eventCoordinator'
                       native
                       inputProps={{
                         id: "ERRRRRR",
                       }}
                       fullWidth
                       label='Substitut'
-                      error={substitutError}
+                      error={coordError}
                     >
                       <option aria-label='None' value='' />
                       {employees &&
@@ -331,7 +355,7 @@ const LeaveRequist = () => {
                           </option>
                         ))}
                     </Select>
-                    {substitutError && (
+                    {coordError && (
                       <FormHelperText error>
                         Coordinator is required!
                       </FormHelperText>
@@ -345,11 +369,11 @@ const LeaveRequist = () => {
                     required
                     id='Phone'
                     label='Phone'
-                    name='lastName'
-                    autoComplete='lname'
+                    name='phone'
+                    autoComplete='phone'
                     fullWidth
-                    error={lnError}
-                    helperText={lnError && "Invalid last name"}
+                    error={phoneError}
+                    helperText={phoneError && "Invalid phone"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -362,14 +386,14 @@ const LeaveRequist = () => {
                       Department
                     </InputLabel>
                     <Select
-                      name='leavetype'
+                      name='department'
                       native
                       inputProps={{
                         id: "ERRRRRR",
                       }}
                       fullWidth
                       label='Leave  Type'
-                      error={leaveError}
+                      error={deptError}
                     >
                       <option aria-label='None' value='' />
                       {departments &&
@@ -379,9 +403,9 @@ const LeaveRequist = () => {
                           </option>
                         ))}
                     </Select>
-                    {leaveError && (
+                    {deptError && (
                       <FormHelperText error>
-                        Leave Type is required!
+                        depertment is required!
                       </FormHelperText>
                     )}
                   </FormControl>
@@ -407,14 +431,6 @@ const LeaveRequist = () => {
                         />
                       )}
                     />
-                    {/* <MobileDatePicker
-                      label='For mobile'
-                      value={start}
-                      onChange={(newValue) => {
-                        setStart(newValue);
-                      }}
-                      renderInput={(params) => <TextField {...params} />}
-                    /> */}
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12}>
@@ -432,8 +448,8 @@ const LeaveRequist = () => {
                           name='time'
                           variant='outlined'
                           required
-                          error={endError}
-                          helperText={endError && "Invalid time"}
+                          error={timeError}
+                          helperText={timeError && "Invalid time"}
                         />
                       )}
                     />
@@ -451,49 +467,32 @@ const LeaveRequist = () => {
                     label='Event location'
                     autoFocus
                     fullWidth
-                    error={fnError}
-                    helperText={fnError && "Invalid location name"}
+                    error={locationError}
+                    helperText={locationError && "Invalid location name"}
                   />
                 </Grid>
-                <Grid container>
-                  <FormControl
-                    fullWidth
-                    variant='outlined'
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor='outlined-age-native-simple'>
-                      Setup needed
-                    </InputLabel>
-                    <Select
-                      name='substitut'
-                      native
-                      inputProps={{
-                        id: "ERRRRRR",
-                      }}
-                      fullWidth
-                      label='Substitut'
-                      error={substitutError}
-                    >
-                      <option aria-label='None' value='' />
-                      {itreq &&
-                        itreq.map((itreq) => (
-                          <option key={itreq.id} value={itreq.id}>
-                            {itreq.name}
-                          </option>
-                        ))}
-                    </Select>
-                    {substitutError && (
-                      <FormHelperText error>
-                        Setup needed is required!
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
-                {/* {courseError && (
+                {/* {itreqError && (
                   <FormHelperText error>
                     At least one certificate or language must be checked.
                   </FormHelperText>
                 )} */}
+                <Grid container>
+                  <FormLabel className={classes.legend} component='legend'>
+                    IT materials
+                  </FormLabel>
+                  <Grid xs={12} className={classes.checks} container>
+                    {itreq.map((itreq) => {
+                      return (
+                        <FormControlLabel
+                          key={itreq.id}
+                          control={<TealCheckbox name='itreq' />}
+                          label={itreq.name}
+                          value={itreq.id}
+                        />
+                      );
+                    })}
+                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   <Button
                     type='submit'
