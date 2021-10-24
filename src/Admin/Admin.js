@@ -29,7 +29,10 @@ import { BiListPlus } from "react-icons/bi";
 import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { /*EditGuesser,*/ ListGuesser } from "ra-ui-materialui";
+import { FaHandsHelping, FaPlug } from "react-icons/fa";
+// import { EditGuesser, ListGuesser } from "ra-ui-materialui";
+import { DgappList } from "./components/DGApointment/ListDgApp";
+import { DgappEdit } from "./components/DGApointment/EditDgApp";
 
 const Dashboard = () => {
   return (
@@ -42,14 +45,14 @@ const Dashboard = () => {
         list={ItreqformList}
         // create={CreateItreq}
         edit={ItreqformEdit}
-        // icon={AiOutlinePauseCircle}
+        icon={FaPlug}
       />
       <Resource
         name='dgapp'
-        list={ListGuesser}
+        list={DgappList}
         // create={ListGuesser}
-        // edit={ItreqformEdit}
-        // icon={AiOutlinePauseCircle}
+        edit={DgappEdit}
+        icon={FaHandsHelping}
       />
       <Resource
         name='leaves'

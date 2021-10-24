@@ -5,6 +5,7 @@ import Home from "../src/HomeComponent/Home";
 import LeaveRequest from "./leaveRequest";
 import ITRequirementsForm from "./ITRequirementsForm";
 import internalNoteForm from "./InternalNoteForm";
+import dgAppointments from "./dgAppointments";
 
 const MainRouter = () => {
   return (
@@ -14,6 +15,7 @@ const MainRouter = () => {
       <Route exact path='/internalnote' component={internalNoteForm}></Route>
       <Route exact path='/it' component={ITRequirementsForm}></Route>
       <Route exact path='/dashboard' component={Admin}></Route>
+      <Route exact path='/DGRDV' component={dgAppointments}></Route>
     </Switch>
   );
 };
