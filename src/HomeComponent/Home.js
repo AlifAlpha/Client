@@ -24,6 +24,10 @@ const Home = () => {
         <Link style={{ textDecoration: "none" }} to='/it'>
           <Btn>IT requests</Btn>
         </Link>
+        <div>{/* to make a cell */}</div>
+        <Link style={{ textDecoration: "none" }} to='/internalnote'>
+          <Btn>internal note</Btn>
+        </Link>
       </BtnContainer>
     </HomeContainer>
   );
