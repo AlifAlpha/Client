@@ -6,14 +6,13 @@ export const DgappList = (props) => (
   <List {...props}>
     <Datagrid rowClick='edit'>
       <TextField source='appType' />
-      <DateField source='startMeet' />
-      <TextField source='timeMeet' />
+      <DateField showTime source='startMeet' />
       <TextField source='name' />
       <TextField source='title' />
-      <DateField source='dateDurStart' />
-      <DateField source='dateDurEnd' />
-      <TextField source='timeDurStart' />
-      <TextField source='timeDurEnd' />
+      <DateField showTime source='dateDurStart' />
+      <DateField showTime source='dateDurEnd' />
+      {/* <TextField source='timeDurStart' />
+      <TextField source='timeDurEnd' /> */}
       <TextField source='purpose' />
     </Datagrid>
   </List>
