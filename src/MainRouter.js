@@ -15,7 +15,7 @@ const MainRouter = () => {
       <Route exact path='/internalnote' component={internalNoteForm}></Route>
       <Route exact path='/it' component={ITRequirementsForm}></Route>
       <Route exact path='/dashboard' component={Admin}></Route>
-      <Route exact path='/DGRDV' component={dgAppointments}></Route>
+      <Route exact path='/dgrdv' component={dgAppointments}></Route>
     </Switch>
   );
 };

@@ -158,6 +158,13 @@ const useStyles = makeStyles((theme) => ({
 
 const InternalNoteForm = () => {
   const classes = useStyles();
+  const [departments, setDepartments] = useState([]);
+
+  const [enError, setEVError] = useState(false);
+  const [deptError, setDeptError] = useState(false);
+  const [substitutError, setSubstitutError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+
   const [modal, setModal] = useState(false);
   const [leaves, setLeaves] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -166,7 +173,6 @@ const InternalNoteForm = () => {
   const [endError, setEndError] = useState(false);
   const [startError, setStartError] = useState(false);
   const [leaveError, setLeaveError] = useState(false);
-  const [substitutError, setSubstitutError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
   const [start, setStart] = React.useState("");
@@ -180,18 +186,41 @@ const InternalNoteForm = () => {
       const data = await res.json();
       setEmployees(data);
     });
+    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
+      const data = await res.json();
+      setDepartments(data);
+    });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    setFnError(false);
+
+    setDeptError(false);
+    setEVError(false);
+    setSubstitutError(false);
+    setLocationError(false);
+
+    let x = 0;
+    if (!formData.get("deptName")) {
+      setDeptError(true);
+      x++;
+    }
+    if (!formData.get("eventName")) {
+      setEVError(true);
+      x++;
+    }
+    if (!formData.get("location")) {
+      setEVError(true);
+      x++;
+    }
+
+    /*old FN*/
     setLnError(false);
     setEndError(false);
     setStartError(false);
     setLeaveError(false);
-    setSubstitutError(false);
-    let x = 0;
+    // let x = 0;
     if (!Pattern.name.test(formData.get("firstName"))) {
       setFnError(true);
       x++;
@@ -269,22 +298,70 @@ const InternalNoteForm = () => {
                   component='h1'
                   variant='h4'
                 >
-                  Leave Form
+                  Internal Note Form
                 </Typography>
               </Grid>
               <Grid className={classes.right} container sm={6}>
+                <Grid container>
+                  <FormControl
+                    fullWidth
+                    variant='outlined'
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor='outlined-age-native-simple'>
+                      Departments
+                    </InputLabel>
+                    <Select
+                      name='deptName'
+                      native
+                      inputProps={{
+                        id: "ERRRRRR",
+                      }}
+                      fullWidth
+                      label='Departments'
+                      error={substitutError}
+                    >
+                      <option aria-label='None' value='' />
+                      {departments &&
+                        departments.map((obj) => (
+                          <option key={obj.id} value={obj.id}>
+                            {obj.name}
+                          </option>
+                        ))}
+                    </Select>
+                    {deptError && (
+                      <FormHelperText error>
+                        Departments is required!
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='fname'
-                    name='firstName'
+                    autoComplete='ename'
+                    name='eventName'
                     variant='outlined'
                     required
-                    id='firstName'
-                    label='First Name'
+                    id='eventName'
+                    label='Event Name'
                     autoFocus
                     fullWidth
-                    error={fnError}
-                    helperText={fnError && "Invalid first name"}
+                    error={enError}
+                    helperText={enError && "Invalid Event Name"}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <CustomField
+                    autoComplete='locotion'
+                    name='locotion'
+                    variant='outlined'
+                    required
+                    id='locotion'
+                    label='locotion'
+                    autoFocus
+                    fullWidth
+                    error={locationError}
+                    helperText={locationError && "Invalid Location"}
                   />
                 </Grid>
                 <Grid item xs={12}>
