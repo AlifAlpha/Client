@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/logoISESCO.png";
-import bg from "../img/background.png";
+// import bg from "../img/background.png";
 import {
   Btn,
   BtnContainer,
   HomeContainer,
   Logo,
   PageTitle,
-  Squareimg,
+  // Squareimg,
 } from "./HomeComponents";
 const Home = () => {
   return (
@@ -25,6 +25,10 @@ const Home = () => {
         </Link>
         <Link style={{ textDecoration: "none" }} to='/it'>
           <Btn>IT requests</Btn>
+        </Link>
+        <div>{/* to make a cell */}</div>
+        <Link style={{ textDecoration: "none" }} to='/internalnote'>
+          <Btn>internal note</Btn>
         </Link>
       </BtnContainer>
     </HomeContainer>

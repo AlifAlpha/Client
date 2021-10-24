@@ -6,9 +6,6 @@ import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
 import { UpdateLeaveType } from "./components/leaveTypes/UpdateLeavetype";
 import CreateEmployee from "./components/Employee/CreateEmployee";
 import { EmployeeList } from "./components/Employee/ListEmployee";
-import { BiListPlus } from "react-icons/bi";
-import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
-import { BsPersonCircle } from "react-icons/bs";
 import { auth } from "./authProvider";
 import UserList from "./components/users/UserList";
 import UserCreate from "./components/users/UserCreate";
@@ -22,15 +19,22 @@ import EditDepartments from "./components/department/EditDepartments";
 import ItreqList from "./components/Itrequest/ItreqList";
 import CreateItreq from "./components/Itrequest/CreateItreq";
 import EditItreq from "./components/Itrequest/EditItreq";
-import { EditGuesser, ListGuesser } from "ra-ui-materialui";
 import ItreqformList from "./components/itreqform/ItreqformList";
 import ItreqformEdit from "./components/itreqform/EditItreq";
+import CityList from "./components/cities/CityList";
+import CityCreate from "./components/cities/CityCreate";
+import UpdateCity from "./components/cities/UpdateCity";
+
+import { BiListPlus } from "react-icons/bi";
+import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
+import { BsPersonCircle } from "react-icons/bs";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+// import { EditGuesser, ListGuesser } from "ra-ui-materialui";
 
 const Dashboard = () => {
   return (
     <Admin
       authProvider={auth}
-      auth={auth}
       dataProvider={restProvider("https://icesco.herokuapp.com")}
     >
       <Resource
@@ -90,6 +94,23 @@ const Dashboard = () => {
         edit={EditItreq}
         // icon={AiOutlinePauseCircle}
       />
+<<<<<<< HEAD
+=======
+      <Resource
+        name='itreqform'
+        list={ItreqformList}
+        // create={CreateItreq}
+        edit={ItreqformEdit}
+        // icon={AiOutlinePauseCircle}
+      />
+      <Resource
+        name='cities'
+        list={CityList}
+        create={CityCreate}
+        edit={UpdateCity}
+        icon={HiOutlineLocationMarker}
+      />
+>>>>>>> 44d38afb65921494807b460deeaad2ed435a1ffe
     </Admin>
   );
 };
