@@ -243,9 +243,9 @@ const LeaveRequist = () => {
     // }
 
     const obj = {
-      eventName: formData.get("eventName"),
-      eventCoordinator: formData.get("eventCoordinator"),
-      phone: formData.get("phone"),
+      startMeet: formData.get("startMeet"),
+      timeMeet: formData.get("timeMeet"),
+      name: formData.get("name"),
       department: formData.get("department"),
       start: formData.get("start"),
       time: formData.get("time"),
@@ -257,7 +257,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/itreqform", {
+      fetch("https://icesco.herokuapp.com/dgrdv", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -314,106 +314,9 @@ const LeaveRequist = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='ename'
-                    name='eventName'
-                    variant='outlined'
-                    required
-                    id='eventName'
-                    label='Event Name'
-                    autoFocus
-                    fullWidth
-                    error={eventNameError}
-                    helperText={eventNameError && "Invalid event name"}
-                  />
-                </Grid>
-
-                <Grid container>
-                  <FormControl
-                    fullWidth
-                    variant='outlined'
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor='outlined-age-native-simple'>
-                      Event coordinator
-                    </InputLabel>
-                    <Select
-                      name='eventCoordinator'
-                      native
-                      inputProps={{
-                        id: "ERRRRRR",
-                      }}
-                      fullWidth
-                      label='Substitut'
-                      error={coordError}
-                    >
-                      <option aria-label='None' value='' />
-                      {employees &&
-                        employees.map((employee) => (
-                          <option key={employee.id} value={employee.id}>
-                            {employee.name}
-                          </option>
-                        ))}
-                    </Select>
-                    {coordError && (
-                      <FormHelperText error>
-                        Coordinator is required!
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    id='Phone'
-                    label='Phone'
-                    name='phone'
-                    autoComplete='phone'
-                    fullWidth
-                    error={phoneError}
-                    helperText={phoneError && "Invalid phone"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl
-                    fullWidth
-                    variant='outlined'
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor='outlined-age-native-simple'>
-                      Department
-                    </InputLabel>
-                    <Select
-                      name='department'
-                      native
-                      inputProps={{
-                        id: "ERRRRRR",
-                      }}
-                      fullWidth
-                      label='Leave  Type'
-                      error={deptError}
-                    >
-                      <option aria-label='None' value='' />
-                      {departments &&
-                        departments.map((obj) => (
-                          <option key={obj.id} value={obj.id}>
-                            {obj.name}
-                          </option>
-                        ))}
-                    </Select>
-                    {deptError && (
-                      <FormHelperText error>
-                        depertment is required!
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <MobileDatePicker
-                      label='Start'
+                      label='Proposed date'
                       inputFormat='MM/dd/yyyy'
                       value={start}
                       onChange={(newValue) => {
@@ -423,7 +326,7 @@ const LeaveRequist = () => {
                         <CustomField
                           {...params}
                           fullWidth
-                          name='start'
+                          name='startMeet'
                           variant='outlined'
                           required
                           error={startError}
@@ -436,7 +339,7 @@ const LeaveRequist = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
-                      label='Time'
+                      label='Proposedtime'
                       value={time}
                       onChange={(newValue) => {
                         setTime(newValue);
@@ -445,7 +348,7 @@ const LeaveRequist = () => {
                         <CustomField
                           {...params}
                           fullWidth
-                          name='time'
+                          name='timeMeet'
                           variant='outlined'
                           required
                           error={timeError}
@@ -455,44 +358,143 @@ const LeaveRequist = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
-                {/* sselect section */}
+                <Grid item xs={12}>
+                  <CustomField
+                    autoComplete='name'
+                    name='name'
+                    variant='outlined'
+                    required
+                    id='name'
+                    label='Your Name'
+                    autoFocus
+                    fullWidth
+                    error={eventNameError}
+                    helperText={eventNameError && "Invalid name"}
+                  />
+                </Grid>
 
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='location'
-                    name='location'
+                    autoComplete='title'
+                    name='Title'
                     variant='outlined'
                     required
-                    id='location'
-                    label='Event location'
+                    id='title'
+                    label='Title'
                     autoFocus
                     fullWidth
-                    error={locationError}
-                    helperText={locationError && "Invalid location name"}
+                    error={eventNameError}
+                    helperText={eventNameError && "Invalid title"}
                   />
                 </Grid>
-                {/* {itreqError && (
-                  <FormHelperText error>
-                    At least one certificate or language must be checked.
-                  </FormHelperText>
-                )} */}
-                <Grid container>
-                  <FormLabel className={classes.legend} component='legend'>
-                    IT materials
-                  </FormLabel>
-                  <Grid xs={12} className={classes.checks} container>
-                    {itreq.map((itreq) => {
-                      return (
-                        <FormControlLabel
-                          key={itreq.id}
-                          control={<TealCheckbox name='itreq' />}
-                          label={itreq.name}
-                          value={itreq.id}
+
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      label='From date'
+                      inputFormat='MM/dd/yyyy'
+                      value={start}
+                      onChange={(newValue) => {
+                        setStart(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='dateDurStart'
+                          variant='outlined'
+                          required
+                          error={startError}
+                          helperText={startError && "Invalid date"}
                         />
-                      );
-                    })}
-                  </Grid>
+                      )}
+                    />
+                  </LocalizationProvider>
                 </Grid>
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      label='To'
+                      inputFormat='MM/dd/yyyy'
+                      value={start}
+                      onChange={(newValue) => {
+                        setStart(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='dateDurEnd'
+                          variant='outlined'
+                          error={startError}
+                          helperText={startError && "Invalid date"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <TimePicker
+                      label='From time'
+                      value={time}
+                      onChange={(newValue) => {
+                        setTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='timeDurStart'
+                          variant='outlined'
+                          required
+                          error={timeError}
+                          helperText={timeError && "Invalid time"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <TimePicker
+                      label='to'
+                      value={time}
+                      onChange={(newValue) => {
+                        setTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='timeDurEnd'
+                          variant='outlined'
+                          required
+                          error={timeError}
+                          helperText={timeError && "Invalid time"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <CustomField
+                    autoComplete='purpose'
+                    name='Purpose'
+                    variant='outlined'
+                    required
+                    id='purpose'
+                    label='Purpose'
+                    autoFocus
+                    fullWidth
+                    error={eventNameError}
+                    helperText={eventNameError && "This field is required"}
+                  />
+                </Grid>
+
+                {/* sselect section */}
+
                 <Grid item xs={12}>
                   <Button
                     type='submit'

@@ -478,7 +478,7 @@ const LeaveRequist = () => {
                 )} */}
                 <Grid container>
                   <FormLabel className={classes.legend} component='legend'>
-                    IT materials
+                    IT requirements
                   </FormLabel>
                   <Grid xs={12} className={classes.checks} container>
                     {itreq.map((itreq) => {
