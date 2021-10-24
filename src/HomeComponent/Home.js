@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/logoISESCO.png";
-import bg from "../img/backgroundimage.png";
+import bg from "../img/background.png";
 import {
   Btn,
   BtnContainer,
   HomeContainer,
   Logo,
   PageTitle,
+  Squareimg,
 } from "./HomeComponents";
 const Home = () => {
   return (
-    <HomeContainer src={bg}>
+    <HomeContainer>
+      {/* <Squareimg src={bg} /> */}
       <Logo src={logo} />
-      <PageTitle>Leave Forms</PageTitle>
+      <PageTitle>All rights reserved - ICESCO</PageTitle>
       <BtnContainer>
-        <Link style={{ textDecoration: "none" }} to='/dashboard'>
-          <Btn>Login</Btn>
-        </Link>
         <Link style={{ textDecoration: "none" }} to='/leaverequest'>
-          <Btn>Fill in</Btn>
+          <Btn>Leave form</Btn>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to='/dashboard'>
+          <Btn>Log in</Btn>
         </Link>
         <Link style={{ textDecoration: "none" }} to='/it'>
           <Btn>IT requests</Btn>
