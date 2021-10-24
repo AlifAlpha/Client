@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/logoISESCO.png";
-import bg from "../img/background.png";
+// import bg from "../img/background.png";
 import {
   Btn,
   BtnContainer,
   HomeContainer,
   Logo,
   PageTitle,
-  Squareimg,
+  // Squareimg,
 } from "./HomeComponents";
 const Home = () => {
   return (
