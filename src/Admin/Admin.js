@@ -94,13 +94,12 @@ const Dashboard = () => {
         edit={EditItreq}
         // icon={AiOutlinePauseCircle}
       />
-<<<<<<< HEAD
-=======
       <Resource
         name='itreqform'
         list={ItreqformList}
-        // create={CreateItreq}
         edit={ItreqformEdit}
+        // create={CreateItreq}
+
         // icon={AiOutlinePauseCircle}
       />
       <Resource
@@ -110,7 +109,6 @@ const Dashboard = () => {
         edit={UpdateCity}
         icon={HiOutlineLocationMarker}
       />
->>>>>>> 44d38afb65921494807b460deeaad2ed435a1ffe
     </Admin>
   );
 };
