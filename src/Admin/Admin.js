@@ -33,6 +33,9 @@ import { FaHandsHelping, FaPlug } from "react-icons/fa";
 // import { EditGuesser, ListGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
 import { DgappEdit } from "./components/DGApointment/EditDgApp";
+import { RoomList } from "./components/room/ListRooms";
+import { CreateRoom } from "./components/room/CreateRoom";
+import { RoomEdit } from "./components/room/UpdateRoom";
 
 const Dashboard = () => {
   return (
@@ -67,6 +70,13 @@ const Dashboard = () => {
         create={CreateLeavetype}
         edit={UpdateLeaveType}
         icon={BiListPlus}
+      />
+      <Resource
+        name='room'
+        list={RoomList}
+        create={CreateRoom}
+        edit={RoomEdit}
+        // icon={BiListPlus}
       />
       <Resource
         name='user'

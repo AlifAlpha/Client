@@ -31,7 +31,7 @@ const Home = () => {
         </Link>
         <div>{/* to make a cell */}</div>
         <Link style={{ textDecoration: "none" }} to='/dgrdv'>
-          <Btn>internal note</Btn>
+          <Btn>DG appointments</Btn>
         </Link>
       </BtnContainer>
     </HomeContainer>
