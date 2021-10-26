@@ -5,7 +5,6 @@ import logo1 from "../img/picto.png";
 import logo2 from "../img/ecriture.png";
 import Icon3 from "../img/postit.png";
 import Icon4 from "../img/deadline.png";
-// import Icon5 from "../img/fullstar.png";
 import Icon6 from "../img/password.png";
 import {
   LogoLeft,
