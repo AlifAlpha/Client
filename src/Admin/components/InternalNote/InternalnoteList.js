@@ -4,10 +4,10 @@ import React from "react";
 export const NotedgList = (props) => (
   <List {...props}>
     <Datagrid rowClick='edit'>
-      <TextField source='departmentName' />
       <TextField source='eventName' />
       <TextField source='location' />
       <DateField source='eventDate' />
+      <TextField source='departmentName' />
       <TextField source='initiativeIs' />
       <TextField source='stakeHoldersMember' />
       <TextField source='frequency' />
@@ -27,8 +27,9 @@ export const NotedgList = (props) => (
       <TextField source='inpactInternal' />
       <TextField source='internalSupport' />
       <TextField source='internalSupportNeededSup' />
-      <TextField source='DGDirections' />
       <TextField source='internalSupportNeededSpo' />
+
+      <TextField source='DGDirections' />
     </Datagrid>
   </List>
 );
