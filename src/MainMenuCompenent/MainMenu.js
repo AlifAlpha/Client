@@ -1,12 +1,11 @@
 import React from "react";
-import Icon1 from "../img/itrequest.png";
+import Icon1 from "../img/technology.png";
 import logo1 from "../img/picto.png";
 
 import logo2 from "../img/ecriture.png";
-import Icon3 from "../img/fullstar.png";
-import Icon4 from "../img/dgApp.png";
-// import Icon5 from "../img/fullstar.png";
-import Icon6 from "../img/fullstar.png";
+import Icon3 from "../img/postit.png";
+import Icon4 from "../img/deadline.png";
+import Icon6 from "../img/password.png";
 import {
   LogoLeft,
   LogoRight,
@@ -50,11 +49,13 @@ const Langues = () => {
       </ServiceWrapper>
 
       <ServiceWrapper>
-        <ServiceCard>
-          <ServiceIcon src={Icon4} />
-          <ServicesH2>DG appointment</ServicesH2>
-          <ServiceP></ServiceP>{" "}
-        </ServiceCard>
+        <Link style={{ textDecoration: "none" }} to='/dgrdv'>
+          <ServiceCard>
+            <ServiceIcon src={Icon4} />
+            <ServicesH2>DG appointment</ServicesH2>
+            <ServiceP></ServiceP>{" "}
+          </ServiceCard>
+        </Link>
 
         {/* <ServiceCard>
 
