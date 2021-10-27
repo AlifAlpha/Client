@@ -37,6 +37,7 @@ import { DgappEdit } from "./components/DGApointment/EditDgApp";
 import { RoomList } from "./components/room/ListRooms";
 import { CreateRoom } from "./components/room/CreateRoom";
 import { RoomEdit } from "./components/room/UpdateRoom";
+import { NotedgList } from "./components/InternalNote/InternalnoteList";
 
 const Dashboard = () => {
   return (
@@ -60,7 +61,8 @@ const Dashboard = () => {
       />
       <Resource
         name='notedg'
-        list={ListGuesser}
+        // list={NotedgList}
+        list={NotedgList}
         // // create={ListGuesser}
         // edit={DgappEdit}
         icon={FaRegStickyNote}
