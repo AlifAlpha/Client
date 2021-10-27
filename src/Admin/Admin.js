@@ -30,12 +30,14 @@ import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaHandsHelping, FaPlug, FaRegStickyNote } from "react-icons/fa";
-// import { EditGuesser, ListGuesser } from "ra-ui-materialui";
+import { ListGuesser } from "ra-ui-materialui";
+// import { EditGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
 import { DgappEdit } from "./components/DGApointment/EditDgApp";
 import { RoomList } from "./components/room/ListRooms";
 import { CreateRoom } from "./components/room/CreateRoom";
 import { RoomEdit } from "./components/room/UpdateRoom";
+import { NotedgList } from "./components/InternalNote/InternalnoteList";
 
 const Dashboard = () => {
   return (
@@ -58,8 +60,9 @@ const Dashboard = () => {
         icon={FaHandsHelping}
       />
       <Resource
-        name='DG Note'
-        // list={DgappList}
+        name='notedg'
+        // list={NotedgList}
+        list={NotedgList}
         // // create={ListGuesser}
         // edit={DgappEdit}
         icon={FaRegStickyNote}

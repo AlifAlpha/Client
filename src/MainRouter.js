@@ -19,7 +19,6 @@ const MainRouter = () => {
       <Route exact path='/it' component={ITRequirementsForm}></Route>
       <Route exact path='/dashboard' component={Admin}></Route>
       <Route exact path='/dgrdv' component={dgAppointments}></Route>
-    
     </Switch>
   );
 };
