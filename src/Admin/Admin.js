@@ -29,7 +29,7 @@ import { BiListPlus } from "react-icons/bi";
 import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { FaHandsHelping, FaPlug } from "react-icons/fa";
+import { FaHandsHelping, FaPlug, FaRegStickyNote } from "react-icons/fa";
 // import { EditGuesser, ListGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
 import { DgappEdit } from "./components/DGApointment/EditDgApp";
@@ -56,6 +56,13 @@ const Dashboard = () => {
         // create={ListGuesser}
         edit={DgappEdit}
         icon={FaHandsHelping}
+      />
+      <Resource
+        name='DG Note'
+        // list={DgappList}
+        // // create={ListGuesser}
+        // edit={DgappEdit}
+        icon={FaRegStickyNote}
       />
       <Resource
         name='leaves'
