@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import {
-  Checkbox,
+  // Checkbox,
   CircularProgress,
   FormControlLabel,
-  FormLabel,
+  // FormLabel,
+  Radio,
+  RadioGroup,
   Snackbar,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -21,13 +23,13 @@ import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageleaveform.png";
 import { withStyles } from "@material-ui/core/styles";
-import { CardMedia, FormControl, FormHelperText } from "@material-ui/core";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
+import { CardMedia, FormHelperText } from "@material-ui/core";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
 // import { Pattern } from "./pattern";
 import Modal from "./Modal";
-import { MobileDatePicker, TimePicker } from "@mui/lab";
-import { teal } from "@material-ui/core/colors";
+import { DateTimePicker } from "@mui/lab";
+import { teal, grey, lightBlue } from "@material-ui/core/colors";
 
 const background = createTheme({
   overrides: {
@@ -55,7 +57,34 @@ const background = createTheme({
 //   },
 //   checked: {},
 // })((props) => <Checkbox color='default' {...props} />);
-const TealCheckbox = withStyles({
+// const LightBlueCheckbox = withStyles({
+//   root: {
+//     color: lightBlue[400],
+//     "&$checked": {
+//       color: lightBlue[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Checkbox color='default' {...props} />);
+// const TealCheckbox = withStyles({
+//   root: {
+//     color: teal[400],
+//     "&$checked": {
+//       color: teal[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Checkbox color='default' {...props} />);
+const CustomRadio = withStyles({
+  root: {
+    color: grey[400],
+    "&$checked": {
+      color: grey[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color='default' {...props} />);
+const TealRadio = withStyles({
   root: {
     color: teal[400],
     "&$checked": {
@@ -63,8 +92,16 @@ const TealCheckbox = withStyles({
     },
   },
   checked: {},
-})((props) => <Checkbox color='default' {...props} />);
-
+})((props) => <Radio color='default' {...props} />);
+const BlueRadio = withStyles({
+  root: {
+    color: lightBlue[400],
+    "&$checked": {
+      color: lightBlue[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color='default' {...props} />);
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -165,76 +202,75 @@ const useStyles = makeStyles((theme) => ({
 const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
-  const [departments, setDepartments] = useState([]);
-  const [employees, setEmployees] = useState([]);
-  const [itreq, setItreq] = useState([]);
-  // const [eventName, setEventName] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
-  const [startError, setStartError] = useState(false);
-  // const [leaveError, setLeaveError] = useState(false);
-  const [eventNameError, setEventNameError] = useState(false);
-  const [timeError, setTimeError] = useState(false);
-  // const [itreqError, setItreqError] = useState(false);
-  const [deptError, setDeptError] = useState(false);
-  const [coordError, setcoordError] = useState(false);
-  const [locationError, setlocationError] = useState(false);
+  const [value, setValue] = React.useState("Virtual");
+  const [app, setApp] = React.useState("Virtual");
+  const [value1, setValue1] = React.useState("");
+  const [value2, setValue2] = React.useState("");
+  const [value3, setValue3] = React.useState("");
+  const handleChange = (event) => {
+    // console.log(event.target.value);
+    setValue(event.target.value);
+  };
+  const handleChangeApp = (event) => {
+    // console.log(event.target.value);
+    setApp(event.target.value);
+  };
+
+  // const [departments, setDepartments] = useState([]);
+  // const [employees, setEmployees] = useState([]);
+  // const [itreq, setItreq] = useState([]);
+
+  const [apptype, setAppTypeError] = useState(false);
+  const [datePropError, setDatePropError] = useState(false);
+  // const [startError, setStartError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
+  // const [timeError, setTimeError] = useState(false);
+  const [timeStartError, setTimeStartError] = useState(false);
+  const [timeEndError, setTimeEndError] = useState(false);
+  const [purpError, setPurpError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
-  const [start, setStart] = React.useState("");
-  const [time, setTime] = React.useState("");
-  useEffect(() => {
-    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
-      const data = await res.json();
-      setDepartments(data);
-    });
-    fetch("https://icesco.herokuapp.com/employee").then(async (res) => {
-      const data = await res.json();
-      setEmployees(data);
-    });
-    fetch("https://icesco.herokuapp.com/itreq").then(async (res) => {
-      const data = await res.json();
-      setItreq(data);
-    });
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    setEventNameError(false);
-    setcoordError(false);
-    setPhoneError(false);
-    setDeptError(false);
-    setStartError(false);
-    setTimeError(false);
-    setlocationError(false);
+    setAppTypeError(false);
+    setDatePropError(false);
+    setNameError(false);
+    setTitleError(false);
+    setTimeStartError(false);
+    setTimeEndError(false);
+    setPurpError(false);
+    // setlocationError(false);
     // setItreqError(false);
     let x = 0;
-    if (!formData.get("eventName")) {
-      setEventNameError(true);
+    if (!formData.get("apptype")) {
+      setAppTypeError(true);
       x++;
     }
-    if (!formData.get("eventCoordinator")) {
-      setcoordError(true);
+    if (!formData.get("startMeet")) {
+      setDatePropError(true);
       x++;
     }
-    if (!formData.get("phone")) {
-      setPhoneError(true);
+    if (!formData.get("name")) {
+      setNameError(true);
       x++;
     }
-    if (!formData.get("start")) {
-      setStartError(true);
+    if (!formData.get("title")) {
+      setTitleError(true);
       x++;
     }
-    if (!formData.get("time")) {
-      setTimeError(true);
+    if (!formData.get("timeStartMeet")) {
+      setTimeStartError(true);
       x++;
     }
-    if (!formData.get("department")) {
-      setDeptError(true);
+    if (!formData.get("timeEndMeet")) {
+      setTimeEndError(true);
       x++;
     }
-    if (!formData.get("location")) {
-      setlocationError(true);
+    if (!formData.get("purpose")) {
+      setPurpError(true);
       x++;
     }
     // if (!formData.get("location")) {
@@ -243,21 +279,21 @@ const LeaveRequist = () => {
     // }
 
     const obj = {
-      eventName: formData.get("eventName"),
-      eventCoordinator: formData.get("eventCoordinator"),
-      phone: formData.get("phone"),
-      department: formData.get("department"),
-      start: formData.get("start"),
-      time: formData.get("time"),
-      location: formData.get("location"),
-      itreq: [...formData.getAll("itreq")],
+      startMeet: formData.get("startMeet"),
+      // timeMeet: formData.get("timeMeet"),
+      name: formData.get("name"),
+      title: formData.get("title"),
+      dateDurStart: formData.get("timeStartMeet"),
+      dateDurEnd: formData.get("timeEndMeet"),
+      purpose: formData.get("purpose"),
+      appType: formData.get("apptype"),
     };
 
     console.log(x, obj);
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/itreqform", {
+      fetch("https://icesco.herokuapp.com/dgapp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -314,185 +350,189 @@ const LeaveRequist = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
+                  <RadioGroup
+                    aria-label='meeting'
+                    name='meeting'
+                    value={value}
+                    className={classes.checks}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value='Virtual'
+                      control={<CustomRadio name='meeting' />}
+                      label='Virtual'
+                    />
+                    <FormControlLabel
+                      value='In-Person'
+                      control={<CustomRadio name='meeting' />}
+                      label='In Person'
+                    />
+                  </RadioGroup>
+                </Grid>
+                <Grid item xs={12}>
+                  {value === "In-Person" ? (
+                    <RadioGroup
+                      value={app}
+                      className={classes.checks}
+                      onChange={handleChangeApp}
+                    >
+                      <FormControlLabel
+                        value='Personal-Meeting'
+                        control={<TealRadio name='apptype' />}
+                        label='Meeting'
+                      />
+                      <FormControlLabel
+                        value='Personal-Visit'
+                        control={<TealRadio name='apptype' />}
+                        label='Visit'
+                      />
+                      <FormControlLabel
+                        value='Personal-Signing-Mou'
+                        control={<TealRadio name='apptype' />}
+                        label='Signing Mou'
+                      />
+                    </RadioGroup>
+                  ) : (
+                    <RadioGroup
+                      value={app}
+                      className={classes.checks}
+                      onChange={handleChangeApp}
+                    >
+                      <FormControlLabel
+                        value='Virtual-Visit'
+                        control={<BlueRadio name='apptype' />}
+                        label='Visit'
+                      />
+                      <FormControlLabel
+                        value='Virtual-Signing-Mou'
+                        control={<BlueRadio name='apptype' />}
+                        label='Signing Mou'
+                      />
+                    </RadioGroup>
+                  )}
+                </Grid>
+                {apptype && (
+                  <FormHelperText error>
+                    At least one must be checked.
+                  </FormHelperText>
+                )}
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker
+                      label='Proposed date'
+                      // inputFormat='MM/dd/yyyy'
+                      value={value1}
+                      onChange={(newValue) => {
+                        setValue1(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='startMeet'
+                          variant='outlined'
+                          required
+                          error={datePropError}
+                          helperText={datePropError && "Invalid date"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12}>
                   <CustomField
-                    autoComplete='ename'
-                    name='eventName'
+                    autoComplete='name'
+                    name='name'
                     variant='outlined'
                     required
-                    id='eventName'
-                    label='Event Name'
+                    id='name'
+                    label='Your Name'
                     autoFocus
                     fullWidth
-                    error={eventNameError}
-                    helperText={eventNameError && "Invalid event name"}
+                    error={nameError}
+                    helperText={nameError && "Invalid name"}
                   />
-                </Grid>
-
-                <Grid container>
-                  <FormControl
-                    fullWidth
-                    variant='outlined'
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor='outlined-age-native-simple'>
-                      Event coordinator
-                    </InputLabel>
-                    <Select
-                      name='eventCoordinator'
-                      native
-                      inputProps={{
-                        id: "ERRRRRR",
-                      }}
-                      fullWidth
-                      label='Substitut'
-                      error={coordError}
-                    >
-                      <option aria-label='None' value='' />
-                      {employees &&
-                        employees.map((employee) => (
-                          <option key={employee.id} value={employee.id}>
-                            {employee.name}
-                          </option>
-                        ))}
-                    </Select>
-                    {coordError && (
-                      <FormHelperText error>
-                        Coordinator is required!
-                      </FormHelperText>
-                    )}
-                  </FormControl>
                 </Grid>
 
                 <Grid item xs={12}>
                   <CustomField
+                    autoComplete='title'
+                    name='title'
                     variant='outlined'
                     required
-                    id='Phone'
-                    label='Phone'
-                    name='phone'
-                    autoComplete='phone'
+                    id='title'
+                    label='Title'
+                    autoFocus
                     fullWidth
-                    error={phoneError}
-                    helperText={phoneError && "Invalid phone"}
+                    error={titleError}
+                    helperText={titleError && "Invalid title"}
                   />
                 </Grid>
+
                 <Grid item xs={12}>
-                  <FormControl
-                    fullWidth
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker
+                      label='Proposed date'
+                      // inputFormat='MM/dd/yyyy'
+                      value={value2}
+                      onChange={(newValue) => {
+                        setValue2(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='timeStartMeet'
+                          variant='outlined'
+                          required
+                          error={timeStartError}
+                          helperText={timeStartError && "Invalid date"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker
+                      label='Proposed date'
+                      // inputFormat='MM/dd/yyyy'
+                      value={value3}
+                      onChange={(newValue) => {
+                        setValue3(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <CustomField
+                          {...params}
+                          fullWidth
+                          name='timeEndMeet'
+                          variant='outlined'
+                          required
+                          error={timeEndError}
+                          helperText={timeEndError && "Invalid date"}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <CustomField
+                    autoComplete='purpose'
+                    name='purpose'
                     variant='outlined'
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor='outlined-age-native-simple'>
-                      Department
-                    </InputLabel>
-                    <Select
-                      name='department'
-                      native
-                      inputProps={{
-                        id: "ERRRRRR",
-                      }}
-                      fullWidth
-                      label='Leave  Type'
-                      error={deptError}
-                    >
-                      <option aria-label='None' value='' />
-                      {departments &&
-                        departments.map((obj) => (
-                          <option key={obj.id} value={obj.id}>
-                            {obj.name}
-                          </option>
-                        ))}
-                    </Select>
-                    {deptError && (
-                      <FormHelperText error>
-                        depertment is required!
-                      </FormHelperText>
-                    )}
-                  </FormControl>
+                    required
+                    id='purpose'
+                    label='Purpose'
+                    // autoFocus
+                    fullWidth
+                    error={purpError}
+                    helperText={purpError && "This field is required"}
+                  />
                 </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MobileDatePicker
-                      label='Start'
-                      inputFormat='MM/dd/yyyy'
-                      value={start}
-                      onChange={(newValue) => {
-                        setStart(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='start'
-                          variant='outlined'
-                          required
-                          error={startError}
-                          helperText={startError && "Invalid date"}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <TimePicker
-                      label='Time'
-                      value={time}
-                      onChange={(newValue) => {
-                        setTime(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='time'
-                          variant='outlined'
-                          required
-                          error={timeError}
-                          helperText={timeError && "Invalid time"}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
+
                 {/* sselect section */}
 
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='location'
-                    name='location'
-                    variant='outlined'
-                    required
-                    id='location'
-                    label='Event location'
-                    autoFocus
-                    fullWidth
-                    error={locationError}
-                    helperText={locationError && "Invalid location name"}
-                  />
-                </Grid>
-                {/* {itreqError && (
-                  <FormHelperText error>
-                    At least one certificate or language must be checked.
-                  </FormHelperText>
-                )} */}
-                <Grid container>
-                  <FormLabel className={classes.legend} component='legend'>
-                    IT materials
-                  </FormLabel>
-                  <Grid xs={12} className={classes.checks} container>
-                    {itreq.map((itreq) => {
-                      return (
-                        <FormControlLabel
-                          key={itreq.id}
-                          control={<TealCheckbox name='itreq' />}
-                          label={itreq.name}
-                          value={itreq.id}
-                        />
-                      );
-                    })}
-                  </Grid>
-                </Grid>
                 <Grid item xs={12}>
                   <Button
                     type='submit'
