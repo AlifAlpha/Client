@@ -342,19 +342,19 @@ const InternalNoteForm = () => {
       stakeHoldersMember: formData.get("memberS"),
       stakeHoldersNoMember: formData.get("nMemberS"),
       stakeHolderspartner: formData.get("Partner"),
-      initiativeNeeds: [...formData.getAll("initNeeds")],
+      initiativeNeeds: formData.getAll("initNeeds"),
       dgParticipation: formData.get("dgparticip"),
       speechTopic: formData.get("speechTopic"),
       speechPoints: formData.get("mainPointe"),
       speechDuration: formData.get("speechDuration"),
       speechDate: formData.get("speachDate"),
       eventAttended: formData.get("eventAttendance"),
-      eventPartnership: [...formData.getAll("partnership")],
+      eventPartnership: formData.getAll("partnership"),
       eventStateMember: formData.get("memberengagement"),
       numCoverage: formData.get("CoveragPersonN"),
-      coverageFor: [...formData.getAll("coverageFor")],
+      coverageFor: formData.getAll("coverageFor"),
       inpactInternal: formData.get("impactinitiative"),
-      internalSupport: [...formData.getAll("internalSup")],
+      internalSupport: formData.getAll("internalSup"),
       internalSupportNeededSup: formData.get("Suppliersfor"),
       internalSupportNeededSpo: formData.get("Sponsorsfor"),
     };
@@ -363,7 +363,7 @@ const InternalNoteForm = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/notedg  ", {
+      fetch("https://icesco.herokuapp.com/notedg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -750,7 +750,7 @@ const InternalNoteForm = () => {
                     variant='outlined'
                     required
                     label='Budget'
-                    name='initNeeds'
+                    name='Budget'
                     autoComplete='budget'
                     fullWidth
                     // error={lnError}
