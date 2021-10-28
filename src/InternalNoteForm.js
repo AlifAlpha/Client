@@ -9,6 +9,7 @@ import {
   // Checkbox,
   CircularProgress,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   Radio,
   RadioGroup,
@@ -338,7 +339,7 @@ const InternalNoteForm = () => {
       location: formData.get("rooms"),
       eventDate: formData.get("eventDate"),
       initiativeIs: formData.get("initiative"),
-      frequency: formData.get("frequency"),
+      ferequincy: formData.get("frequency"),
       stakeHoldersMember: formData.get("memberS"),
       stakeHoldersNoMember: formData.get("nMemberS"),
       stakeHolderspartner: formData.get("Partner"),
@@ -352,7 +353,7 @@ const InternalNoteForm = () => {
       eventPartnership: formData.getAll("partnership"),
       eventStateMember: formData.get("memberengagement"),
       numCoverage: formData.get("CoveragPersonN"),
-      coverageFor: formData.getAll("coverageFor"),
+      coverageFor: formData.getAll("coverageFor "),
       inpactInternal: formData.get("impactinitiative"),
       internalSupport: formData.getAll("internalSup"),
       internalSupportNeededSup: formData.get("Suppliersfor"),
@@ -908,22 +909,24 @@ const InternalNoteForm = () => {
                   The event will be in partnership with
                 </FormLabel>
 
-                <Grid xs={12} className={classes.checks} container>
-                  <FormControlLabel
-                    control={<TealCheckbox name='partnership ' />}
-                    label='A: Governmental organization'
-                    value='A: Governmental organization'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='partnership ' />}
-                    label='B: International Organization'
-                    value='B: International Organization'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='partnership ' />}
-                    label='C: Non-Governmental Organization'
-                    value='C: Non-Governmental Organization'
-                  />
+                <Grid xs={12} container>
+                  <FormGroup name='partnership' className={classes.checks}>
+                    <FormControlLabel
+                      control={<TealCheckbox name='partnership' />}
+                      label='A: Governmental organization'
+                      value='A: Governmental organization'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='partnership' />}
+                      label='B: International Organization'
+                      value='B: International Organization'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='partnership' />}
+                      label='C: Non-Governmental Organization'
+                      value='C: Non-Governmental Organization'
+                    />
+                  </FormGroup>
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   The state member engagement
@@ -968,27 +971,29 @@ const InternalNoteForm = () => {
                   Coverage for
                 </FormLabel>
 
-                <Grid xs={12} className={classes.checks} container>
-                  <FormControlLabel
-                    control={<TealCheckbox name='coverageFor ' />}
-                    label='Airflight'
-                    value='Airflight'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='coverageFor ' />}
-                    label='Per Diem'
-                    value='Per Diem'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='coverageFor ' />}
-                    label='Accommodation'
-                    value='Accommodation'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='coverageFor ' />}
-                    label='Local Transportation'
-                    value='Local Transportation'
-                  />
+                <Grid xs={12} container>
+                  <FormGroup name='coverageFor' className={classes.checks}>
+                    <FormControlLabel
+                      control={<TealCheckbox name='coverageFor ' />}
+                      label='Airflight'
+                      value='Airflight'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='coverageFor ' />}
+                      label='Per Diem'
+                      value='Per Diem'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='coverageFor ' />}
+                      label='Accommodation'
+                      value='Accommodation'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='coverageFor ' />}
+                      label='Local Transportation'
+                      value='Local Transportation'
+                    />
+                  </FormGroup>
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   The impact of this initiative on ICESCO
@@ -1025,50 +1030,52 @@ const InternalNoteForm = () => {
                   </RadioGroup>
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
-                  Coverage for
+                  Internal Support
                 </FormLabel>
 
-                <Grid xs={12} className={classes.checks} container>
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Translation'
-                    value='Translation'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Designing & printing'
-                    value='Designing & printing'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Legal'
-                    value='Legal'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Finance'
-                    value='Finance'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Admin'
-                    value='Admin'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='IT'
-                    value='IT'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Media'
-                    value='Media'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='internalSup ' />}
-                    label='Other (specify)'
-                    value='Other (specify)'
-                  />
+                <Grid xs={12} container>
+                  <FormGroup name='internalSup' className={classes.checks}>
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Translation'
+                      value='Translation'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Designing & printing'
+                      value='Designing & printing'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Legal'
+                      value='Legal'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Finance'
+                      value='Finance'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Admin'
+                      value='Admin'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='IT'
+                      value='IT'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Media'
+                      value='Media'
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='internalSup' />}
+                      label='Other (specify)'
+                      value='Other (specify)'
+                    />
+                  </FormGroup>
                 </Grid>
                 <Grid item xs={12}>
                   <CustomField
@@ -1078,8 +1085,6 @@ const InternalNoteForm = () => {
                     name='specify'
                     autoComplete='lname'
                     fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
                   />
                 </Grid>
                 <Grid item xs={12}>
