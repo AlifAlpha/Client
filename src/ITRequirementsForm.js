@@ -167,6 +167,8 @@ const LeaveRequist = () => {
   const [modal, setModal] = useState(false);
   const [departments, setDepartments] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [rooms, setRooms] = useState([]);
+
   const [itreq, setItreq] = useState([]);
   // const [eventName, setEventName] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
@@ -190,6 +192,10 @@ const LeaveRequist = () => {
     fetch("https://icesco.herokuapp.com/employee").then(async (res) => {
       const data = await res.json();
       setEmployees(data);
+    });
+    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
+      const data = await res.json();
+      setRooms(data);
     });
     fetch("https://icesco.herokuapp.com/itreq").then(async (res) => {
       const data = await res.json();
@@ -457,7 +463,7 @@ const LeaveRequist = () => {
                 </Grid>
                 {/* sselect section */}
 
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <CustomField
                     autoComplete='location'
                     name='location'
@@ -470,6 +476,42 @@ const LeaveRequist = () => {
                     error={locationError}
                     helperText={locationError && "Invalid location name"}
                   />
+                </Grid> */}
+                <Grid container>
+                  <FormControl
+                    fullWidth
+                    variant='outlined'
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor='outlined-age-native-simple'>
+                      Event location
+                    </InputLabel>
+                    <Select
+                      name='location'
+                      native
+                      inputProps={{
+                        id: "ERRRRRR",
+                      }}
+                      fullWidth
+                      label='location'
+                      error={locationError}
+                      helperText={locationError && "Invalid location name"}
+                      // error={roomError}
+                    >
+                      <option aria-label='None' value='' />
+                      {rooms &&
+                        rooms.map((obj) => (
+                          <option key={obj.id} value={`Room : ${obj.name}`}>
+                            {obj.name}
+                          </option>
+                        ))}
+                    </Select>
+                    {/* {deptError && (
+                        <FormHelperText error>
+                          Rooms is required!
+                        </FormHelperText>
+                      )} */}
+                  </FormControl>
                 </Grid>
                 {/* {itreqError && (
                   <FormHelperText error>
@@ -493,6 +535,7 @@ const LeaveRequist = () => {
                     })}
                   </Grid>
                 </Grid>
+
                 <Grid item xs={12}>
                   <Button
                     type='submit'
