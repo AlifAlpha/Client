@@ -187,6 +187,7 @@ const InternalNoteForm = () => {
   const [departments, setDepartments] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [countreis, setCountreis] = useState([]);
+  const [budget, setBudget] = useState(false);
 
   const [value, setValue] = React.useState();
   const [valueInit, setValueInit] = React.useState();
@@ -201,6 +202,10 @@ const InternalNoteForm = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
     console.log(value);
+  };
+  const hendlChangeBudget = (event) => {
+    setBudget(event.target.checked);
+    console.log(budget);
   };
   const handleChangeInitiative = (event) => {
     setValueInit(event.target.value);
@@ -336,7 +341,12 @@ const InternalNoteForm = () => {
     const obj = {
       departmentName: formData.get("deptName"),
       eventName: formData.get("eventName"),
-      location: formData.get("rooms"),
+      location:
+        value === "internal"
+          ? formData.get("rooms")
+          : `Adresse: ${formData.get("countreis")} ,${formData.get(
+              "city"
+            )} ${formData.get("location")}`,
       eventDate: formData.get("eventDate"),
       initiativeIs: formData.get("initiative"),
       ferequincy: formData.get("frequency"),
@@ -364,23 +374,23 @@ const InternalNoteForm = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/notedg", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      }).then(async (res) => {
-        setLoading(false);
-        const data = await res.json();
-        setFeedback({
-          open: true,
-          status: data.status === 400 ? "error" : "success",
-          message: data.message,
-        });
-        setModal(data.status === 400 ? false : true);
-        e.target.reset();
-      });
+      // fetch("https://icesco.herokuapp.com/notedg", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(obj),
+      // }).then(async (res) => {
+      //   setLoading(false);
+      //   const data = await res.json();
+      //   setFeedback({
+      //     open: true,
+      //     status: data.status === 400 ? "error" : "success",
+      //     message: data.message,
+      //   });
+      //   setModal(data.status === 400 ? false : true);
+      //   e.target.reset();
+      // });
     }
   };
   const handleClose = (event, reason) => {
@@ -588,7 +598,7 @@ const InternalNoteForm = () => {
                           <option aria-label='None' value='' />
                           {countreis &&
                             countreis.map((obj) => (
-                              <option key={obj.id} value={obj.id}>
+                              <option key={obj.id} value={obj.name}>
                                 {obj.name}
                               </option>
                             ))}
@@ -741,23 +751,32 @@ const InternalNoteForm = () => {
                     value='Sector/Department participation'
                   />
                   <FormControlLabel
-                    control={<TealCheckbox name='initNeeds' />}
+                    control={
+                      <TealCheckbox
+                        name='initNeeds'
+                        onChange={hendlChangeBudget}
+                      />
+                    }
                     label='Budget'
                     value='Budget'
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='Budget'
-                    name='Budget'
-                    autoComplete='budget'
-                    fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
-                  />
-                </Grid>
+                {budget ? (
+                  <Grid item xs={12}>
+                    <CustomField
+                      variant='outlined'
+                      required
+                      label='Budget'
+                      name='Budget'
+                      autoComplete='budget'
+                      fullWidth
+                      // error={lnError}
+                      // helperText={lnError && "Invalid last name"}
+                    />
+                  </Grid>
+                ) : (
+                  ""
+                )}
 
                 <FormLabel className={classes.legend} component='legend'>
                   DG participation
