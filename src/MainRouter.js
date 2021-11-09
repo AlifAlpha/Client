@@ -8,6 +8,7 @@ import LeaveRequest from "./leaveRequest";
 import ITRequirementsForm from "./ITRequirementsForm";
 import internalNoteForm from "./InternalNoteForm";
 import dgAppointments from "./dgAppointments";
+import travelinfo from "./travelinfo";
 
 const MainRouter = () => {
   return (
@@ -19,6 +20,7 @@ const MainRouter = () => {
       <Route exact path='/it' component={ITRequirementsForm}></Route>
       <Route exact path='/dashboard' component={Admin}></Route>
       <Route exact path='/dgrdv' component={dgAppointments}></Route>
+      <Route exact path='/travelinfo' component={travelinfo}></Route>
     </Switch>
   );
 };
