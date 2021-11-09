@@ -7,10 +7,10 @@ import TextField from "@material-ui/core/TextField";
 import {
   // Checkbox,
   CircularProgress,
-  FormControlLabel,
+  // FormControlLabel,
   // FormLabel,
-  Radio,
-  RadioGroup,
+  // Radio,
+  // RadioGroup,
   Snackbar,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -23,13 +23,13 @@ import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageleaveform.png";
 import { withStyles } from "@material-ui/core/styles";
-import { CardMedia, FormHelperText } from "@material-ui/core";
+import { CardMedia } from "@material-ui/core";
 // import Select from "@material-ui/core/Select";
 // import InputLabel from "@material-ui/core/InputLabel";
 // import { Pattern } from "./pattern";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
-import { teal, grey, lightBlue } from "@material-ui/core/colors";
+// import { teal, grey, lightBlue } from "@material-ui/core/colors";
 
 const background = createTheme({
   overrides: {
@@ -75,33 +75,33 @@ const background = createTheme({
 //   },
 //   checked: {},
 // })((props) => <Checkbox color='default' {...props} />);
-const CustomRadio = withStyles({
-  root: {
-    color: grey[400],
-    "&$checked": {
-      color: grey[600],
-    },
-  },
-  checked: {},
-})((props) => <Radio color='default' {...props} />);
-const TealRadio = withStyles({
-  root: {
-    color: teal[400],
-    "&$checked": {
-      color: teal[600],
-    },
-  },
-  checked: {},
-})((props) => <Radio color='default' {...props} />);
-const BlueRadio = withStyles({
-  root: {
-    color: lightBlue[400],
-    "&$checked": {
-      color: lightBlue[600],
-    },
-  },
-  checked: {},
-})((props) => <Radio color='default' {...props} />);
+// const CustomRadio = withStyles({
+//   root: {
+//     color: grey[400],
+//     "&$checked": {
+//       color: grey[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Radio color='default' {...props} />);
+// const TealRadio = withStyles({
+//   root: {
+//     color: teal[400],
+//     "&$checked": {
+//       color: teal[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Radio color='default' {...props} />);
+// const BlueRadio = withStyles({
+//   root: {
+//     color: lightBlue[400],
+//     "&$checked": {
+//       color: lightBlue[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Radio color='default' {...props} />);
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -202,32 +202,32 @@ const useStyles = makeStyles((theme) => ({
 const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
-  const [value, setValue] = React.useState("Virtual");
-  const [app, setApp] = React.useState("Virtual");
+  // const [value, setValue] = React.useState("Virtual");
+  // const [app, setApp] = React.useState("Virtual");
   const [value1, setValue1] = React.useState("");
   const [value2, setValue2] = React.useState("");
-  const [value3, setValue3] = React.useState("");
-  const handleChange = (event) => {
-    // console.log(event.target.value);
-    setValue(event.target.value);
-  };
-  const handleChangeApp = (event) => {
-    // console.log(event.target.value);
-    setApp(event.target.value);
-  };
+  // const [value3, setValue3] = React.useState("");
+  // const handleChange = (event) => {
+  //   // console.log(event.target.value);
+  //   setValue(event.target.value);
+  // };
+  // const handleChangeApp = (event) => {
+  //   // console.log(event.target.value);
+  //   setApp(event.target.value);
+  // };
 
   // const [departments, setDepartments] = useState([]);
   // const [employees, setEmployees] = useState([]);
   // const [itreq, setItreq] = useState([]);
 
-  const [apptype, setAppTypeError] = useState(false);
+  // const [apptype, setAppTypeError] = useState(false);
   const [datePropError, setDatePropError] = useState(false);
   // const [startError, setStartError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [titleError, setTitleError] = useState(false);
   // const [timeError, setTimeError] = useState(false);
   const [timeStartError, setTimeStartError] = useState(false);
-  const [timeEndError, setTimeEndError] = useState(false);
+  // const [timeEndError, setTimeEndError] = useState(false);
   const [purpError, setPurpError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
@@ -235,20 +235,20 @@ const LeaveRequist = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    setAppTypeError(false);
+    // setAppTypeError(false);
     setDatePropError(false);
     setNameError(false);
     setTitleError(false);
     setTimeStartError(false);
-    setTimeEndError(false);
+    // setTimeEndError(false);
     setPurpError(false);
     // setlocationError(false);
     // setItreqError(false);
     let x = 0;
-    if (!formData.get("apptype")) {
-      setAppTypeError(true);
-      x++;
-    }
+    // if (!formData.get("apptype")) {
+    //   setAppTypeError(true);
+    //   x++;
+    // }
     if (!formData.get("startMeet")) {
       setDatePropError(true);
       x++;
@@ -265,10 +265,10 @@ const LeaveRequist = () => {
       setTimeStartError(true);
       x++;
     }
-    if (!formData.get("timeEndMeet")) {
-      setTimeEndError(true);
-      x++;
-    }
+    // if (!formData.get("timeEndMeet")) {
+    //   setTimeEndError(true);
+    //   x++;
+    // }
     if (!formData.get("purpose")) {
       setPurpError(true);
       x++;
