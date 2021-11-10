@@ -27,9 +27,9 @@ import UpdateCity from "./components/cities/UpdateCity";
 
 import { BiListPlus } from "react-icons/bi";
 import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle, BsFillPlugFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { FaHandsHelping, FaPlug, FaRegStickyNote } from "react-icons/fa";
+import { FaHandsHelping, FaRegStickyNote, FaPlane } from "react-icons/fa";
 // import { ListGuesser } from "ra-ui-materialui";
 // import { EditGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
@@ -38,6 +38,7 @@ import { RoomList } from "./components/room/ListRooms";
 import { CreateRoom } from "./components/room/CreateRoom";
 import { RoomEdit } from "./components/room/UpdateRoom";
 import { NotedgList } from "./components/InternalNote/InternalnoteList";
+import { TravelinfoList } from "./components/Travelinfo/ListTravelinfo";
 
 const Dashboard = () => {
   return (
@@ -46,11 +47,18 @@ const Dashboard = () => {
       dataProvider={restProvider("https://icesco.herokuapp.com")}
     >
       <Resource
+        name='travelinfo'
+        list={TravelinfoList}
+        // create={CreateItreq}
+        // edit={ItreqformEdit}
+        icon={FaPlane}
+      />
+      <Resource
         name='itreqform'
         list={ItreqformList}
         // create={CreateItreq}
         edit={ItreqformEdit}
-        icon={FaPlug}
+        icon={BsFillPlugFill}
       />
       <Resource
         name='dgapp'
