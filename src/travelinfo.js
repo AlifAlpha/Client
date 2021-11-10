@@ -30,6 +30,32 @@ import { CardMedia } from "@material-ui/core";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
 // import { teal, grey, lightBlue } from "@material-ui/core/colors";
+import "./translate/config";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+// import FormHelperText from "@material-ui/core/FormHelperText"  ;
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+const languages = [
+  {
+    code: "fr",
+    name: "Français",
+    country_code: "fr",
+  },
+  {
+    code: "en",
+    name: "English",
+    country_code: "gb",
+  },
+  {
+    code: "ar",
+    name: "العربية",
+    dir: "rtl",
+    country_code: "sa",
+  },
+];
 
 const background = createTheme({
   overrides: {
@@ -176,7 +202,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(12),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -197,10 +223,23 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     height: "40px",
   },
+  lang: {
+    position: "absolute",
+    width: "200px",
+    top: "10px",
+    left: "10px",
+    marginBotton: "20px",
+  },
 }));
 
 const LeaveRequist = () => {
   const classes = useStyles();
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
   const [modal, setModal] = useState(false);
   // const [value, setValue] = React.useState("Virtual");
   // const [app, setApp] = React.useState("Virtual");
@@ -222,12 +261,9 @@ const LeaveRequist = () => {
 
   // const [apptype, setAppTypeError] = useState(false);
   const [datePropError, setDatePropError] = useState(false);
-  // const [startError, setStartError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [titleError, setTitleError] = useState(false);
-  // const [timeError, setTimeError] = useState(false);
   const [timeStartError, setTimeStartError] = useState(false);
-  // const [timeEndError, setTimeEndError] = useState(false);
   const [purpError, setPurpError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
@@ -249,51 +285,51 @@ const LeaveRequist = () => {
     //   setAppTypeError(true);
     //   x++;
     // }
-    if (!formData.get("startMeet")) {
-      setDatePropError(true);
-      x++;
-    }
-    if (!formData.get("name")) {
-      setNameError(true);
-      x++;
-    }
-    if (!formData.get("title")) {
-      setTitleError(true);
-      x++;
-    }
-    if (!formData.get("timeStartMeet")) {
-      setTimeStartError(true);
-      x++;
-    }
+    // if (!formData.get("startMeet")) {
+    //   setDatePropError(true);
+    //   x++;
+    // }
+    // if (!formData.get("name")) {
+    //   setNameError(true);
+    //   x++;
+    // }
+    // if (!formData.get("title")) {
+    //   setTitleError(true);
+    //   x++;
+    // }
+    // if (!formData.get("timeStartMeet")) {
+    //   setTimeStartError(true);
+    //   x++;
+    // }
     // if (!formData.get("timeEndMeet")) {
     //   setTimeEndError(true);
     //   x++;
     // }
-    if (!formData.get("purpose")) {
-      setPurpError(true);
-      x++;
-    }
+    // if (!formData.get("purpose")) {
+    //   setPurpError(true);
+    //   x++;
+    // }
     // if (!formData.get("location")) {
     //   setItreqError(true);
     //   x++;
     // }
 
     const obj = {
-      startMeet: formData.get("startMeet"),
+      country: formData.get("country"),
       // timeMeet: formData.get("timeMeet"),
       name: formData.get("name"),
-      title: formData.get("title"),
-      dateDurStart: formData.get("timeStartMeet"),
-      dateDurEnd: formData.get("timeEndMeet"),
-      purpose: formData.get("purpose"),
-      appType: formData.get("apptype"),
+      arrivalDate: formData.get("arrivalDate"),
+      arrivalFlightNum: formData.get("arrivalFlightNum"),
+      FlightComing: formData.get("FlightComing"),
+      departureDate: formData.get("departureDate"),
+      departureFlightNum: formData.get("departureFlightNum"),
     };
 
     console.log(x, obj);
-    if (!x) {
+    if (true) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/dgapp", {
+      fetch("https://icesco.herokuapp.com/travelinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -318,12 +354,39 @@ const LeaveRequist = () => {
     }
     setFeedback({ open: false });
   };
-
+  const { t } = useTranslation();
   return (
     <MuiThemeProvider theme={background}>
       <Container component='main' maxWidth='md'>
         <CssBaseline />
         <div className={classes.paper}>
+          <FormControl variant='outlined' className={classes.lang}>
+            <InputLabel id='demo-simple-select-outlined-label'>
+              languages
+            </InputLabel>
+            <Select
+              labelId='demo-simple-select-outlined-label'
+              id='lang'
+              value={age}
+              onChange={handleChange}
+              label='languages'
+            >
+              <MenuItem value=''>
+                <em>languages</em>
+              </MenuItem>
+              {languages.map(({ code, name, country_code }) => (
+                <MenuItem
+                  onClick={() => {
+                    i18next.changeLanguage(code);
+                  }}
+                  key={country_code}
+                  value={code}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <Grid container className={classes.container}>
               <Hidden only={["xs"]}>
@@ -346,7 +409,7 @@ const LeaveRequist = () => {
                     component='h1'
                     variant='h4'
                   >
-                    Travel information
+                    {t("title")}
                   </Typography>
                 </Grid>
                 {/* <Grid item xs={12}>
@@ -418,12 +481,12 @@ const LeaveRequist = () => {
                 )} */}
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='name'
-                    name='name'
+                    autoComplete='country'
+                    name='country'
                     variant='outlined'
                     required
                     id='name'
-                    label='Country or organization'
+                    label={t("country")}
                     autoFocus
                     fullWidth
                     error={nameError}
@@ -437,7 +500,7 @@ const LeaveRequist = () => {
                     variant='outlined'
                     required
                     id='name'
-                    label='Full Name'
+                    label={t("Name")}
                     fullWidth
                     error={nameError}
                     helperText={nameError && "Invalid name"}
@@ -446,7 +509,7 @@ const LeaveRequist = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      label='Arrival date & time'
+                      label={t("arDate")}
                       // inputFormat='MM/dd/yyyy'
                       value={value1}
                       onChange={(newValue) => {
@@ -456,7 +519,7 @@ const LeaveRequist = () => {
                         <CustomField
                           {...params}
                           fullWidth
-                          name='startMeet'
+                          name='arrivalDate'
                           variant='outlined'
                           required
                           error={datePropError}
@@ -470,11 +533,11 @@ const LeaveRequist = () => {
                 <Grid item xs={12}>
                   <CustomField
                     autoComplete='title'
-                    name='title'
+                    name='arrivalFlightNum'
                     variant='outlined'
                     required
                     id='title'
-                    label='Arrival flight N°'
+                    label={t("arFlight")}
                     fullWidth
                     error={titleError}
                     helperText={titleError && "Inva"}
@@ -483,12 +546,12 @@ const LeaveRequist = () => {
 
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='purpose'
-                    name='purpose'
+                    autoComplete='FlightComing'
+                    name='FlightComing'
                     variant='outlined'
                     required
-                    id='purpose'
-                    label='Flight coming from (City and Country)'
+                    id='FlightComing'
+                    label={t("lfightComing")}
                     fullWidth
                     error={purpError}
                     helperText={purpError && "This field is required"}
@@ -498,7 +561,7 @@ const LeaveRequist = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      label='Departure date & time'
+                      label={t("depDat")}
                       // inputFormat='MM/dd/yyyy'
                       value={value2}
                       onChange={(newValue) => {
@@ -508,7 +571,7 @@ const LeaveRequist = () => {
                         <CustomField
                           {...params}
                           fullWidth
-                          name='timeStartMeet'
+                          name='departureDate'
                           variant='outlined'
                           required
                           error={timeStartError}
@@ -520,12 +583,12 @@ const LeaveRequist = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='title'
-                    name='title'
+                    autoComplete='departureFlightNum'
+                    name='departureFlightNum'
                     variant='outlined'
                     required
                     id='title'
-                    label='Departure flight N°'
+                    label={t("depFlight")}
                     fullWidth
                     error={titleError}
                     helperText={titleError && "Flight number is required"}
@@ -544,7 +607,7 @@ const LeaveRequist = () => {
                     disabled={loading}
                   >
                     {loading && <CircularProgress size={20} />}
-                    {!loading && "Submit "}
+                    {!loading && t("button")}
                   </Button>
                 </Grid>
               </Grid>
