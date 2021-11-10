@@ -15,7 +15,7 @@ i18n
           country: "Country / Organization",
           Name: "Full Name",
           arDate: "Arrival  Date",
-          buttuon: "Submit",
+          button: "Submit",
           arFlight: "Arrival Flight N°",
           lfightComing: "Flight coming from (City and Country)",
           depDat: "Departure  Date and Time",
