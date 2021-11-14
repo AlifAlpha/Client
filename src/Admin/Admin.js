@@ -44,7 +44,7 @@ const Dashboard = () => {
   return (
     <Admin
       authProvider={auth}
-      dataProvider={restProvider("https://icesco.herokuapp.com")}
+      dataProvider={restProvider("http://localhost:8080")}
     >
       <Resource
         name='travelinfo'
