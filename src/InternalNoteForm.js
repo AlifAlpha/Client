@@ -34,6 +34,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
 import { grey, teal /*lightBlue*/ } from "@material-ui/core/colors";
+import FileBase64 from "react-file-base64";
 
 const background = createTheme({
   overrides: {
@@ -182,6 +183,14 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     height: "40px",
   },
+  headerH1: {
+    color: "#008080",
+  },
+  bgColor: {
+    background: "#00695c",
+    color: "#fff",
+    paddingLeft: "20px",
+  },
 }));
 
 const InternalNoteForm = () => {
@@ -190,8 +199,10 @@ const InternalNoteForm = () => {
   const [rooms, setRooms] = useState([]);
   const [countreis, setCountreis] = useState([]);
   const [budget, setBudget] = useState(false);
-
   const [value, setValue] = React.useState("internal");
+  const [invitation, setInvitation] = React.useState("");
+  const [eventconcept, setEventConcept] = React.useState("");
+  const [attendees, setAttendees] = React.useState("");
   const [valueInit, setValueInit] = React.useState();
   const [valueFreq, setValueFreq] = React.useState();
   const [valueDgPart, setValueDgPart] = React.useState();
@@ -255,15 +266,15 @@ const InternalNoteForm = () => {
   // const [start, setStart] = React.useState("");
   // const [end, setEnd] = React.useState("");
   useEffect(() => {
-    fetch("http://localhost:8080/department").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("http://localhost:8080/room").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
     });
-    fetch("http://localhost:8080/allcities").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/allcities").then(async (res) => {
       const data = await res.json();
       setCountreis(data);
     });
@@ -370,13 +381,16 @@ const InternalNoteForm = () => {
       internalSupport: formData.getAll("internalSup"),
       internalSupportNeededSup: formData.get("Suppliersfor"),
       internalSupportNeededSpo: formData.get("Sponsorsfor"),
+      invitation: invitation,
+      eventconcept: eventconcept,
+      attendees: attendees,
     };
 
     console.log(x, obj);
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/notedg", {
+      fetch("https://icesco.herokuapp.com/notedg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -411,12 +425,12 @@ const InternalNoteForm = () => {
             <Grid container className={classes.container}>
               <Grid item xs={12}>
                 <Typography
-                  color='textSecondary'
+                  className={classes.headerH1}
                   align='center'
                   component='h1'
-                  variant='h4'
+                  variant='h3'
                 >
-                  Internal Note Form
+                  Internal Note to DG for an event
                 </Typography>
               </Grid>
               <Grid className={classes.right} container>
@@ -443,7 +457,7 @@ const InternalNoteForm = () => {
                       <option aria-label='None' value='' />
                       {departments &&
                         departments.map((obj) => (
-                          <option key={obj.id} value={obj.id}>
+                          <option key={obj.id} value={obj.name}>
                             {obj.name}
                           </option>
                         ))}
@@ -615,6 +629,11 @@ const InternalNoteForm = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
+                <Grid className={classes.bgColor} item xs={12}>
+                  <Typography component='h1' variant='h5'>
+                    Event Details
+                  </Typography>
+                </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   The Initiative is
                 </FormLabel>
@@ -671,15 +690,34 @@ const InternalNoteForm = () => {
                     />
                   </RadioGroup>
                 </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='memberS'
-                    variant='outlined'
-                    label='member state'
+                <Grid container>
+                  <FormControl
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
-                  />
+                    variant='outlined'
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor='outlined-age-native-simple'>
+                      member state
+                    </InputLabel>
+                    <Select
+                      name='memberS'
+                      native
+                      inputProps={{
+                        id: "ERRRRRR",
+                      }}
+                      fullWidth
+                      label='member state'
+                      // error={countreisError}
+                    >
+                      <option aria-label='None' value='' />
+                      {countreis &&
+                        countreis.map((obj) => (
+                          <option key={obj.id} value={obj.name}>
+                            {obj.name}
+                          </option>
+                        ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <CustomField
@@ -750,6 +788,11 @@ const InternalNoteForm = () => {
                 ) : (
                   ""
                 )}
+                <Grid className={classes.bgColor} item xs={12}>
+                  <Typography component='h1' variant='h5'>
+                    ICESCO Participation
+                  </Typography>
+                </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   DG participation
                 </FormLabel>
@@ -941,6 +984,11 @@ const InternalNoteForm = () => {
                       label='Low: Less than 3 times in the same year'
                     />
                   </RadioGroup>
+                </Grid>
+                <Grid className={classes.bgColor} item xs={12}>
+                  <Typography component='h1' variant='h5'>
+                    Financial Coverage by Stakeholders
+                  </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <CustomField
@@ -1143,6 +1191,44 @@ const InternalNoteForm = () => {
                     fullWidth
                     // error={lnError}
                     // helperText={lnError && "Invalid last name"}
+                  />
+                </Grid>
+                <Grid className={classes.bgColor} item xs={12}>
+                  <Typography phy component='h1' variant='h5'>
+                    Attachments
+                  </Typography>
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  Invitation
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setInvitation(base64);
+                    }}
+                  />
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  Event Concept Note
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setEventConcept(base64);
+                    }}
+                  />
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  Attendees / Participant
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setAttendees(base64);
+                    }}
                   />
                 </Grid>
               </Grid>
