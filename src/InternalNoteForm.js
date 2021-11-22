@@ -14,6 +14,7 @@ import {
   Radio,
   RadioGroup,
   Snackbar,
+  FormHelperText,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
@@ -71,6 +72,7 @@ const TealCheckbox = withStyles({
   },
   checked: {},
 })((props) => <Checkbox color='default' {...props} />);
+
 const CustomRadio = withStyles({
   root: {
     color: grey[400],
@@ -80,6 +82,7 @@ const CustomRadio = withStyles({
   },
   checked: {},
 })((props) => <Radio color='default' {...props} />);
+
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -240,31 +243,23 @@ const InternalNoteForm = () => {
     setMemberEngagement(event.target.value);
     console.log(value);
   };
-  // const handleChangeImpactInitiative = (event) => {
-  //   setImpactInitiative(event.target.value);
-  //   console.log(value);
-  // };
-  // const [enError, setEVError] = useState(false);
-  // const [deptError, setDeptError] = useState(false);
-  // const [substitutError, setSubstitutError] = useState(false);
-  // // const [locationError, setLocationError] = useState(false);
-  // const [roomError, setRoomsError] = useState(false);
-  // const [countreisError, setCountreisError] = useState(false);
-  // const [cityError, setCityError] = useState(false);
-  // const [localError, setLocalError] = useState(false);
-  // const [fnError, setFnError] = useState(false);
-  // const [endError, setEndError] = useState(false);
-  // const [startError, setStartError] = useState(false);
-  // const [leaveError, setLeaveError] = useState(false);
+  // Handle input errors
 
+  /*********** Start Section one ************/
+
+  const [departmentError, setDepartmentError] = useState(false);
+  const [eventNameError, setEventNameError] = useState(false);
+  const [roomError, setRoomError] = useState(false);
+  const [countriesError, setCountriesError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+  const [eventDateError, setEventDateError] = useState(false);
+
+  /************ End Section one *************/
   const [modal, setModal] = useState(false);
-  // const [leaves, setLeaves] = useState([]);
-  // const [employees, setEmployees] = useState([]);
-  // const [lnError, setLnError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
-  // const [start, setStart] = React.useState("");
-  // const [end, setEnd] = React.useState("");
+
   useEffect(() => {
     fetch("https://icesco.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
@@ -284,72 +279,43 @@ const InternalNoteForm = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    // setDeptError(false);
-    // setEVError(false);
-    // setSubstitutError(false);
-    // // setLocationError(false);
-    // setRoomsError(false);
-    // setCountreisError(false);
-    // setCityError(false);
-    // setLocalError(false);
+    setDepartmentError(false);
+    setEventNameError(false);
+    setRoomError(false);
+    setCountriesError(false);
+    setCityError(false);
+    setLocationError(false);
+    setEventDateError(false);
 
     let x = 0;
-    // if (!formData.get("deptName")) {
-    //   setDeptError(true);
-    //   console.log(formData.get("deptName"));
-    //   x++;
-    // }
-    // if (!formData.get("eventName")) {
-    //   setEVError(true);
-    //   x++;
-    // }
-    // if (!formData.get("room")) {
-    //   setRoomsError(true);
-    //   x++;
-    // }
-    // if (!formData.get("countreis")) {
-    //   setCountreisError(true);
-    //   x++;
-    // }
-    // if (!formData.get("city")) {
-    //   setCityError(true);
-    //   x++;
-    // }
-    // if (!formData.get("local")) {
-    //   setLocalError(true);
-    //   x++;
-    // }
-
-    /*old FN*/
-    // setLnError(false);
-    // // setEndError(false);
-    // // setStartError(false);
-    // // setLeaveError(false);
-    // // let x = 0;
-    // // if (!Pattern.name.test(formData.get("firstName"))) {
-    // //   setFnError(true);
-    // //   x++;
-    // // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setLnError(true);
-    //   x++;
-    // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setEndError(true);
-    //   x++;
-    // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setStartError(true);
-    //   x++;
-    // }
-    // if (!formData.get("leavetype")) {
-    //   setLeaveError(true);
-    //   x++;
-    // }
-    // if (!formData.get("substitut")) {
-    //   setSubstitutError(true);
-    //   x++;
-    // }
+    if (!formData.get("deptName")) {
+      setDepartmentError(true);
+      x++;
+    }
+    if (!formData.get("eventName").length) {
+      setEventNameError(true);
+      x++;
+    }
+    if (!formData.get("rooms")) {
+      setRoomError(true);
+      x++;
+    }
+    if (!formData.get("countreis")) {
+      setCountriesError(true);
+      x++;
+    }
+    if (!formData.get("city")) {
+      setCityError(true);
+      x++;
+    }
+    if (!formData.get("location")) {
+      setLocationError(true);
+      x++;
+    }
+    if (!formData.get("eventDate")) {
+      setEventDateError(true);
+      x++;
+    }
 
     const obj = {
       departmentName: formData.get("deptName"),
@@ -446,13 +412,14 @@ const InternalNoteForm = () => {
                     <Select
                       name='deptName'
                       autoFocus
+                      required
                       native
                       inputProps={{
                         id: "ERRRRRR",
                       }}
                       fullWidth
                       label='Departments'
-                      // error={substitutError}
+                      error={departmentError}
                     >
                       <option aria-label='None' value='' />
                       {departments &&
@@ -462,11 +429,11 @@ const InternalNoteForm = () => {
                           </option>
                         ))}
                     </Select>
-                    {/* {deptError && (
+                    {departmentError && (
                       <FormHelperText error>
-                        Departments is required!
+                        Department is required!
                       </FormHelperText>
-                    )} */}
+                    )}
                   </FormControl>
                 </Grid>
 
@@ -479,8 +446,8 @@ const InternalNoteForm = () => {
                     id='eventName'
                     label='Event Name'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={eventNameError}
+                    helperText={eventNameError && "Invalid Event Name"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -517,12 +484,13 @@ const InternalNoteForm = () => {
                       <Select
                         name='rooms'
                         native
+                        required
                         inputProps={{
                           id: "ERRRRRR",
                         }}
                         fullWidth
                         label='rooms'
-                        // error={roomError}
+                        error={roomError}
                       >
                         <option aria-label='None' value='' />
                         {rooms &&
@@ -532,11 +500,9 @@ const InternalNoteForm = () => {
                             </option>
                           ))}
                       </Select>
-                      {/* {deptError && (
-                        <FormHelperText error>
-                          Rooms is required!
-                        </FormHelperText>
-                      )} */}
+                      {roomError && (
+                        <FormHelperText error>Room is required!</FormHelperText>
+                      )}
                     </FormControl>
                   </Grid>
                 ) : (
@@ -558,8 +524,9 @@ const InternalNoteForm = () => {
                             id: "ERRRRRR",
                           }}
                           fullWidth
+                          required
                           label='countreis'
-                          // error={countreisError}
+                          error={countriesError}
                         >
                           <option aria-label='None' value='' />
                           {countreis &&
@@ -569,11 +536,11 @@ const InternalNoteForm = () => {
                               </option>
                             ))}
                         </Select>
-                        {/* {deptError && (
+                        {countriesError && (
                           <FormHelperText error>
-                            Rooms is required!
+                            Country is required!
                           </FormHelperText>
-                        )} */}
+                        )}
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
@@ -585,8 +552,8 @@ const InternalNoteForm = () => {
                         id='city'
                         label='city'
                         fullWidth
-                        // helperText={cityError && "Invalid first name"}
-                        // error={cityError}
+                        helperText={cityError && "Invalid city"}
+                        error={cityError}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -598,8 +565,8 @@ const InternalNoteForm = () => {
                         id='local'
                         label='location'
                         fullWidth
-                        // error={localError}
-                        // helperText={localError && "Invalid first name"}
+                        error={locationError}
+                        helperText={locationError && "Invalid Location"}
                       />
                     </Grid>
                   </>
@@ -616,13 +583,12 @@ const InternalNoteForm = () => {
                           id='eventName'
                           label='Date & Time'
                           fullWidth
-                          // helperText={enError && "Invalid Event Name"}
-                          // error={enError}
                           {...props}
                         />
                       )}
-                      // label='DateTimePicker'
-
+                      label='Event Date'
+                      helperText={eventDateError && "Invalid Event Name"}
+                      error={eventDateError}
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
