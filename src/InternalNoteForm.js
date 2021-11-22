@@ -212,7 +212,7 @@ const InternalNoteForm = () => {
   const [eventAttendance, setEventAttendance] = React.useState();
   const [memberEngagement, setMemberEngagement] = React.useState();
   // const [impactInitiative, setImpactInitiative] = React.useState(false);
-  const [date, setDate] = React.useState("");
+  const [date, setDate] = React.useState("hello");
   const [date1, setDate1] = React.useState("");
 
   const handleChange = (event) => {
@@ -584,11 +584,11 @@ const InternalNoteForm = () => {
                           label='Date & Time'
                           fullWidth
                           {...props}
+                          helperText={eventDateError && "Invalid Date Event"}
+                          error={eventDateError}
                         />
                       )}
-                      label='Event Date'
-                      helperText={eventDateError && "Invalid Event Name"}
-                      error={eventDateError}
+                      label='Date Event'
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
