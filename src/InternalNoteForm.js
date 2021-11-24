@@ -194,6 +194,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     paddingLeft: "20px",
   },
+  errorMessageRadio: {
+    display: "block",
+  },
 }));
 
 const InternalNoteForm = () => {
@@ -244,22 +247,6 @@ const InternalNoteForm = () => {
     console.log(value);
   };
   // Handle input errors
-
-  /*********** Start Section one ************/
-
-  const [departmentError, setDepartmentError] = useState(false);
-  const [eventNameError, setEventNameError] = useState(false);
-  const [roomError, setRoomError] = useState(false);
-  const [countriesError, setCountriesError] = useState(false);
-  const [cityError, setCityError] = useState(false);
-  const [locationError, setLocationError] = useState(false);
-  const [eventDateError, setEventDateError] = useState(false);
-
-  /************ End Section one *************/
-  const [modal, setModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState({ open: false });
-
   useEffect(() => {
     fetch("https://icesco.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
@@ -274,6 +261,32 @@ const InternalNoteForm = () => {
       setCountreis(data);
     });
   }, []);
+  /*********** Start Section one ************/
+
+  const [departmentError, setDepartmentError] = useState(false);
+  const [eventNameError, setEventNameError] = useState(false);
+  const [roomError, setRoomError] = useState(false);
+  const [countriesError, setCountriesError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+  const [eventDateError, setEventDateError] = useState(false);
+
+  /************ End Section one *************/
+
+  /*********** Start Section two ************/
+
+  const [initiative, setinitiativeError] = useState(false);
+  const [frequency, setFrequencyError] = useState(false);
+  const [mumberState, setMumberStateError] = useState(false);
+  const [nonMumberState, setNonMumberStateError] = useState(false);
+  const [partner, setPartnerError] = useState(false);
+  const [initiativeNeeds, setInitiativeNeedsError] = useState(false);
+  const [budgetError, setBudgetError] = useState(false);
+
+  /************ End Section two *************/
+  const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState({ open: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -286,6 +299,14 @@ const InternalNoteForm = () => {
     setCityError(false);
     setLocationError(false);
     setEventDateError(false);
+
+    setinitiativeError(false);
+    setFrequencyError(false);
+    setMumberStateError(false);
+    setNonMumberStateError(false);
+    setPartnerError(false);
+    setInitiativeNeedsError(false);
+    setBudgetError(false);
 
     let x = 0;
     if (!formData.get("deptName")) {
@@ -316,6 +337,41 @@ const InternalNoteForm = () => {
       setEventDateError(true);
       x++;
     }
+
+    /*****end part one  */
+    /*****start part two  */
+
+    if (!formData.get("initiative")) {
+      setinitiativeError(true);
+      x++;
+    }
+    if (!formData.get("frequency")) {
+      setFrequencyError(true);
+      x++;
+    }
+    if (!formData.get("memberS")) {
+      setMumberStateError(true);
+      x++;
+    }
+
+    if (!formData.get("nMemberS")) {
+      setNonMumberStateError(true);
+      x++;
+    }
+    if (!formData.get("Partner")) {
+      setPartnerError(true);
+      x++;
+    }
+    if (!formData.getAll("initNeeds").length) {
+      setInitiativeNeedsError(true);
+      x++;
+    }
+    if (!formData.getAll("initNeeds").length) {
+      setBudgetError(true);
+      x++;
+    }
+
+    /*****end part one  */
 
     const obj = {
       departmentName: formData.get("deptName"),
@@ -600,10 +656,14 @@ const InternalNoteForm = () => {
                     Event Details
                   </Typography>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
                   The Initiative is
                 </FormLabel>
-                <Grid xs={12} container center>
+                <Grid xs={12}>
                   <RadioGroup
                     aria-label='initiative'
                     name='initiative'
@@ -627,8 +687,18 @@ const InternalNoteForm = () => {
                       value='Cooperation agreement'
                     />
                   </RadioGroup>
+                  {initiative && (
+                    <FormHelperText className={classes.errorMessageRadio} error>
+                      initiative section is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+
+                <FormLabel
+                  className={classes.legend}
+                  component='legend'
+                  error={frequency}
+                >
                   The frequency of this initiative
                 </FormLabel>
                 <Grid xs={12} container>
@@ -655,6 +725,11 @@ const InternalNoteForm = () => {
                       value='Continuity of previous collaboration'
                     />
                   </RadioGroup>
+                  {frequency && (
+                    <FormHelperText className={classes.errorMessageRadio} error>
+                      frequency section is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid container>
                   <FormControl
@@ -673,7 +748,7 @@ const InternalNoteForm = () => {
                       }}
                       fullWidth
                       label='member state'
-                      // error={countreisError}
+                      error={mumberState}
                     >
                       <option aria-label='None' value='' />
                       {countreis &&
@@ -683,6 +758,11 @@ const InternalNoteForm = () => {
                           </option>
                         ))}
                     </Select>
+                    {mumberState && (
+                      <FormHelperText error>
+                        Mumber State is required!
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -690,10 +770,10 @@ const InternalNoteForm = () => {
                     name='nMemberS'
                     variant='outlined'
                     required
-                    label='Non Member Sate'
+                    label='Non Member State'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={nonMumberState}
+                    helperText={nonMumberState && "Invalid Non mumber State"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -703,12 +783,16 @@ const InternalNoteForm = () => {
                     required
                     label='Partner'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={partner}
+                    helperText={partner && "Invalid Partner"}
                   />
                 </Grid>
 
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={initiativeNeeds}
+                  component='legend'
+                >
                   The Initiative needs
                 </FormLabel>
                 <Grid xs={12} className={classes.checks4} container>
@@ -737,6 +821,11 @@ const InternalNoteForm = () => {
                     label='Budget'
                     value='Budget'
                   />
+                  {initiativeNeeds && (
+                    <FormHelperText error>
+                      Mumber State is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
                 {budget ? (
                   <Grid item xs={12}>
@@ -747,8 +836,8 @@ const InternalNoteForm = () => {
                       name='Budget'
                       autoComplete='budget'
                       fullWidth
-                      // error={lnError}
-                      // helperText={lnError && "Invalid last name"}
+                      error={budgetError}
+                      helperText={budgetError && "Invalid last name"}
                     />
                   </Grid>
                 ) : (
