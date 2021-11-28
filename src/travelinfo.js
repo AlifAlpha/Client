@@ -268,6 +268,15 @@ const LeaveRequist = () => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
 
+  /********Validation */
+  // const [payError, setPayError] = useState(false);
+  // const [nameError, setNameError] = useState(false);
+  // const [dateArrError, setDateArrError] = useState(false);
+  // const [numError, setnumVol1Error] = useState(false);
+  // const [numVolError, setnumVol1Error] = useState(false);
+
+  // const [numVol2Error, setnumVol2Error] = useState(false);
+  /********Validation end */
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -329,7 +338,7 @@ const LeaveRequist = () => {
     if (true) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/travelinfo", {
+      fetch("http://localhost:8080/travelinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

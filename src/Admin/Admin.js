@@ -31,7 +31,7 @@ import { BsPersonCircle, BsFillPlugFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaHandsHelping, FaRegStickyNote, FaPlane } from "react-icons/fa";
 // import { ListGuesser } from "ra-ui-materialui";
-import { EditGuesser } from "ra-ui-materialui";
+// import { EditGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
 import { DgappEdit } from "./components/DGApointment/EditDgApp";
 import { RoomList } from "./components/room/ListRooms";
@@ -44,7 +44,7 @@ const Dashboard = () => {
   return (
     <Admin
       authProvider={auth}
-      dataProvider={restProvider("http://localhost:8080")}
+      dataProvider={restProvider("https://icesco.herokuapp.com")}
     >
       <Resource
         name='travelinfo'

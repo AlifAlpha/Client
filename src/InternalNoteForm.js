@@ -14,6 +14,7 @@ import {
   Radio,
   RadioGroup,
   Snackbar,
+  FormHelperText,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
@@ -71,6 +72,7 @@ const TealCheckbox = withStyles({
   },
   checked: {},
 })((props) => <Checkbox color='default' {...props} />);
+
 const CustomRadio = withStyles({
   root: {
     color: grey[400],
@@ -80,6 +82,7 @@ const CustomRadio = withStyles({
   },
   checked: {},
 })((props) => <Radio color='default' {...props} />);
+
 const CustomField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -191,6 +194,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     paddingLeft: "20px",
   },
+  errorMessageRadio: {
+    display: "block",
+  },
 }));
 
 const InternalNoteForm = () => {
@@ -199,6 +205,8 @@ const InternalNoteForm = () => {
   const [rooms, setRooms] = useState([]);
   const [countreis, setCountreis] = useState([]);
   const [budget, setBudget] = useState(false);
+  const [other, setOther] = useState(false);
+  const [service, setService] = useState(false);
   const [value, setValue] = React.useState("internal");
   const [invitation, setInvitation] = React.useState("");
   const [eventconcept, setEventConcept] = React.useState("");
@@ -208,9 +216,6 @@ const InternalNoteForm = () => {
   const [valueDgPart, setValueDgPart] = React.useState();
   const [eventAttendance, setEventAttendance] = React.useState();
   const [memberEngagement, setMemberEngagement] = React.useState();
-  // const [impactInitiative, setImpactInitiative] = React.useState(false);
-  const [date, setDate] = React.useState("");
-  const [date1, setDate1] = React.useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -218,7 +223,13 @@ const InternalNoteForm = () => {
   };
   const hendlChangeBudget = (event) => {
     setBudget(event.target.checked);
-    console.log(budget);
+    // console.log(budget);
+  };
+  const hendlChangeOther = (event) => {
+    setOther(event.target.checked);
+  };
+  const hendlChangeService = (event) => {
+    setService(event.target.checked);
   };
   const handleChangeInitiative = (event) => {
     setValueInit(event.target.value);
@@ -240,116 +251,236 @@ const InternalNoteForm = () => {
     setMemberEngagement(event.target.value);
     console.log(value);
   };
-  // const handleChangeImpactInitiative = (event) => {
-  //   setImpactInitiative(event.target.value);
-  //   console.log(value);
-  // };
-  // const [enError, setEVError] = useState(false);
-  // const [deptError, setDeptError] = useState(false);
-  // const [substitutError, setSubstitutError] = useState(false);
-  // // const [locationError, setLocationError] = useState(false);
-  // const [roomError, setRoomsError] = useState(false);
-  // const [countreisError, setCountreisError] = useState(false);
-  // const [cityError, setCityError] = useState(false);
-  // const [localError, setLocalError] = useState(false);
-  // const [fnError, setFnError] = useState(false);
-  // const [endError, setEndError] = useState(false);
-  // const [startError, setStartError] = useState(false);
-  // const [leaveError, setLeaveError] = useState(false);
-
-  const [modal, setModal] = useState(false);
-  // const [leaves, setLeaves] = useState([]);
-  // const [employees, setEmployees] = useState([]);
-  // const [lnError, setLnError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState({ open: false });
-  // const [start, setStart] = React.useState("");
-  // const [end, setEnd] = React.useState("");
+  // Handle input errors
   useEffect(() => {
-    fetch("http://localhost:8080/department").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("http://localhost:8080/room").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
     });
-    fetch("http://localhost:8080/allcities").then(async (res) => {
+    fetch("https://icesco.herokuapp.com/allcities").then(async (res) => {
       const data = await res.json();
       setCountreis(data);
     });
   }, []);
+  /*********** Start Section one ************/
+
+  const [departmentError, setDepartmentError] = useState(false);
+  const [eventNameError, setEventNameError] = useState(false);
+  const [roomError, setRoomError] = useState(false);
+  const [countriesError, setCountriesError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+  const [eventDateError, setEventDateError] = useState(false);
+  const [value1, setValue1] = React.useState("");
+  const [value2, setValue2] = React.useState("");
+  /************ End Section one *************/
+
+  /*********** Start Section two ************/
+
+  const [initiative, setinitiativeError] = useState(false);
+  const [frequency, setFrequencyError] = useState(false);
+  const [mumberState, setMumberStateError] = useState(false);
+  const [nonMumberState, setNonMumberStateError] = useState(false);
+  const [partner, setPartnerError] = useState(false);
+  const [initiativeNeeds, setInitiativeNeedsError] = useState(false);
+  const [budgetError, setBudgetError] = useState(false);
+
+  /************ End Section two *************/
+  /************ Start Section three *************/
+  const [dgparticipationError, setdgparticipationError] = useState(false);
+  const [speechTopicError, setspeechTopicError] = useState(false);
+  const [mainPointError, setMainPointError] = useState(false);
+  const [speechDurationError, setSpeechDurationError] = useState(false);
+  const [dateSpeechError, setDateSpeechError] = useState(false);
+  const [eventAttendanceError, setEventAttendanceError] = useState(false);
+  const [eventPartnersError, setEventPartnersError] = useState(false);
+  const [eventStatementError, setEventStatementError] = useState(false);
+  /************ End Section three *************/
+  /************ Start Section four *************/
+  const [coveragPersonNError, setCoveragPersonNError] = useState(false);
+  const [coveragForError, setCoveragForError] = useState(false);
+  const [impactInitiativerError, setImpactInitiativerError] = useState(false);
+  const [impactServiceError, setImpactServiceError] = useState(false);
+  // const [serviceStateMumberError, setserviceStateMumberError] = useState(false);
+  const [internalSupportError, setInternalSupportError] = useState(false);
+  const [internalSupportSpcifyError, setInternalSupportSpcifyError] =
+    useState(false);
+
+  /************ End Section four *************/
+  const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState({ open: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    // setDeptError(false);
-    // setEVError(false);
-    // setSubstitutError(false);
-    // // setLocationError(false);
-    // setRoomsError(false);
-    // setCountreisError(false);
-    // setCityError(false);
-    // setLocalError(false);
+    setDepartmentError(false);
+    setEventNameError(false);
+    setRoomError(false);
+    setCountriesError(false);
+    setCityError(false);
+    setLocationError(false);
+    setEventDateError(false);
+
+    setinitiativeError(false);
+    setFrequencyError(false);
+    setMumberStateError(false);
+    setNonMumberStateError(false);
+    setPartnerError(false);
+    setInitiativeNeedsError(false);
+    setBudgetError(false);
+
+    setdgparticipationError(false);
+    setspeechTopicError(false);
+    setMainPointError(false);
+    setSpeechDurationError(false);
+    setDateSpeechError(false);
+    setEventAttendanceError(false);
+    setEventPartnersError(false);
+    setEventStatementError(false);
+
+    setCoveragPersonNError(false);
+    setCoveragForError(false);
+    setImpactInitiativerError(false);
+    setImpactServiceError(false);
+    setInternalSupportError(false);
+    setInternalSupportSpcifyError(false);
 
     let x = 0;
-    // if (!formData.get("deptName")) {
-    //   setDeptError(true);
-    //   console.log(formData.get("deptName"));
-    //   x++;
-    // }
-    // if (!formData.get("eventName")) {
-    //   setEVError(true);
-    //   x++;
-    // }
-    // if (!formData.get("room")) {
-    //   setRoomsError(true);
-    //   x++;
-    // }
-    // if (!formData.get("countreis")) {
-    //   setCountreisError(true);
-    //   x++;
-    // }
-    // if (!formData.get("city")) {
-    //   setCityError(true);
-    //   x++;
-    // }
-    // if (!formData.get("local")) {
-    //   setLocalError(true);
-    //   x++;
-    // }
+    if (!formData.get("deptName")) {
+      setDepartmentError(true);
+      x++;
+    }
+    if (!formData.get("eventName").length) {
+      setEventNameError(true);
+      x++;
+    }
+    if (!formData.get("rooms") && value === "internal") {
+      setRoomError(true);
+      x++;
+    }
+    if (!formData.get("countreis") && value === "external") {
+      setCountriesError(true);
+      x++;
+    }
+    if (!formData.get("city") && value === "external") {
+      setCityError(true);
+      x++;
+    }
+    if (!formData.get("location") && value === "external") {
+      setLocationError(true);
+      x++;
+    }
+    if (!formData.get("eventDate")) {
+      setEventDateError(true);
+      x++;
+    }
 
-    /*old FN*/
-    // setLnError(false);
-    // // setEndError(false);
-    // // setStartError(false);
-    // // setLeaveError(false);
-    // // let x = 0;
-    // // if (!Pattern.name.test(formData.get("firstName"))) {
-    // //   setFnError(true);
-    // //   x++;
-    // // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setLnError(true);
-    //   x++;
-    // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setEndError(true);
-    //   x++;
-    // }
-    // if (!Pattern.name.test(formData.get("lastName"))) {
-    //   setStartError(true);
-    //   x++;
-    // }
-    // if (!formData.get("leavetype")) {
-    //   setLeaveError(true);
-    //   x++;
-    // }
-    // if (!formData.get("substitut")) {
-    //   setSubstitutError(true);
-    //   x++;
-    // }
+    /*****end part one  */
+    /*****start part two  */
+
+    if (!formData.get("initiative")) {
+      setinitiativeError(true);
+      x++;
+    }
+    if (!formData.get("frequency")) {
+      setFrequencyError(true);
+      x++;
+    }
+    if (!formData.get("memberS")) {
+      setMumberStateError(true);
+      x++;
+    }
+    if (!formData.get("nMemberS")) {
+      setNonMumberStateError(true);
+      x++;
+    }
+    if (!formData.get("Partner")) {
+      setPartnerError(true);
+      x++;
+    }
+    if (!formData.getAll("initNeeds").length) {
+      setInitiativeNeedsError(true);
+      x++;
+    }
+    let bagetest = formData.getAll("initNeeds").includes("Budget");
+    if (bagetest && !formData.get("Budget")) {
+      setBudgetError(true);
+      x++;
+    }
+
+    /*****end part two  */
+    /*****Start part three  */
+    if (!formData.get("dgparticip")) {
+      setdgparticipationError(true);
+      x++;
+    }
+    if (!formData.get("speechTopic")) {
+      setspeechTopicError(true);
+      x++;
+    }
+    if (!formData.get("mainPointe")) {
+      setMainPointError(true);
+      x++;
+    }
+    if (!formData.get("speechDuration")) {
+      setSpeechDurationError(true);
+      x++;
+    }
+    if (!formData.get("speachDate")) {
+      setDateSpeechError(true);
+      x++;
+    }
+    if (!formData.get("eventAttendance")) {
+      setEventAttendanceError(true);
+      x++;
+    }
+    if (!formData.getAll("partnership").length) {
+      setEventPartnersError(true);
+      x++;
+    }
+    if (!formData.get("memberengagement")) {
+      setEventStatementError(true);
+      x++;
+    }
+    /*****End part three  **/
+    /*****Start part Four  **/
+    if (!formData.get("CoveragPersonN")) {
+      setCoveragPersonNError(true);
+      x++;
+    }
+    if (!formData.getAll("coverageFor")) {
+      setCoveragForError(true);
+      x++;
+    }
+    console.log(formData.getAll("impactinitiative"));
+    if (!formData.getAll("impactinitiative").length) {
+      setImpactInitiativerError(true);
+      x++;
+    }
+    let serviceTest = formData
+      .getAll("impactinitiative")
+      .includes("Provide Services for a State Member");
+    if (serviceTest && !formData.getAll("impactinitiatives")) {
+      setImpactServiceError(true);
+      x++;
+    }
+    if (!formData.getAll("internalSup").length) {
+      setInternalSupportError(true);
+      x++;
+    }
+    let othertest = formData.getAll("internalSup").includes("Other (specify)");
+
+    if (othertest && !formData.get("specify")) {
+      setInternalSupportSpcifyError(true);
+      x++;
+    }
+    /*****End part Four  */
 
     const obj = {
       departmentName: formData.get("deptName"),
@@ -366,7 +497,8 @@ const InternalNoteForm = () => {
       stakeHoldersMember: formData.get("memberS"),
       stakeHoldersNoMember: formData.get("nMemberS"),
       stakeHolderspartner: formData.get("Partner"),
-      initiativeNeeds: formData.getAll("initNeeds"),
+      initiativeNeeds:
+        formData.getAll("initNeeds").join(",") + ":" + formData.get("Budget"),
       dgParticipation: formData.get("dgparticip"),
       speechTopic: formData.get("speechTopic"),
       speechPoints: formData.get("mainPointe"),
@@ -376,9 +508,12 @@ const InternalNoteForm = () => {
       eventPartnership: formData.getAll("partnership"),
       eventStateMember: formData.get("memberengagement"),
       numCoverage: formData.get("CoveragPersonN"),
-      coverageFor: formData.getAll("coverageFor "),
-      inpactInternal: formData.get("impactinitiative"),
-      internalSupport: formData.getAll("internalSup"),
+      coverageFor: formData.getAll("coverageFor"),
+      inpactInternal: formData.getAll("impactinitiative"),
+      internalSupport:
+        formData.getAll("internalSup").join(",") +
+        ":" +
+        formData.get("specify"),
       internalSupportNeededSup: formData.get("Suppliersfor"),
       internalSupportNeededSpo: formData.get("Sponsorsfor"),
       invitation: invitation,
@@ -390,7 +525,7 @@ const InternalNoteForm = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/notedg", {
+      fetch("https://icesco.herokuapp.com/notedg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -446,13 +581,14 @@ const InternalNoteForm = () => {
                     <Select
                       name='deptName'
                       autoFocus
+                      required
                       native
                       inputProps={{
                         id: "ERRRRRR",
                       }}
                       fullWidth
                       label='Departments'
-                      // error={substitutError}
+                      error={departmentError}
                     >
                       <option aria-label='None' value='' />
                       {departments &&
@@ -462,11 +598,11 @@ const InternalNoteForm = () => {
                           </option>
                         ))}
                     </Select>
-                    {/* {deptError && (
+                    {departmentError && (
                       <FormHelperText error>
-                        Departments is required!
+                        Department is required!
                       </FormHelperText>
-                    )} */}
+                    )}
                   </FormControl>
                 </Grid>
 
@@ -479,8 +615,8 @@ const InternalNoteForm = () => {
                     id='eventName'
                     label='Event Name'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={eventNameError}
+                    helperText={eventNameError && "Invalid Event Name"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -517,12 +653,13 @@ const InternalNoteForm = () => {
                       <Select
                         name='rooms'
                         native
+                        required
                         inputProps={{
                           id: "ERRRRRR",
                         }}
                         fullWidth
                         label='rooms'
-                        // error={roomError}
+                        error={roomError}
                       >
                         <option aria-label='None' value='' />
                         {rooms &&
@@ -532,11 +669,9 @@ const InternalNoteForm = () => {
                             </option>
                           ))}
                       </Select>
-                      {/* {deptError && (
-                        <FormHelperText error>
-                          Rooms is required!
-                        </FormHelperText>
-                      )} */}
+                      {roomError && (
+                        <FormHelperText error>Room is required!</FormHelperText>
+                      )}
                     </FormControl>
                   </Grid>
                 ) : (
@@ -558,8 +693,9 @@ const InternalNoteForm = () => {
                             id: "ERRRRRR",
                           }}
                           fullWidth
+                          required
                           label='countreis'
-                          // error={countreisError}
+                          error={countriesError}
                         >
                           <option aria-label='None' value='' />
                           {countreis &&
@@ -569,11 +705,11 @@ const InternalNoteForm = () => {
                               </option>
                             ))}
                         </Select>
-                        {/* {deptError && (
+                        {countriesError && (
                           <FormHelperText error>
-                            Rooms is required!
+                            Country is required!
                           </FormHelperText>
-                        )} */}
+                        )}
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
@@ -585,8 +721,8 @@ const InternalNoteForm = () => {
                         id='city'
                         label='city'
                         fullWidth
-                        // helperText={cityError && "Invalid first name"}
-                        // error={cityError}
+                        helperText={cityError && "Invalid city"}
+                        error={cityError}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -598,8 +734,8 @@ const InternalNoteForm = () => {
                         id='local'
                         label='location'
                         fullWidth
-                        // error={localError}
-                        // helperText={localError && "Invalid first name"}
+                        error={locationError}
+                        helperText={locationError && "Invalid Location"}
                       />
                     </Grid>
                   </>
@@ -607,25 +743,23 @@ const InternalNoteForm = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
+                      label='Date Event'
+                      value={value1}
+                      onChange={(newValue) => {
+                        setValue1(newValue);
+                      }}
                       renderInput={(props) => (
                         <CustomField
-                          value={date}
+                          value={value1}
                           name='eventDate'
                           variant='outlined'
                           required
-                          id='eventName'
-                          label='Date & Time'
                           fullWidth
-                          // helperText={enError && "Invalid Event Name"}
-                          // error={enError}
                           {...props}
+                          helperText={eventDateError && "Invalid Date Event"}
+                          error={eventDateError}
                         />
                       )}
-                      // label='DateTimePicker'
-
-                      onChange={(newValue) => {
-                        setDate(newValue);
-                      }}
                     />
                   </LocalizationProvider>
                 </Grid>
@@ -634,10 +768,14 @@ const InternalNoteForm = () => {
                     Event Details
                   </Typography>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
                   The Initiative is
                 </FormLabel>
-                <Grid xs={12} container center>
+                <Grid xs={12}>
                   <RadioGroup
                     aria-label='initiative'
                     name='initiative'
@@ -661,8 +799,18 @@ const InternalNoteForm = () => {
                       value='Cooperation agreement'
                     />
                   </RadioGroup>
+                  {initiative && (
+                    <FormHelperText className={classes.errorMessageRadio} error>
+                      initiative section is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+
+                <FormLabel
+                  className={classes.legend}
+                  component='legend'
+                  error={frequency}
+                >
                   The frequency of this initiative
                 </FormLabel>
                 <Grid xs={12} container>
@@ -689,6 +837,11 @@ const InternalNoteForm = () => {
                       value='Continuity of previous collaboration'
                     />
                   </RadioGroup>
+                  {frequency && (
+                    <FormHelperText className={classes.errorMessageRadio} error>
+                      frequency section is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid container>
                   <FormControl
@@ -707,7 +860,7 @@ const InternalNoteForm = () => {
                       }}
                       fullWidth
                       label='member state'
-                      // error={countreisError}
+                      error={mumberState}
                     >
                       <option aria-label='None' value='' />
                       {countreis &&
@@ -717,6 +870,11 @@ const InternalNoteForm = () => {
                           </option>
                         ))}
                     </Select>
+                    {mumberState && (
+                      <FormHelperText error>
+                        Member State is required!
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -724,10 +882,10 @@ const InternalNoteForm = () => {
                     name='nMemberS'
                     variant='outlined'
                     required
-                    label='Non Member Sate'
+                    label='Non Member State'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={nonMumberState}
+                    helperText={nonMumberState && "Invalid Non member State"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -737,12 +895,16 @@ const InternalNoteForm = () => {
                     required
                     label='Partner'
                     fullWidth
-                    // error={enError}
-                    // helperText={enError && "Invalid Event Name"}
+                    error={partner}
+                    helperText={partner && "Invalid Partner"}
                   />
                 </Grid>
 
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={initiativeNeeds}
+                  component='legend'
+                >
                   The Initiative needs
                 </FormLabel>
                 <Grid xs={12} className={classes.checks4} container>
@@ -771,6 +933,11 @@ const InternalNoteForm = () => {
                     label='Budget'
                     value='Budget'
                   />
+                  {initiativeNeeds && (
+                    <FormHelperText error>
+                      Member State is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
                 {budget ? (
                   <Grid item xs={12}>
@@ -781,8 +948,8 @@ const InternalNoteForm = () => {
                       name='Budget'
                       autoComplete='budget'
                       fullWidth
-                      // error={lnError}
-                      // helperText={lnError && "Invalid last name"}
+                      error={budgetError}
+                      helperText={budgetError && "Invalid budget"}
                     />
                   </Grid>
                 ) : (
@@ -793,7 +960,11 @@ const InternalNoteForm = () => {
                     ICESCO Participation
                   </Typography>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={dgparticipationError}
+                  component='legend'
+                >
                   DG participation
                 </FormLabel>
                 <Grid xs={12} container>
@@ -831,6 +1002,11 @@ const InternalNoteForm = () => {
                       value='Virtual Participation_Video Conference'
                       label='Video Conference (Virtual)'
                     />
+                    {dgparticipationError && (
+                      <FormHelperText error>
+                        this information is required!
+                      </FormHelperText>
+                    )}
                   </RadioGroup>
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
@@ -844,8 +1020,8 @@ const InternalNoteForm = () => {
                     name='speechTopic'
                     autoComplete='STopic'
                     fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
+                    error={speechTopicError}
+                    helperText={speechTopicError && "Invalid Speech Topic"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -856,8 +1032,8 @@ const InternalNoteForm = () => {
                     name='mainPointe'
                     autoComplete='mPointe'
                     fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
+                    error={mainPointError}
+                    helperText={mainPointError && "Invalid Main Points "}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -868,8 +1044,10 @@ const InternalNoteForm = () => {
                     name='speechDuration'
                     autoComplete='SDuration'
                     fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
+                    error={speechDurationError}
+                    helperText={
+                      speechDurationError && "Invalid Speech Duration"
+                    }
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -877,26 +1055,30 @@ const InternalNoteForm = () => {
                     <DateTimePicker
                       renderInput={(props) => (
                         <CustomField
-                          value={date1}
+                          value={value2}
                           name='speachDate'
                           variant='outlined'
                           required
-                          label='Date & Time'
+                          label='Date Speech'
                           fullWidth
-                          // helperText={enError && "Invalid Event Name"}
-                          // error={enError}
                           {...props}
+                          helperText={dateSpeechError && "Invalid Date Speech"}
+                          error={dateSpeechError}
                         />
                       )}
-                      // label='DateTimePicker'
-
+                      label='Date Speech'
+                      value={value2}
                       onChange={(newValue) => {
-                        setDate1(newValue);
+                        setValue2(newValue);
                       }}
                     />
                   </LocalizationProvider>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={eventAttendanceError}
+                  component='legend'
+                >
                   Information required for DG participation
                 </FormLabel>
                 <Grid xs={12} container>
@@ -933,9 +1115,19 @@ const InternalNoteForm = () => {
                       value='C: Professionals'
                       label='C: Professionals'
                     />
+                    <div></div>
+                    {eventAttendanceError && (
+                      <FormHelperText error>
+                        this information is required!
+                      </FormHelperText>
+                    )}
                   </RadioGroup>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={eventPartnersError}
+                  component='legend'
+                >
                   The event will be in partnership with
                 </FormLabel>
                 <Grid xs={12} container>
@@ -956,8 +1148,17 @@ const InternalNoteForm = () => {
                       value='C: Non-Governmental Organization'
                     />
                   </FormGroup>
+                  {eventPartnersError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={eventStatementError}
+                  component='legend'
+                >
                   The state member engagement
                 </FormLabel>
                 <Grid xs={12} container>
@@ -983,6 +1184,12 @@ const InternalNoteForm = () => {
                       value='Low: Less than 3 times in the same year'
                       label='Low: Less than 3 times in the same year'
                     />
+                    <div></div>
+                    {eventStatementError && (
+                      <FormHelperText error>
+                        this information is required!
+                      </FormHelperText>
+                    )}
                   </RadioGroup>
                 </Grid>
                 <Grid className={classes.bgColor} item xs={12}>
@@ -997,11 +1204,15 @@ const InternalNoteForm = () => {
                     label='Coverage for N° Person'
                     name='CoveragPersonN'
                     fullWidth
-                    // error={lnError}
-                    // helperText={lnError && "Invalid last name"}
+                    error={coveragPersonNError}
+                    helperText={coveragPersonNError && "Invalid Coverage N°"}
                   />
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  error={coveragForError}
+                  className={classes.legend}
+                  component='legend'
+                >
                   Coverage for
                 </FormLabel>
                 <Grid xs={12} container>
@@ -1027,94 +1238,94 @@ const InternalNoteForm = () => {
                       value='Local Transportation'
                     />
                   </FormGroup>
+                  {coveragForError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={impactInitiativerError}
+                  component='legend'
+                >
                   The impact of this initiative on ICESCO
                 </FormLabel>
-                {/* <Grid xs={12} container>
-                  <RadioGroup
-                    aria-label='impactinitiative'
-                    name='impactinitiative'
-                    value={impactInitiative}
-                    className={classes.checks2}
-                    onChange={handleChangeImpactInitiative}
-                  >
+                <Grid xs={12} container>
+                  <FormGroup name='internalSup' className={classes.checks2}>
                     <FormControlLabel
-                      control={<CustomRadio name='impactinitiative' />}
-                      value='Increase ICESCO competitiveness'
+                      control={<TealCheckbox name='impactinitiative' />}
                       label='Increase ICESCO competitiveness'
+                      value='Increase ICESCO competitiveness'
                     />
                     <FormControlLabel
-                      control={<CustomRadio name='impactinitiative' />}
+                      control={<TealCheckbox name='impactinitiative' />}
                       label='Receive fundraising/sponsorship'
                       value='Receive fundraising/sponsorship'
                     />
                     <FormControlLabel
-                      control={<CustomRadio name='impactinitiative' />}
-                      label='nitiate new partnership'
-                      value='nitiate new partnership'
+                      control={<TealCheckbox name='impactinitiative' />}
+                      label='Initiate new partnership'
+                      value='Initiate new partnership'
                     />
                     <FormControlLabel
-                      control={<CustomRadio name='impactinitiative' />}
-                      value='Provide Services for a State Member'
+                      control={
+                        <TealCheckbox
+                          name='impactinitiative'
+                          onChange={hendlChangeService}
+                        />
+                      }
                       label='Provide Services for a State Member'
+                      value='Provide Services for a State Member'
                     />
-                  </RadioGroup>
-                </Grid> */}
-                <Grid xs={12} className={classes.checks2} container>
-                  <FormControlLabel
-                    control={<TealCheckbox name='impactinitiative' />}
-                    label='Increase ICESCO competitiveness'
-                    value='Increase ICESCO competitiveness'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='impactinitiative' />}
-                    label='Receive fundraising/sponsorship'
-                    value='Receive fundraising/sponsorship'
-                  />
-                  <FormControlLabel
-                    control={<TealCheckbox name='impactinitiative' />}
-                    label='nitiate new partnership'
-                    value='nitiate new partnership'
-                  />
-                  <FormControlLabel
-                    control={
-                      <TealCheckbox
-                        name='impactinitiative'
-                        // onChange={hendlChangeBudget}
-                      />
-                    }
-                    label='Provide Services for a State Member'
-                    value='Provide Services for a State Member'
-                  />
+                    {impactInitiativerError && (
+                      <FormHelperText error>
+                        this information is required!
+                      </FormHelperText>
+                    )}
+                  </FormGroup>
                 </Grid>
-                {true ? (
-                  <Grid xs={12} className={classes.checks2} container>
-                    <FormControlLabel
-                      control={<TealCheckbox name='impactinitiative' />}
-                      label='Provide technical expertise / consultations'
-                      value='Provide technical expertise / consultations'
-                    />
-                    <FormControlLabel
-                      control={<TealCheckbox name='impactinitiative' />}
-                      label='Capacity building'
-                      value='Capacity building'
-                    />
-                    <FormControlLabel
-                      control={<TealCheckbox name='impactinitiative' />}
-                      label='Sharing a best practice'
-                      value='Sharing a best practice'
-                    />
-                    <FormControlLabel
-                      control={<TealCheckbox name='impactinitiative' />}
-                      label='Enhance mutual collaboration'
-                      value='Enhance mutual collaboration'
-                    />
+                {service ? (
+                  <Grid xs={12} container>
+                    <FormGroup
+                      name='impactinitiative'
+                      className={classes.checks2}
+                    >
+                      <FormControlLabel
+                        control={<TealCheckbox name='impactinitiative' />}
+                        label='Provide technical expertise / consultations'
+                        value='Provide technical expertise / consultations'
+                      />
+                      <FormControlLabel
+                        control={<TealCheckbox name='impactinitiative' />}
+                        label='Capacity building'
+                        value='Capacity building'
+                      />
+                      <FormControlLabel
+                        control={<TealCheckbox name='impactinitiative' />}
+                        label='Sharing a best practice'
+                        value='Sharing a best practice'
+                      />
+                      <FormControlLabel
+                        control={<TealCheckbox name='impactinitiative' />}
+                        label='Enhance mutual collaboration'
+                        value='Enhance mutual collaboration'
+                      />
+                      {impactServiceError && (
+                        <FormHelperText error>
+                          this information is required!
+                        </FormHelperText>
+                      )}
+                    </FormGroup>
                   </Grid>
                 ) : (
                   ""
                 )}
-                <FormLabel className={classes.legend} component='legend'>
+                <FormLabel
+                  className={classes.legend}
+                  error={internalSupportError}
+                  component='legend'
+                >
                   Internal Support
                 </FormLabel>
                 <Grid xs={12} container>
@@ -1155,22 +1366,40 @@ const InternalNoteForm = () => {
                       value='Media'
                     />
                     <FormControlLabel
-                      control={<TealCheckbox name='internalSup' />}
+                      control={
+                        <TealCheckbox
+                          name='internalSup'
+                          onChange={hendlChangeOther}
+                        />
+                      }
                       label='Other (specify)'
                       value='Other (specify)'
                     />
                   </FormGroup>
+                  {internalSupportError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )}
                 </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='specify'
-                    name='specify'
-                    autoComplete='lname'
-                    fullWidth
-                  />
-                </Grid>
+                {other ? (
+                  <Grid item xs={12}>
+                    <CustomField
+                      variant='outlined'
+                      required
+                      label='specify'
+                      name='specify'
+                      autoComplete='lname'
+                      fullWidth
+                      error={internalSupportSpcifyError}
+                      helperText={
+                        internalSupportSpcifyError && "Invalid specify"
+                      }
+                    />
+                  </Grid>
+                ) : (
+                  ""
+                )}
                 <Grid item xs={12}>
                   <CustomField
                     variant='outlined'
