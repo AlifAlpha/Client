@@ -311,6 +311,12 @@ const InternalNoteForm = () => {
     useState(false);
 
   /************ End Section four *************/
+  /************ Start Section five *************/
+  const [fileOneError, setfileOneError] = useState(false);
+  const [fileTwoError, setfileTwoError] = useState(false);
+  const [fileThreeError, setfileThreeError] = useState(false);
+  /************ End Section five *************/
+
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
@@ -350,6 +356,10 @@ const InternalNoteForm = () => {
     setImpactServiceError(false);
     setInternalSupportError(false);
     setInternalSupportSpcifyError(false);
+
+    setfileOneError(false);
+    setfileTwoError(false);
+    setfileThreeError(false);
 
     let x = 0;
     if (!formData.get("deptName")) {
@@ -481,6 +491,22 @@ const InternalNoteForm = () => {
       x++;
     }
     /*****End part Four  */
+    /*****Start part five  */
+
+    if (!invitation) {
+      setfileOneError(true);
+      x++;
+    }
+    if (!eventconcept) {
+      setfileTwoError(true);
+      x++;
+    }
+    if (!attendees) {
+      setfileThreeError(true);
+      x++;
+    }
+
+    /*****End part five  */
 
     const obj = {
       departmentName: formData.get("deptName"),
@@ -1437,6 +1463,9 @@ const InternalNoteForm = () => {
                       setInvitation(base64);
                     }}
                   />
+                  {fileOneError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )}
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   Event Concept Note
@@ -1448,6 +1477,9 @@ const InternalNoteForm = () => {
                       setEventConcept(base64);
                     }}
                   />
+                  {fileTwoError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )}
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
                   Attendees / Participant
@@ -1459,6 +1491,9 @@ const InternalNoteForm = () => {
                       setAttendees(base64);
                     }}
                   />
+                  {fileThreeError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )}
                 </Grid>
               </Grid>
               <Grid className={classes.footer} item xs={12}>

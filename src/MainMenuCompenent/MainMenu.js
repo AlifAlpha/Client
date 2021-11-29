@@ -49,7 +49,7 @@ const Langues = () => {
       </ServiceWrapper>
 
       <ServiceWrapper>
-        <Link style={{ textDecoration: "none" }} to='/'>
+        <Link style={{ textDecoration: "none" }} to='/dgrdv'>
           <ServiceCard>
             <ServiceIcon src={Icon4} />
             <ServicesH2>DG appointment</ServicesH2>

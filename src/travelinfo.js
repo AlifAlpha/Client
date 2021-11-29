@@ -326,7 +326,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/travelinfo", {
+      fetch("https://icesco.herokuapp.com/travelinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
