@@ -260,68 +260,56 @@ const LeaveRequist = () => {
   // const [itreq, setItreq] = useState([]);
 
   // const [apptype, setAppTypeError] = useState(false);
-  const [datePropError, setDatePropError] = useState(false);
-  const [nameError, setNameError] = useState(false);
-  const [titleError, setTitleError] = useState(false);
-  const [timeStartError, setTimeStartError] = useState(false);
-  const [purpError, setPurpError] = useState(false);
+  const [countryError, setcountryError] = useState(false);
+  const [nameError, setnameError] = useState(false);
+  const [arrDateError, setarrDateError] = useState(false);
+  const [flightnumError, setflightnumError] = useState(false);
+  const [flightComingError, setflightComingError] = useState(false);
+  const [departDateError, setdepartDateError] = useState(false);
+  const [deparFlighttDateError, setdeparFlighttDateError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
 
-  /********Validation */
-  // const [payError, setPayError] = useState(false);
-  // const [nameError, setNameError] = useState(false);
-  // const [dateArrError, setDateArrError] = useState(false);
-  // const [numError, setnumVol1Error] = useState(false);
-  // const [numVolError, setnumVol1Error] = useState(false);
-
-  // const [numVol2Error, setnumVol2Error] = useState(false);
-  /********Validation end */
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // setAppTypeError(false);
-    setDatePropError(false);
-    setNameError(false);
-    setTitleError(false);
-    setTimeStartError(false);
-    // setTimeEndError(false);
-    setPurpError(false);
-    // setlocationError(false);
-    // setItreqError(false);
+    setnameError(false);
+    setcountryError(false);
+    setarrDateError(false);
+    setflightnumError(false);
+    setflightComingError(false);
+    setdepartDateError(false);
+    setdeparFlighttDateError(false);
+
     let x = 0;
-    // if (!formData.get("apptype")) {
-    //   setAppTypeError(true);
-    //   x++;
-    // }
-    // if (!formData.get("startMeet")) {
-    //   setDatePropError(true);
-    //   x++;
-    // }
-    // if (!formData.get("name")) {
-    //   setNameError(true);
-    //   x++;
-    // }
-    // if (!formData.get("title")) {
-    //   setTitleError(true);
-    //   x++;
-    // }
-    // if (!formData.get("timeStartMeet")) {
-    //   setTimeStartError(true);
-    //   x++;
-    // }
-    // if (!formData.get("timeEndMeet")) {
-    //   setTimeEndError(true);
-    //   x++;
-    // }
-    // if (!formData.get("purpose")) {
-    //   setPurpError(true);
-    //   x++;
-    // }
-    // if (!formData.get("location")) {
-    //   setItreqError(true);
-    //   x++;
-    // }
+    if (!formData.get("country")) {
+      setcountryError(true);
+      x++;
+    }
+    if (!formData.get("name")) {
+      setnameError(true);
+      x++;
+    }
+    if (!formData.get("arrivalDate")) {
+      setarrDateError(true);
+      x++;
+    }
+    if (!formData.get("arrivalFlightNum")) {
+      setflightnumError(true);
+      x++;
+    }
+    if (!formData.get("FlightComing")) {
+      setflightComingError(true);
+      x++;
+    }
+    if (!formData.get("departureDate")) {
+      setdepartDateError(true);
+      x++;
+    }
+    if (!formData.get("departureFlightNum")) {
+      setdeparFlighttDateError(true);
+      x++;
+    }
 
     const obj = {
       country: formData.get("country"),
@@ -335,10 +323,10 @@ const LeaveRequist = () => {
     };
 
     console.log(x, obj);
-    if (true) {
+    if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/travelinfo", {
+      fetch("http://localhost:8080/travelinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -498,8 +486,8 @@ const LeaveRequist = () => {
                     label={t("country")}
                     autoFocus
                     fullWidth
-                    error={nameError}
-                    helperText={nameError && "Invalid name"}
+                    error={countryError}
+                    helperText={countryError && "Invalid country"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -531,8 +519,8 @@ const LeaveRequist = () => {
                           name='arrivalDate'
                           variant='outlined'
                           required
-                          error={datePropError}
-                          helperText={datePropError && "Invalid date"}
+                          error={arrDateError}
+                          helperText={arrDateError && "Invalid date"}
                         />
                       )}
                     />
@@ -548,8 +536,8 @@ const LeaveRequist = () => {
                     id='title'
                     label={t("arFlight")}
                     fullWidth
-                    error={titleError}
-                    helperText={titleError && "Inva"}
+                    error={flightnumError}
+                    helperText={flightnumError && "Invalid Flight number"}
                   />
                 </Grid>
 
@@ -562,8 +550,8 @@ const LeaveRequist = () => {
                     id='FlightComing'
                     label={t("lfightComing")}
                     fullWidth
-                    error={purpError}
-                    helperText={purpError && "This field is required"}
+                    error={flightComingError}
+                    helperText={flightComingError && "This field is required"}
                   />
                 </Grid>
 
@@ -583,8 +571,8 @@ const LeaveRequist = () => {
                           name='departureDate'
                           variant='outlined'
                           required
-                          error={timeStartError}
-                          helperText={timeStartError && "Invalid date"}
+                          error={departDateError}
+                          helperText={departDateError && "Invalid date"}
                         />
                       )}
                     />
@@ -599,8 +587,10 @@ const LeaveRequist = () => {
                     id='title'
                     label={t("depFlight")}
                     fullWidth
-                    error={titleError}
-                    helperText={titleError && "Flight number is required"}
+                    error={deparFlighttDateError}
+                    helperText={
+                      deparFlighttDateError && "Flight number is required"
+                    }
                   />
                 </Grid>
 
