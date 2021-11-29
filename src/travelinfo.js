@@ -325,7 +325,7 @@ const LeaveRequist = () => {
 
     const obj = {
       country: formData.get("country"),
-      // timeMeet: formData.get("timeMeet"),
+
       name: formData.get("name"),
       arrivalDate: formData.get("arrivalDate"),
       arrivalFlightNum: formData.get("arrivalFlightNum"),
@@ -338,7 +338,7 @@ const LeaveRequist = () => {
     if (true) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/travelinfo", {
+      fetch("https://icesco.herokuapp.com/travelinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
