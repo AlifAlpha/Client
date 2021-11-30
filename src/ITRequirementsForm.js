@@ -263,7 +263,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/itreqform", {
+      fetch("http://localhost:8080/itreqform", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
