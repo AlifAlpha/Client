@@ -4,6 +4,7 @@ import React from "react";
 export const NotedgList = (props) => (
   <List {...props}>
     <Datagrid rowClick='edit'>
+      <TextField source='referencing' />
       <TextField source='eventName' />
       <TextField source='location' />
       <DateField source='eventDate' />
