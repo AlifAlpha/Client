@@ -293,7 +293,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/dgapp", {
+      fetch("https://icescoapi.herokuapp.com/dgapp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
