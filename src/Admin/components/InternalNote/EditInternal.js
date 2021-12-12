@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Edit, SimpleForm, TextInput, DateInput } from "ra-ui-materialui";
+import { Edit, SimpleForm, TextInput } from "ra-ui-materialui";
 
 export const NotedgEdit = (props) => (
   <Edit {...props}>
