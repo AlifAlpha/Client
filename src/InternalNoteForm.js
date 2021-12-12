@@ -216,15 +216,15 @@ const InternalNoteForm = () => {
   };
   // Handle input errors
   useEffect(() => {
-    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
     });
-    fetch("https://icesco.herokuapp.com/allcities").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/allcities").then(async (res) => {
       const data = await res.json();
       setCountreis(data);
     });
@@ -519,7 +519,7 @@ const InternalNoteForm = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/notedg", {
+      fetch("https://icescoapi.herokuapp.com/notedg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
