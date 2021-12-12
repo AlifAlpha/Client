@@ -284,8 +284,8 @@ const InternalNoteForm = () => {
   const [initiative, setinitiativeError] = useState(false);
   const [frequency, setFrequencyError] = useState(false);
   const [mumberState, setMumberStateError] = useState(false);
-  const [nonMumberState, setNonMumberStateError] = useState(false);
-  const [partner, setPartnerError] = useState(false);
+  // const [nonMumberState, setNonMumberStateError] = useState(false);
+  // const [partner, setPartnerError] = useState(false);
   const [initiativeNeeds, setInitiativeNeedsError] = useState(false);
   const [budgetError, setBudgetError] = useState(false);
 
@@ -336,8 +336,8 @@ const InternalNoteForm = () => {
     setinitiativeError(false);
     setFrequencyError(false);
     setMumberStateError(false);
-    setNonMumberStateError(false);
-    setPartnerError(false);
+    // setNonMumberStateError(false);
+    // setPartnerError(false);
     setInitiativeNeedsError(false);
     setBudgetError(false);
 
@@ -402,18 +402,23 @@ const InternalNoteForm = () => {
       setFrequencyError(true);
       x++;
     }
-    if (!formData.get("memberS")) {
+    if (
+      !formData.get("memberS") &&
+      !formData.get("nMemberS") &&
+      !formData.get("Partner")
+    ) {
       setMumberStateError(true);
+      console.log("test ");
       x++;
     }
-    if (!formData.get("nMemberS")) {
-      setNonMumberStateError(true);
-      x++;
-    }
-    if (!formData.get("Partner")) {
-      setPartnerError(true);
-      x++;
-    }
+    // if (!formData.get("nMemberS")) {
+    //   setNonMumberStateError(true);
+    //   x++;
+    // }
+    // if (!formData.get("Partner")) {
+    //   setPartnerError(true);
+    //   x++;
+    // }
     if (!formData.getAll("initNeeds").length) {
       setInitiativeNeedsError(true);
       x++;
@@ -910,8 +915,8 @@ const InternalNoteForm = () => {
                     required
                     label='Non Member State'
                     fullWidth
-                    error={nonMumberState}
-                    helperText={nonMumberState && "Invalid Non member State"}
+                    error={mumberState}
+                    helperText={mumberState && "Invalid Non member State"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -921,8 +926,8 @@ const InternalNoteForm = () => {
                     required
                     label='Partner'
                     fullWidth
-                    error={partner}
-                    helperText={partner && "Invalid Partner"}
+                    error={mumberState}
+                    helperText={mumberState && "Invalid Partner"}
                   />
                 </Grid>
 
