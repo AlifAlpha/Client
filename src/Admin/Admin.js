@@ -39,6 +39,7 @@ import { CreateRoom } from "./components/room/CreateRoom";
 import { RoomEdit } from "./components/room/UpdateRoom";
 import { NotedgList } from "./components/InternalNote/InternalnoteList";
 import { TravelinfoList } from "./components/Travelinfo/ListTravelinfo";
+import { NotedgEdit } from "./components/InternalNote/EditInternal";
 
 const Dashboard = () => {
   return (
@@ -72,7 +73,7 @@ const Dashboard = () => {
         // list={NotedgList}
         list={NotedgList}
         // // create={ListGuesser}
-        // edit={DgappEdit}
+        edit={NotedgEdit}
         icon={FaRegStickyNote}
       />
       <Resource

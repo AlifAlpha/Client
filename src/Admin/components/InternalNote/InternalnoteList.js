@@ -11,7 +11,7 @@ export const NotedgList = (props) => (
       <TextField source='departmentName' />
       <TextField source='initiativeIs' />
       <TextField source='stakeHoldersMember' />
-      <TextField source='frequency' />
+      <TextField source='ferequincy' label='Frequency' />
       <TextField source='stakeHoldersNoMember' />
       <TextField source='stakeHolderspartner' />
       <TextField source='initiativeNeeds' />
