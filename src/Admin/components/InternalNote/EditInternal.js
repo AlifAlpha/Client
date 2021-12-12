@@ -6,7 +6,7 @@ export const NotedgEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput disabled source='referencing' />
-      <TextInput source='initiativeNeeds' />
+      {/* <TextInput source='initiativeNeeds' />
       <TextInput source='eventPartnership' />
       <TextInput source='coverageFor' />
       <TextInput source='inpactInternal' />
@@ -29,7 +29,8 @@ export const NotedgEdit = (props) => (
       <TextInput source='eventStateMember' />
       <TextInput source='numCoverage' />
       <TextInput source='internalSupportNeededSup' />
-      <TextInput source='internalSupportNeededSpo' />
+      <TextInput source='internalSupportNeededSpo' /> */}
+      <TextInput source='DGDirections' />
     </SimpleForm>
   </Edit>
 );
