@@ -54,15 +54,6 @@ const background = createTheme({
   },
 });
 
-// const BlueCheckbox = withStyles({
-//   root: {
-//     color: lightBlue[400],
-//     "&$checked": {
-//       color: lightBlue[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
 const TealCheckbox = withStyles({
   root: {
     color: teal[400],
@@ -105,30 +96,6 @@ const CustomField = withStyles({
     },
   },
 })(TextField);
-
-// const CustomSelect = withStyles({
-//   root: {
-//     "& label.Mui-focused": {
-//       color: lightBlue[600],
-//     },
-// "& .MuiInput-underline:after": {
-//   borderBottomColor: lightBlue[600],
-// },
-// "& .MuiOutlinedInput-root": {
-//   "& fieldset": {
-//     borderColor: lightBlue[400],
-//   },
-//   "&:hover fieldset": {
-//     borderColor: lightBlue[800],
-//   },
-
-//   "&.Mui-focused fieldset": {
-//     borderColor: lightBlue[400],
-//   },
-// },
-//     // "MuiSelect-root MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input"
-//   },
-// })(Select);
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -233,23 +200,19 @@ const InternalNoteForm = () => {
   };
   const handleChangeInitiative = (event) => {
     setValueInit(event.target.value);
-    console.log(value);
   };
   const handleChangeFrequency = (event) => {
     setValueFreq(event.target.value);
-    console.log(value);
   };
   const handleChangeDgPart = (event) => {
     setValueDgPart(event.target.value);
-    console.log(value);
+    console.log(valueDgPart);
   };
   const handleChangeEventAttendance = (event) => {
     setEventAttendance(event.target.value);
-    console.log(value);
   };
   const handleChangeMemberEngagement = (event) => {
     setMemberEngagement(event.target.value);
-    console.log(value);
   };
   // Handle input errors
   useEffect(() => {
@@ -435,19 +398,19 @@ const InternalNoteForm = () => {
       setdgparticipationError(true);
       x++;
     }
-    if (!formData.get("speechTopic")) {
+    if (!formData.get("speechTopic") && valueDgPart !== "No Participation") {
       setspeechTopicError(true);
       x++;
     }
-    if (!formData.get("mainPointe")) {
+    if (!formData.get("mainPointe") && valueDgPart !== "No Participation") {
       setMainPointError(true);
       x++;
     }
-    if (!formData.get("speechDuration")) {
+    if (!formData.get("speechDuration") && valueDgPart !== "No Participation") {
       setSpeechDurationError(true);
       x++;
     }
-    if (!formData.get("speachDate")) {
+    if (!formData.get("speachDate") && valueDgPart !== "No Participation") {
       setDateSpeechError(true);
       x++;
     }
@@ -572,6 +535,10 @@ const InternalNoteForm = () => {
         });
         setModal(data.status === 400 ? false : true);
         e.target.reset();
+        setInvitation("");
+        setEventConcept("");
+        setAttendees("");
+        setValueInit("");
       });
     }
   };
@@ -1040,71 +1007,79 @@ const InternalNoteForm = () => {
                     )}
                   </RadioGroup>
                 </Grid>
-                <FormLabel className={classes.legend} component='legend'>
-                  DG Speech information:
-                </FormLabel>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='Speech Topic'
-                    name='speechTopic'
-                    autoComplete='STopic'
-                    fullWidth
-                    error={speechTopicError}
-                    helperText={speechTopicError && "Invalid Speech Topic"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='Main Points'
-                    name='mainPointe'
-                    autoComplete='mPointe'
-                    fullWidth
-                    error={mainPointError}
-                    helperText={mainPointError && "Invalid Main Points "}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='Speech Duration'
-                    name='speechDuration'
-                    autoComplete='SDuration'
-                    fullWidth
-                    error={speechDurationError}
-                    helperText={
-                      speechDurationError && "Invalid Speech Duration"
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      renderInput={(props) => (
-                        <CustomField
-                          value={value2}
-                          name='speachDate'
-                          variant='outlined'
-                          required
+                {valueDgPart !== "No Participation" ? (
+                  <>
+                    <FormLabel className={classes.legend} component='legend'>
+                      DG Speech information:
+                    </FormLabel>
+                    <Grid item xs={12}>
+                      <CustomField
+                        variant='outlined'
+                        required
+                        label='Speech Topic'
+                        name='speechTopic'
+                        autoComplete='STopic'
+                        fullWidth
+                        error={speechTopicError}
+                        helperText={speechTopicError && "Invalid Speech Topic"}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomField
+                        variant='outlined'
+                        required
+                        label='Main Points'
+                        name='mainPointe'
+                        autoComplete='mPointe'
+                        fullWidth
+                        error={mainPointError}
+                        helperText={mainPointError && "Invalid Main Points "}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomField
+                        variant='outlined'
+                        required
+                        label='Speech Duration'
+                        name='speechDuration'
+                        autoComplete='SDuration'
+                        fullWidth
+                        error={speechDurationError}
+                        helperText={
+                          speechDurationError && "Invalid Speech Duration"
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                          renderInput={(props) => (
+                            <CustomField
+                              value={value2}
+                              name='speachDate'
+                              variant='outlined'
+                              required
+                              label='Date Speech'
+                              fullWidth
+                              {...props}
+                              helperText={
+                                dateSpeechError && "Invalid Date Speech"
+                              }
+                              error={dateSpeechError}
+                            />
+                          )}
                           label='Date Speech'
-                          fullWidth
-                          {...props}
-                          helperText={dateSpeechError && "Invalid Date Speech"}
-                          error={dateSpeechError}
+                          value={value2}
+                          onChange={(newValue) => {
+                            setValue2(newValue);
+                          }}
                         />
-                      )}
-                      label='Date Speech'
-                      value={value2}
-                      onChange={(newValue) => {
-                        setValue2(newValue);
-                      }}
-                    />
-                  </LocalizationProvider>
-                </Grid>
+                      </LocalizationProvider>
+                    </Grid>
+                  </>
+                ) : (
+                  <></>
+                )}
                 <FormLabel
                   className={classes.legend}
                   error={eventAttendanceError}
