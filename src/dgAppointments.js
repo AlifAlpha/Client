@@ -207,6 +207,7 @@ const LeaveRequist = () => {
   const [value1, setValue1] = React.useState("");
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
+  const [category, setCategory] = React.useState();
   const handleChange = (event) => {
     // console.log(event.target.value);
     setValue(event.target.value);
@@ -216,6 +217,10 @@ const LeaveRequist = () => {
     setApp(event.target.value);
   };
 
+  const handleChangeCategory = (event) => {
+    setCategory(event.target.value);
+    console.log(category);
+  };
   // const [departments, setDepartments] = useState([]);
   // const [employees, setEmployees] = useState([]);
   // const [itreq, setItreq] = useState([]);
@@ -531,7 +536,37 @@ const LeaveRequist = () => {
                   />
                 </Grid>
 
-                {/* sselect section */}
+                <Grid xs={12} container>
+                  <RadioGroup
+                    aria-label='dgparticip'
+                    name='dgparticip'
+                    value={category}
+                    className={classes.checks2}
+                    onChange={handleChangeCategory}
+                  >
+                    <FormControlLabel
+                      control={<CustomRadio name='dgparticip' />}
+                      label='No Participation'
+                      value='No Participation'
+                    />
+                    <div></div>
+                    <FormControlLabel
+                      control={<CustomRadio name='dgparticip' />}
+                      value='In Person_Visit'
+                      label='Visit (In Person)  '
+                    />
+                    <FormControlLabel
+                      control={<CustomRadio name='dgparticip' />}
+                      value='In Person_Opening/ Closing address'
+                      label='Opening/ Closing address (In Person)'
+                    />
+                    {/* {dgparticipationError && (
+                      <FormHelperText error>
+                        this information is required!
+                      </FormHelperText>
+                    )} */}
+                  </RadioGroup>
+                </Grid>
 
                 <Grid item xs={12}>
                   <Button

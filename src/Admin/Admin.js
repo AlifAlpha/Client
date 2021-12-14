@@ -24,14 +24,15 @@ import ItreqformEdit from "./components/itreqform/EditItreq";
 import CityList from "./components/cities/CityList";
 import CityCreate from "./components/cities/CityCreate";
 import UpdateCity from "./components/cities/UpdateCity";
-
 import { BiListPlus } from "react-icons/bi";
-import { AiOutlineUser, AiOutlinePauseCircle } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlinePauseCircle,
+  AiOutlineCalendar,
+} from "react-icons/ai";
 import { BsPersonCircle, BsFillPlugFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaHandsHelping, FaRegStickyNote, FaPlane } from "react-icons/fa";
-// import { ListGuesser } from "ra-ui-materialui";
-// import { EditGuesser } from "ra-ui-materialui";
 import { DgappList } from "./components/DGApointment/ListDgApp";
 import { DgappEdit } from "./components/DGApointment/EditDgApp";
 import { RoomList } from "./components/room/ListRooms";
@@ -39,6 +40,7 @@ import { CreateRoom } from "./components/room/CreateRoom";
 import { RoomEdit } from "./components/room/UpdateRoom";
 import { NotedgList } from "./components/InternalNote/InternalnoteList";
 import { TravelinfoList } from "./components/Travelinfo/ListTravelinfo";
+import ParticipationList from "./components/participation/participationList";
 
 const Dashboard = () => {
   return (
@@ -139,6 +141,11 @@ const Dashboard = () => {
         create={CityCreate}
         edit={UpdateCity}
         icon={HiOutlineLocationMarker}
+      />
+      <Resource
+        name='participation'
+        list={ParticipationList}
+        icon={AiOutlineCalendar}
       />
     </Admin>
   );
