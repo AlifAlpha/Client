@@ -502,7 +502,11 @@ const Participation = () => {
                       value={t("ITfocalpoint")}
                       label={t("ITfocalpoint")}
                     />
-
+                    <FormControlLabel
+                      control={<CustomRadio name='category' />}
+                      value={t("Organisation")}
+                      label={t("Organisation")}
+                    />
                     {categoryError && (
                       <FormHelperText error>
                         this information is required!

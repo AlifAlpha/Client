@@ -37,6 +37,7 @@ i18n
           headDelegation: "Head of Delegation",
           memberDelegation: "Member of Delegation",
           ITfocalpoint: "IT focal point",
+          Organisation: "Organisation",
         },
       },
       ar: {
@@ -66,6 +67,7 @@ i18n
           headDelegation: "رئيس الوفد",
           memberDelegation: "عضو الوفد",
           ITfocalpoint: "ضابط الاتصال",
+          Organisation: "المنظمة",
         },
       },
       fr: {
@@ -97,6 +99,7 @@ i18n
           headDelegation: "Chef de délégation",
           memberDelegation: "Membre de délégation",
           ITfocalpoint: "IT Contact",
+          Organisation: "Organisation",
         },
       },
     },
