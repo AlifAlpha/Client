@@ -197,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: "16px",
   },
   left: {
-    backgroundColor: "#282828",
+    backgroundColor: "#fff",
     width: "50%",
   },
 
