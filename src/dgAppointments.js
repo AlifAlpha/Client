@@ -8,6 +8,7 @@ import {
   // Checkbox,
   CircularProgress,
   FormControlLabel,
+  FormLabel,
   // FormLabel,
   Radio,
   RadioGroup,
@@ -30,6 +31,7 @@ import { CardMedia, FormHelperText } from "@material-ui/core";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
 import { teal, grey, lightBlue } from "@material-ui/core/colors";
+import FileBase64 from "react-file-base64";
 
 const background = createTheme({
   overrides: {
@@ -156,7 +158,9 @@ const useStyles = makeStyles((theme) => ({
     border: "white 1px solid",
     boxShadow: "0px 2px 5px rgba(0,0,0,0.6)",
   },
-  gridcolumn: {},
+  dur: {
+    fontSize: "500px",
+  },
   legend: {
     marginTop: "1em",
   },
@@ -207,7 +211,8 @@ const LeaveRequist = () => {
   const [value1, setValue1] = React.useState("");
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
-  const [category, setCategory] = React.useState();
+  const [attachedCv, setAttachedCv] = React.useState();
+
   const handleChange = (event) => {
     // console.log(event.target.value);
     setValue(event.target.value);
@@ -216,15 +221,6 @@ const LeaveRequist = () => {
     // console.log(event.target.value);
     setApp(event.target.value);
   };
-
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-    console.log(category);
-  };
-  // const [departments, setDepartments] = useState([]);
-  // const [employees, setEmployees] = useState([]);
-  // const [itreq, setItreq] = useState([]);
-
   const [apptype, setAppTypeError] = useState(false);
   const [datePropError, setDatePropError] = useState(false);
   // const [startError, setStartError] = useState(false);
@@ -234,6 +230,8 @@ const LeaveRequist = () => {
   const [timeStartError, setTimeStartError] = useState(false);
   const [timeEndError, setTimeEndError] = useState(false);
   const [purpError, setPurpError] = useState(false);
+  const [fileOneError, setfileOneError] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
 
@@ -247,8 +245,6 @@ const LeaveRequist = () => {
     setTimeStartError(false);
     setTimeEndError(false);
     setPurpError(false);
-    // setlocationError(false);
-    // setItreqError(false);
     let x = 0;
     if (!formData.get("apptype")) {
       setAppTypeError(true);
@@ -278,27 +274,27 @@ const LeaveRequist = () => {
       setPurpError(true);
       x++;
     }
-    // if (!formData.get("location")) {
-    //   setItreqError(true);
-    //   x++;
-    // }
+    if (!attachedCv) {
+      setfileOneError(true);
+      x++;
+    }
 
     const obj = {
       startMeet: formData.get("startMeet"),
-      // timeMeet: formData.get("timeMeet"),
       name: formData.get("name"),
       title: formData.get("title"),
       dateDurStart: formData.get("timeStartMeet"),
       dateDurEnd: formData.get("timeEndMeet"),
       purpose: formData.get("purpose"),
       appType: formData.get("apptype"),
+      attechedcv: attachedCv,
     };
 
     console.log(x, obj);
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/dgapp", {
+      fetch("https://icescoapi.herokuapp.com/dgapp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -473,11 +469,13 @@ const LeaveRequist = () => {
                     helperText={titleError && "Invalid title"}
                   />
                 </Grid>
-
+                <Typography color='textSecondary' component='h6' variant='h6'>
+                  Duration
+                </Typography>
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      label='Proposed date'
+                      label='From (Date & Time)'
                       // inputFormat='MM/dd/yyyy'
                       value={value2}
                       onChange={(newValue) => {
@@ -497,10 +495,11 @@ const LeaveRequist = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
+
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      label='Proposed date'
+                      label='to (Date & Time)'
                       // inputFormat='MM/dd/yyyy'
                       value={value3}
                       onChange={(newValue) => {
@@ -536,38 +535,20 @@ const LeaveRequist = () => {
                   />
                 </Grid>
 
-                <Grid xs={12} container>
-                  <RadioGroup
-                    aria-label='dgparticip'
-                    name='dgparticip'
-                    value={category}
-                    className={classes.checks2}
-                    onChange={handleChangeCategory}
-                  >
-                    <FormControlLabel
-                      control={<CustomRadio name='dgparticip' />}
-                      label='No Participation'
-                      value='No Participation'
-                    />
-                    <div></div>
-                    <FormControlLabel
-                      control={<CustomRadio name='dgparticip' />}
-                      value='In Person_Visit'
-                      label='Visit (In Person)  '
-                    />
-                    <FormControlLabel
-                      control={<CustomRadio name='dgparticip' />}
-                      value='In Person_Opening/ Closing address'
-                      label='Opening/ Closing address (In Person)'
-                    />
-                    {/* {dgparticipationError && (
-                      <FormHelperText error>
-                        this information is required!
-                      </FormHelperText>
-                    )} */}
-                  </RadioGroup>
+                <FormLabel className={classes.legend} component='legend'>
+                  kindly attach your CV
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setAttachedCv(base64);
+                    }}
+                  />
+                  {fileOneError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )}
                 </Grid>
-
                 <Grid item xs={12}>
                   <Button
                     type='submit'

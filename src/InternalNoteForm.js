@@ -216,15 +216,15 @@ const InternalNoteForm = () => {
   };
   // Handle input errors
   useEffect(() => {
-    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
     });
-    fetch("https://icesco.herokuapp.com/allcities").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/allcities").then(async (res) => {
       const data = await res.json();
       setCountreis(data);
     });
@@ -246,7 +246,7 @@ const InternalNoteForm = () => {
 
   const [initiative, setinitiativeError] = useState(false);
   const [frequency, setFrequencyError] = useState(false);
-  const [mumberState, setMumberStateError] = useState(false);
+  // const [mumberState, setMumberStateError] = useState(false);
   // const [nonMumberState, setNonMumberStateError] = useState(false);
   // const [partner, setPartnerError] = useState(false);
   const [initiativeNeeds, setInitiativeNeedsError] = useState(false);
@@ -298,7 +298,7 @@ const InternalNoteForm = () => {
 
     setinitiativeError(false);
     setFrequencyError(false);
-    setMumberStateError(false);
+    // setMumberStateError(false);
     // setNonMumberStateError(false);
     // setPartnerError(false);
     setInitiativeNeedsError(false);
@@ -365,15 +365,15 @@ const InternalNoteForm = () => {
       setFrequencyError(true);
       x++;
     }
-    if (
-      !formData.get("memberS") &&
-      !formData.get("nMemberS") &&
-      !formData.get("Partner")
-    ) {
-      setMumberStateError(true);
-      console.log("test ");
-      x++;
-    }
+    // if (
+    //   !formData.get("memberS") &&
+    //   !formData.get("nMemberS") &&
+    //   !formData.get("Partner")
+    // ) {
+    //   setMumberStateError(true);
+    //   console.log("test ");
+    //   x++;
+    // }
     // if (!formData.get("nMemberS")) {
     //   setNonMumberStateError(true);
     //   x++;
@@ -519,7 +519,7 @@ const InternalNoteForm = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/notedg", {
+      fetch("https://icescoapi.herokuapp.com/notedg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -858,7 +858,7 @@ const InternalNoteForm = () => {
                       }}
                       fullWidth
                       label='member state'
-                      error={mumberState}
+                      // error={mumberState}
                     >
                       <option aria-label='None' value='' />
                       {countreis &&
@@ -868,11 +868,6 @@ const InternalNoteForm = () => {
                           </option>
                         ))}
                     </Select>
-                    {mumberState && (
-                      <FormHelperText error>
-                        Member State is required!
-                      </FormHelperText>
-                    )}
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -882,8 +877,8 @@ const InternalNoteForm = () => {
                     required
                     label='Non Member State'
                     fullWidth
-                    error={mumberState}
-                    helperText={mumberState && "Invalid Non member State"}
+                    // error={mumberState}
+                    // helperText={mumberState && "Invalid Non member State"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -893,8 +888,8 @@ const InternalNoteForm = () => {
                     required
                     label='Partner'
                     fullWidth
-                    error={mumberState}
-                    helperText={mumberState && "Invalid Partner"}
+                    // error={mumberState}
+                    // helperText={mumberState && "Invalid Partner"}
                   />
                 </Grid>
 

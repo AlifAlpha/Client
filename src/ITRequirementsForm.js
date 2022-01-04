@@ -185,19 +185,19 @@ const LeaveRequist = () => {
   const [start, setStart] = React.useState("");
   const [time, setTime] = React.useState("");
   useEffect(() => {
-    fetch("https://icesco.herokuapp.com/department").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/department").then(async (res) => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("https://icesco.herokuapp.com/employee").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/employee").then(async (res) => {
       const data = await res.json();
       setEmployees(data);
     });
-    fetch("https://icesco.herokuapp.com/room").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
     });
-    fetch("https://icesco.herokuapp.com/itreq").then(async (res) => {
+    fetch("https://icescoapi.herokuapp.com/itreq").then(async (res) => {
       const data = await res.json();
       setItreq(data);
     });
@@ -263,7 +263,7 @@ const LeaveRequist = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/itreqform", {
+      fetch("https://icescoapi.herokuapp.com/itreqform", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

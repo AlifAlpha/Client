@@ -246,7 +246,7 @@ const Participation = () => {
 
     const obj = {
       namelatin: formData.get("fullname"),
-      datepLace: formData.get("fullname"),
+      datepLace: formData.get("dateB"),
       nationality: formData.get("nationality"),
       occupation: formData.get("occupation"),
       country: formData.get("country"),
@@ -262,7 +262,7 @@ const Participation = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icesco.herokuapp.com/participation", {
+      fetch("https://icescoapi.herokuapp.com/participation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
