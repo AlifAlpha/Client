@@ -6,6 +6,8 @@ import logo2 from "../img/ecriture.png";
 import Icon3 from "../img/postit.png";
 import Icon4 from "../img/deadline.png";
 import Icon6 from "../img/password.png";
+import Icon7 from "../img/participation.png";
+import Icon8 from "../img/airplane.png";
 import {
   LogoLeft,
   LogoRight,
@@ -34,21 +36,6 @@ const Langues = () => {
           </ServiceCard>
         </Link>
 
-        {/* <ServiceCard>
-          <ServiceIcon src={Icon2} />
-          <ServicesH2>Leave forms</ServicesH2>
-          <ServiceP></ServiceP>{" "}
-        </ServiceCard> */}
-        <Link style={{ textDecoration: "none" }} to='/internalnote'>
-          <ServiceCard>
-            <ServiceIcon src={Icon3} />
-            <ServicesH2>Internal notes - DG</ServicesH2>
-            <ServiceP></ServiceP>{" "}
-          </ServiceCard>
-        </Link>
-      </ServiceWrapper>
-
-      <ServiceWrapper>
         <Link style={{ textDecoration: "none" }} to='/dgrdv'>
           <ServiceCard>
             <ServiceIcon src={Icon4} />
@@ -57,12 +44,33 @@ const Langues = () => {
           </ServiceCard>
         </Link>
 
-        {/* <ServiceCard>
+        <Link style={{ textDecoration: "none" }} to='/internalnote'>
+          <ServiceCard>
+            <ServiceIcon src={Icon3} />
+            <ServicesH2>DG notes</ServicesH2>
+            <ServiceP></ServiceP>{" "}
+          </ServiceCard>
+        </Link>
+      </ServiceWrapper>
 
-          <ServiceIcon src={Icon5} />
-          <ServicesH2>Español</ServicesH2>
-          <ServiceP></ServiceP>{" "}
-        </ServiceCard> */}
+      <ServiceWrapper>
+       
+      <Link style={{ textDecoration: "none" }} to='/participation'>
+          <ServiceCard>
+            <ServiceIcon src={Icon7} />
+            <ServicesH2>Participation</ServicesH2>
+            <ServiceP></ServiceP>{" "}
+          </ServiceCard>
+        </Link>
+
+      <Link style={{ textDecoration: "none" }} to='/travelinfo'>
+          <ServiceCard>
+            <ServiceIcon src={Icon8} />
+            <ServicesH2>Travel Info</ServicesH2>
+            <ServiceP></ServiceP>{" "}
+          </ServiceCard>
+        </Link>
+       
         <Link style={{ textDecoration: "none" }} to='/dashboard'>
           <ServiceCard>
             <ServiceIcon src={Icon6} />
@@ -71,6 +79,7 @@ const Langues = () => {
           </ServiceCard>
         </Link>
       </ServiceWrapper>
+      
     </ServiceContainer>
   );
 };

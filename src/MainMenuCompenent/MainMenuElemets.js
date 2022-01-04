@@ -13,7 +13,7 @@ export const ServiceContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    height: 180vh;
+    height: 240vh;
   }
 
   /* @media screen and (max-width: 480px) {
@@ -60,17 +60,18 @@ export const ServiceWrapper = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   justify-content: center;
   grid-gap: 16px;
   padding: 0 50px;
 
   @media screen and (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   @media screen and (max-width: 768px) {
+    
     grid-template-columns: 1fr;
     padding: 0 20px;
   }
@@ -86,7 +87,7 @@ export const ServiceCard = styled.div`
   border: 2px solid #4f7a7a;
   border-radius: 10px;
   max-height: 340px;
-  width: 250px;
+  width: 200px;
   padding: 30px;
   margin-top: 50px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -98,7 +99,8 @@ export const ServiceCard = styled.div`
     cursor: pointer;
   }
   @media screen and (max-width: 1000px) {
-    width: 200px;
+    width: 150px;
+    height: 150px;
   }
   @media screen and (max-width: 768px) {
     margin-top: 10px;
@@ -110,6 +112,9 @@ export const ServiceIcon = styled.img`
   height: 80px;
   width: 80px;
   margin-bottom: 30px;
+
+
+  
 `;
 
 // export const ServiceH1 = styled.h1`
@@ -125,7 +130,11 @@ export const ServiceIcon = styled.img`
 export const ServicesH2 = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 10px;
+  
   color: #304a4a;
+  @media screen and (max-width: 1000px) {
+    font-size: 1 rem;
+  }
 `;
 export const ServiceP = styled.p`
   font-size: 0.8rem;

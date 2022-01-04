@@ -390,7 +390,7 @@ const LeaveRequist = () => {
                       <FormControlLabel
                         value='Personal-Signing-Mou'
                         control={<TealRadio name='apptype' />}
-                        label='Signing Mou'
+                        label='Signing MOU'
                       />
                     </RadioGroup>
                   ) : (
@@ -407,7 +407,7 @@ const LeaveRequist = () => {
                       <FormControlLabel
                         value='Virtual-Signing-Mou'
                         control={<BlueRadio name='apptype' />}
-                        label='Signing Mou'
+                        label='Signing MOU'
                       />
                     </RadioGroup>
                   )}
