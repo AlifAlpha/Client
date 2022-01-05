@@ -400,9 +400,9 @@ const LeaveRequist = () => {
                       onChange={handleChangeApp}
                     >
                       <FormControlLabel
-                        value='Virtual-Visit'
+                        value='Meeting'
                         control={<BlueRadio name='apptype' />}
-                        label='Visit'
+                        label='Meeting'
                       />
                       <FormControlLabel
                         value='Virtual-Signing-Mou'
