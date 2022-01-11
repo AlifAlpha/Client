@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from "react-admin";
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from "react-admin";
 
 export const auth = (type, params) => {
   if (type === AUTH_LOGIN) {
@@ -15,12 +15,14 @@ export const auth = (type, params) => {
         }
         return response.json();
       })
-      .then(({ token }) => {
+      .then(({ token,role }) => {
         localStorage.setItem("token", token);
+        localStorage.setItem('role', role);
       });
   }
   if (type === AUTH_LOGOUT) {
     localStorage.removeItem("token");
+    localStorage.removeItem('role');
     return Promise.resolve();
   }
   if (type === AUTH_ERROR) {
@@ -35,6 +37,10 @@ export const auth = (type, params) => {
     return localStorage.getItem("token")
       ? Promise.resolve()
       : Promise.reject({ redirectTo: "/login" });
+  }
+  if (type === AUTH_GET_PERMISSIONS) {
+    const role = localStorage.getItem('role');
+    return role ? Promise.resolve(role) : Promise.reject();
   }
   return Promise.reject("Unknown method");
 };

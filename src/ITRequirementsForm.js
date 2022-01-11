@@ -166,7 +166,7 @@ const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
   const [departments, setDepartments] = useState([]);
-  const [employees, setEmployees] = useState([]);
+  // const [employees, setEmployees] = useState([]);
   const [rooms, setRooms] = useState([]);
 
   const [itreq, setItreq] = useState([]);
@@ -189,10 +189,10 @@ const LeaveRequist = () => {
       const data = await res.json();
       setDepartments(data);
     });
-    fetch("https://icescoapi.herokuapp.com/employee").then(async (res) => {
-      const data = await res.json();
-      setEmployees(data);
-    });
+    // fetch("https://icescoapi.herokuapp.com/employee").then(async (res) => {
+    //   const data = await res.json();
+    //   setEmployees(data);
+    // });
     fetch("https://icescoapi.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
@@ -335,7 +335,18 @@ const LeaveRequist = () => {
                 </Grid>
 
                 <Grid container>
-                  <FormControl
+                <CustomField
+                    name='eventCoordinator'
+                    variant='outlined'
+                    required
+                    id='eventCoordinator'
+                    label='Event Coordinator'
+                    autoFocus
+                    fullWidth
+                    error={coordError}
+                    helperText={coordError && "Invalid input"}
+                  />
+                  {/* <FormControl
                     fullWidth
                     variant='outlined'
                     className={classes.formControl}
@@ -366,7 +377,7 @@ const LeaveRequist = () => {
                         Coordinator is required!
                       </FormHelperText>
                     )}
-                  </FormControl>
+                  </FormControl> */}
                 </Grid>
 
                 <Grid item xs={12}>

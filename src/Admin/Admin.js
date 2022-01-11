@@ -49,27 +49,33 @@ const Dashboard = () => {
       authProvider={auth}
       dataProvider={restProvider("https://icescoapi.herokuapp.com")}
     >
+      {permissions => [
+      permissions==="admin" || permissions==="travelinfo" ? 
       <Resource
         name='travelinfo'
         list={TravelinfoList}
         // create={CreateItreq}
         // edit={ItreqformEdit}
         icon={FaPlane}
-      />
+      />:
+      null,
+      permissions==="admin" ?
       <Resource
         name='itreqform'
         list={ItreqformList}
         // create={CreateItreq}
         edit={ItreqformEdit}
         icon={BsFillPlugFill}
-      />
+      />:null,
+      permissions==="admin" || permissions==="dgoffice" ?
       <Resource
         name='dgapp'
         list={DgappList}
         // create={ListGuesser}
         edit={DgappEdit}
         icon={FaHandsHelping}
-      />
+      />:null,
+      permissions==="admin" || permissions==="dgoffice" ?
       <Resource
         name='notedg'
         // list={NotedgList}
@@ -77,57 +83,64 @@ const Dashboard = () => {
         // // create={ListGuesser}
         edit={NotedgEdit}
         icon={FaRegStickyNote}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='leaves'
         list={LeaveList}
         // create={CreateEmployee}
         edit={UpdateLeave}
         icon={AiOutlinePauseCircle}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='leavetype'
         list={ListLeaveType}
         create={CreateLeavetype}
         edit={UpdateLeaveType}
         icon={BiListPlus}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='room'
         list={RoomList}
         create={CreateRoom}
         edit={RoomEdit}
         // icon={BiListPlus}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='user'
         list={UserList}
         create={UserCreate}
         edit={UserEdit}
         icon={AiOutlineUser}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='employee'
         list={EmployeeList}
         create={CreateEmployee}
         edit={EmployeeEdit}
         icon={BsPersonCircle}
-      />
-
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='department'
         list={DepartmentsList}
         create={CreateDepartment}
         edit={EditDepartments}
         // icon={AiOutlinePauseCircle}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='itreq'
         list={ItreqList}
         create={CreateItreq}
         edit={EditItreq}
         // icon={AiOutlinePauseCircle}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='itreqform'
         list={ItreqformList}
@@ -135,19 +148,22 @@ const Dashboard = () => {
         // create={CreateItreq}
 
         // icon={AiOutlinePauseCircle}
-      />
+      />:null,
+      permissions==="admin" ?
       <Resource
         name='cities'
         list={CityList}
         create={CityCreate}
         edit={UpdateCity}
         icon={HiOutlineLocationMarker}
-      />
+      />:null,
+      permissions==="admin" || permissions==="participation" ? 
       <Resource
         name='participation'
         list={ParticipationList}
         icon={AiOutlineCalendar}
-      />
+      />:null,
+    ]}
     </Admin>
   );
 };

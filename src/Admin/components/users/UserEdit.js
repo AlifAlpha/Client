@@ -18,8 +18,10 @@ const UserEdit = (props) => {
         <SelectInput
           source='role'
           choices={[
-            // { id: "agent", name: "Agent" },
             { id: "admin", name: "Admin" },
+            { id: "dgoffice", name: "DGoffice" },
+            { id: "participation", name: "Participation" },
+            { id: "travelinfo", name: "Travel information" },
           ]}
         />
         <BooleanInput source='isActivated' />
