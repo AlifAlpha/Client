@@ -335,13 +335,12 @@ const LeaveRequist = () => {
                 </Grid>
 
                 <Grid container>
-                <CustomField
+                  <CustomField
                     name='eventCoordinator'
                     variant='outlined'
                     required
                     id='eventCoordinator'
                     label='Event Coordinator'
-                    autoFocus
                     fullWidth
                     error={coordError}
                     helperText={coordError && "Invalid input"}
