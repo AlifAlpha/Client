@@ -5,7 +5,7 @@ import { Edit, SimpleForm, TextInput } from "ra-ui-materialui";
 export const NotedgEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
-      <TextInput disabled source='referencing' />
+      <TextInput source='referencing' />
       {/* <TextInput source='initiativeNeeds' />
       <TextInput source='eventPartnership' />
       <TextInput source='coverageFor' />
@@ -30,7 +30,7 @@ export const NotedgEdit = (props) => (
       <TextInput source='numCoverage' />
       <TextInput source='internalSupportNeededSup' />
       <TextInput source='internalSupportNeededSpo' /> */}
-      <TextInput source='DGDirections' />
+      <TextInput multiline source='DGDirections' />
     </SimpleForm>
   </Edit>
 );
