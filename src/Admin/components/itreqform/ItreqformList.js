@@ -14,14 +14,7 @@ export const ItreqformList = (props) => (
   <List {...props}>
     <Datagrid rowClick='edit'>
       <TextField source='eventName' />
-      <ReferenceField
-        sortable={false}
-        label='Event coordinator'
-        source='eventCoordinator'
-        reference='employee'
-      >
-        <TextField source='name' />
-      </ReferenceField>
+      <TextField source='eventCoordinator' />
       <TextField source='phone' />
       <ReferenceField
         sortable={false}

@@ -336,7 +336,7 @@ const LeaveRequist = () => {
                     name='eventCoordinator'
                     variant='outlined'
                     required
-                    id='eventCoordinator'
+                    id='eventCoordinators'
                     label='Event Coordinator'
                     fullWidth
                     error={coordError}
