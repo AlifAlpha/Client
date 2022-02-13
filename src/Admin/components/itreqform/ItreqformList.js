@@ -10,7 +10,7 @@ import {
 import React from "react";
 
 export const ItreqformList = (props) => (
-  <List {...props}>
+  <List {...props} sort={{ field: "createdAt", order: "DESC" }}>
     <Datagrid rowClick='edit'>
       <TextField source='eventName' />
       <TextField source='eventCoordinator' />
