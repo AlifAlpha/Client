@@ -166,7 +166,7 @@ const LeaveRequist = () => {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
   const [departments, setDepartments] = useState([]);
-  // const [employees, setEmployees] = useState([]);
+  const [company, setCompany] = useState(false);
   const [rooms, setRooms] = useState([]);
 
   const [itreq, setItreq] = useState([]);
@@ -176,7 +176,7 @@ const LeaveRequist = () => {
   // const [leaveError, setLeaveError] = useState(false);
   const [eventNameError, setEventNameError] = useState(false);
   const [timeError, setTimeError] = useState(false);
-  // const [itreqError, setItreqError] = useState(false);
+  const [durationError, setDurationError] = useState(false);
   const [deptError, setDeptError] = useState(false);
   const [coordError, setcoordError] = useState(false);
   const [locationError, setlocationError] = useState(false);
@@ -189,10 +189,6 @@ const LeaveRequist = () => {
       const data = await res.json();
       setDepartments(data);
     });
-    // fetch("https://icescoapi.herokuapp.com/employee").then(async (res) => {
-    //   const data = await res.json();
-    //   setEmployees(data);
-    // });
     fetch("https://icescoapi.herokuapp.com/room").then(async (res) => {
       const data = await res.json();
       setRooms(data);
@@ -243,10 +239,10 @@ const LeaveRequist = () => {
       setlocationError(true);
       x++;
     }
-    // if (!formData.get("location")) {
-    //   setItreqError(true);
-    //   x++;
-    // }
+    if (!formData.get("duration")) {
+      setDurationError(true);
+      x++;
+    }
 
     const obj = {
       eventName: formData.get("eventName"),
@@ -255,7 +251,9 @@ const LeaveRequist = () => {
       department: formData.get("department"),
       start: formData.get("start"),
       time: formData.get("time"),
+      duration: formData.get("duration"),
       location: formData.get("location"),
+      company: formData.get("company"),
       itreq: [...formData.getAll("itreq")],
     };
 
@@ -333,7 +331,6 @@ const LeaveRequist = () => {
                     helperText={eventNameError && "Invalid event name"}
                   />
                 </Grid>
-
                 <Grid container>
                   <CustomField
                     name='eventCoordinator'
@@ -379,7 +376,6 @@ const LeaveRequist = () => {
                     )}
                   </FormControl> */}
                 </Grid>
-
                 <Grid item xs={12}>
                   <CustomField
                     variant='outlined'
@@ -450,6 +446,7 @@ const LeaveRequist = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
+
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
@@ -472,22 +469,20 @@ const LeaveRequist = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
-                {/* sselect section */}
-
-                {/* <Grid item xs={12}>
+                <Grid item xs={12}>
                   <CustomField
-                    autoComplete='location'
-                    name='location'
                     variant='outlined'
                     required
-                    id='location'
-                    label='Event location'
-                    autoFocus
+                    id='duration'
+                    label='Duration (in hours)'
+                    name='duration'
                     fullWidth
-                    error={locationError}
-                    helperText={locationError && "Invalid location name"}
+                    error={durationError}
+                    helperText={durationError && "Invalid duration"}
                   />
-                </Grid> */}
+                </Grid>
+                {/* sselect section */}
+
                 <Grid container>
                   <FormControl
                     fullWidth
@@ -504,6 +499,12 @@ const LeaveRequist = () => {
                         id: "ERRRRRR",
                       }}
                       fullWidth
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        e.target.value.includes("Hall")
+                          ? setCompany(true)
+                          : setCompany(false);
+                      }}
                       label='location'
                       error={locationError}
                       helperText={locationError && "Invalid location name"}
@@ -524,6 +525,23 @@ const LeaveRequist = () => {
                       )} */}
                   </FormControl>
                 </Grid>
+                {company ? (
+                  <Grid item xs={12}>
+                    <CustomField
+                      variant='outlined'
+                      required
+                      id='company'
+                      label='company'
+                      name='company'
+                      // autoComplete='phone'
+                      fullWidth
+                      error={phoneError}
+                      helperText={phoneError && "Invalid phone"}
+                    />
+                  </Grid>
+                ) : (
+                  ""
+                )}
                 {/* {itreqError && (
                   <FormHelperText error>
                     At least one certificate or language must be checked.
@@ -546,7 +564,6 @@ const LeaveRequist = () => {
                     })}
                   </Grid>
                 </Grid>
-
                 <Grid item xs={12}>
                   <Button
                     type='submit'
