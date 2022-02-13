@@ -3,9 +3,9 @@ import {
   Edit,
   ReferenceArrayInput,
   // ReferenceField,
-  ReferenceInput,
+  // ReferenceInput,
   SelectArrayInput,
-  SelectInput,
+  // SelectInput,
   SimpleForm,
   TextInput,
 } from "ra-ui-materialui";
@@ -16,14 +16,7 @@ export const ItreqformEdit = (props) => (
     <SimpleForm>
       <TextInput source='itreq' />
       <TextInput source='eventName' />
-      <ReferenceInput
-        sortable={false}
-        label='Event coordinator'
-        source='eventCoordinator'
-        reference='employee'
-      >
-        <SelectInput optionText='name' />
-      </ReferenceInput>
+      <TextInput source='eventCoordinator' />
       <TextInput source='phone' />
       <ReferenceArrayInput source='itreq' reference='itreq'>
         <SelectArrayInput optionText='name' />

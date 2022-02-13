@@ -4,7 +4,6 @@ import {
   DateField,
   List,
   ReferenceArrayField,
-  ReferenceField,
   SingleFieldList,
   TextField,
 } from "ra-ui-materialui";
@@ -16,14 +15,6 @@ export const ItreqformList = (props) => (
       <TextField source='eventName' />
       <TextField source='eventCoordinator' />
       <TextField source='phone' />
-      <ReferenceField
-        sortable={false}
-        label='Departement'
-        source='department'
-        reference='department'
-      >
-        <TextField source='name' />
-      </ReferenceField>
       <DateField source='start' />
       <TextField source='time' />
       <TextField source='location' />
@@ -39,6 +30,7 @@ export const ItreqformList = (props) => (
           <ChipField source='name' />
         </SingleFieldList>
       </ReferenceArrayField>
+      <DateField source='createdAt' />
     </Datagrid>
   </List>
 );
