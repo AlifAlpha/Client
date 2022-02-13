@@ -30,7 +30,7 @@ export const ItreqformList = (props) => (
           <ChipField source='name' />
         </SingleFieldList>
       </ReferenceArrayField>
-      <DateField source='createdAt' />
+      <DateField source='createdAt' showTime />
     </Datagrid>
   </List>
 );
