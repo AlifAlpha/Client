@@ -381,12 +381,12 @@ const LeaveRequist = () => {
                     variant='outlined'
                     required
                     id='Phone'
-                    label='Phone'
+                    label='Email'
                     name='phone'
                     autoComplete='phone'
                     fullWidth
                     error={phoneError}
-                    helperText={phoneError && "Invalid phone"}
+                    helperText={phoneError && "Invalid email"}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -450,7 +450,7 @@ const LeaveRequist = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
-                      label='Time'
+                      label='Local time'
                       value={time}
                       onChange={(newValue) => {
                         setTime(newValue);
