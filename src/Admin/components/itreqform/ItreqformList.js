@@ -20,6 +20,7 @@ export const ItreqformList = (props) => (
       <TextField source='location' />
       <TextField source='duration' />
       <TextField source='company' />
+      <TextField source='info' />
       <ReferenceArrayField
         sortable={false}
         label='Needs'

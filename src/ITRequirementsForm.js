@@ -254,6 +254,7 @@ const LeaveRequist = () => {
       duration: formData.get("duration"),
       location: formData.get("location"),
       company: formData.get("company"),
+      info: formData.get("info"),
       itreq: [...formData.getAll("itreq")],
     };
 
@@ -296,7 +297,7 @@ const LeaveRequist = () => {
             <Grid container className={classes.container}>
               <Hidden only={["xs"]}>
                 <Grid className={classes.left} container sm={6}>
-                  <Grid item xs={12} sm={12}></Grid>
+                  {/* <Grid item xs={12} sm={12}></Grid> */}
                   <Grid item xs={12}>
                     <CardMedia
                       component='img'
@@ -535,8 +536,7 @@ const LeaveRequist = () => {
                       name='company'
                       // autoComplete='phone'
                       fullWidth
-                      error={phoneError}
-                      helperText={phoneError && "Invalid phone"}
+                   
                     />
                   </Grid>
                 ) : (
@@ -547,6 +547,18 @@ const LeaveRequist = () => {
                     At least one certificate or language must be checked.
                   </FormHelperText>
                 )} */}
+                <Grid item xs={12}>
+                    <CustomField
+                      variant='outlined'
+                      required
+                      id='info'
+                      label='Meeting link / comment'
+                      name='info'
+                      // autoComplete='phone'
+                      fullWidth
+                   
+                    />
+                  </Grid>
                 <Grid container>
                   <FormLabel className={classes.legend} component='legend'>
                     IT requirements
