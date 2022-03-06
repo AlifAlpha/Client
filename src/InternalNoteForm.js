@@ -1474,7 +1474,7 @@ const InternalNoteForm = () => {
                   )}
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
-                  Event Concept Note
+                  Event / project Concept Note
                 </FormLabel>
                 <Grid item xs={12}>
                   <FileBase64
