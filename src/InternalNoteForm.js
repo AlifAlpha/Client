@@ -616,7 +616,7 @@ const InternalNoteForm = () => {
                   className={classes.legend}
                   component='legend'
                 >
-                  Related to event/project entitled of
+                  Related to event/project titled
                 </FormLabel>
                 <Grid item xs={12}>
 
@@ -1190,7 +1190,7 @@ const InternalNoteForm = () => {
                   error={eventStatementError}
                   component='legend'
                 >
-                  The state member engagement
+                  State member engagement with ICESCO this year
                 </FormLabel>
                 <Grid xs={12} container>
                   <RadioGroup
@@ -1358,7 +1358,7 @@ const InternalNoteForm = () => {
                   error={internalSupportError}
                   component='legend'
                 >
-                  Internal Support
+                  Internal Support required
                 </FormLabel>
                 <Grid xs={12} container>
                   <FormGroup name='internalSup' className={classes.checks4}>
