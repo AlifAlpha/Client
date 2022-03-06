@@ -563,10 +563,18 @@ const InternalNoteForm = () => {
                   component='h1'
                   variant='h3'
                 >
-                  Internal Note to DG for an event
+                  Internal Memo for DG
                 </Typography>
               </Grid>
+              
               <Grid className={classes.right} container>
+              <FormLabel
+                  error={departmentError}
+                  className={classes.legend}
+                  component='legend'
+                >
+                  Presented by
+                </FormLabel>
                 <Grid container>
                   <FormControl
                     fullWidth
@@ -603,20 +611,34 @@ const InternalNoteForm = () => {
                     )}
                   </FormControl>
                 </Grid>
-
+                <FormLabel
+                  
+                  className={classes.legend}
+                  component='legend'
+                >
+                  Related to event/project entitled of
+                </FormLabel>
                 <Grid item xs={12}>
+
                   <CustomField
                     autoComplete='ename'
                     name='eventName'
                     variant='outlined'
                     required
                     id='eventName'
-                    label='Event Name'
+                    label='Event / project name'
                     fullWidth
                     error={eventNameError}
                     helperText={eventNameError && "Invalid Event Name"}
                   />
                 </Grid>
+                <FormLabel
+                  
+                  className={classes.legend}
+                  component='legend'
+                >
+                  Implementation location
+                </FormLabel>
                 <Grid item xs={12}>
                   <RadioGroup
                     aria-label='meeting'
@@ -763,7 +785,7 @@ const InternalNoteForm = () => {
                 </Grid>
                 <Grid className={classes.bgColor} item xs={12}>
                   <Typography component='h1' variant='h5'>
-                    Event Details
+                    Event / project details
                   </Typography>
                 </Grid>
                 <FormLabel
@@ -821,7 +843,7 @@ const InternalNoteForm = () => {
                   >
                     <FormControlLabel
                       control={<CustomRadio name='frequency' />}
-                      label='First time event'
+                      label='First time '
                       value='First time event'
                     />
                     <FormControlLabel
@@ -841,14 +863,22 @@ const InternalNoteForm = () => {
                     </FormHelperText>
                   )}
                 </Grid>
+                <FormLabel
+                  className={classes.legend}
+                  component='legend'
+                 
+                >
+                  Stakeholders engaged
+                </FormLabel>
                 <Grid container>
+               
                   <FormControl
                     fullWidth
                     variant='outlined'
                     className={classes.formControl}
-                  >
+                  > 
                     <InputLabel htmlFor='outlined-age-native-simple'>
-                      member state
+                      Member states
                     </InputLabel>
                     <Select
                       name='memberS'
@@ -875,7 +905,7 @@ const InternalNoteForm = () => {
                     name='nMemberS'
                     variant='outlined'
                     required
-                    label='Non Member State'
+                    label='Non Member States'
                     fullWidth
                     // error={mumberState}
                     // helperText={mumberState && "Invalid Non member State"}
@@ -886,7 +916,7 @@ const InternalNoteForm = () => {
                     name='Partner'
                     variant='outlined'
                     required
-                    label='Partner'
+                    label='Partners'
                     fullWidth
                     // error={mumberState}
                     // helperText={mumberState && "Invalid Partner"}
@@ -898,7 +928,7 @@ const InternalNoteForm = () => {
                   error={initiativeNeeds}
                   component='legend'
                 >
-                  The Initiative needs
+                  The Initiative requires
                 </FormLabel>
                 <Grid xs={12} className={classes.checks4} container>
                   <FormControlLabel
@@ -923,7 +953,7 @@ const InternalNoteForm = () => {
                         onChange={hendlChangeBudget}
                       />
                     }
-                    label='Budget'
+                    label='Estimated Budget'
                     value='Budget'
                   />
                   {initiativeNeeds && (
@@ -937,7 +967,7 @@ const InternalNoteForm = () => {
                     <CustomField
                       variant='outlined'
                       required
-                      label='Budget'
+                      label='Estimated Budget'
                       name='Budget'
                       autoComplete='budget'
                       fullWidth
@@ -950,7 +980,7 @@ const InternalNoteForm = () => {
                 )}
                 <Grid className={classes.bgColor} item xs={12}>
                   <Typography component='h1' variant='h5'>
-                    ICESCO Participation
+                    DG Participation information
                   </Typography>
                 </Grid>
                 <FormLabel
@@ -1023,7 +1053,7 @@ const InternalNoteForm = () => {
                       <CustomField
                         variant='outlined'
                         required
-                        label='Main Points'
+                        label='Key Points'
                         name='mainPointe'
                         autoComplete='mPointe'
                         fullWidth
@@ -1035,7 +1065,7 @@ const InternalNoteForm = () => {
                       <CustomField
                         variant='outlined'
                         required
-                        label='Speech Duration'
+                        label='Speech Duration (in minutes)'
                         name='speechDuration'
                         autoComplete='SDuration'
                         fullWidth
@@ -1080,7 +1110,7 @@ const InternalNoteForm = () => {
                   error={eventAttendanceError}
                   component='legend'
                 >
-                  Information required for DG participation
+                  Participation level required for DG participation
                 </FormLabel>
                 <Grid xs={12} container>
                   <RadioGroup
@@ -1135,17 +1165,17 @@ const InternalNoteForm = () => {
                   <FormGroup name='partnership' className={classes.checks}>
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
-                      label='A: Governmental organization'
+                      label='Governmental organization'
                       value='A: Governmental organization'
                     />
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
-                      label='B: International Organization'
+                      label='International Organization'
                       value='B: International Organization'
                     />
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
-                      label='C: Non-Governmental Organization'
+                      label='Non-Governmental Organization'
                       value='C: Non-Governmental Organization'
                     />
                   </FormGroup>
@@ -1198,17 +1228,7 @@ const InternalNoteForm = () => {
                     Financial Coverage by Stakeholders
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    variant='outlined'
-                    required
-                    label='Coverage for N° Person'
-                    name='CoveragPersonN'
-                    fullWidth
-                    error={coveragPersonNError}
-                    helperText={coveragPersonNError && "Invalid Coverage N°"}
-                  />
-                </Grid>
+               
                 <FormLabel
                   error={coveragForError}
                   className={classes.legend}
@@ -1244,6 +1264,17 @@ const InternalNoteForm = () => {
                       this information is required!
                     </FormHelperText>
                   )}
+                </Grid>
+                <Grid item xs={12}>
+                  <CustomField
+                    variant='outlined'
+                    required
+                    label='Coverage for N° Person'
+                    name='CoveragPersonN'
+                    fullWidth
+                    error={coveragPersonNError}
+                    helperText={coveragPersonNError && "Invalid Coverage N°"}
+                  />
                 </Grid>
                 <FormLabel
                   className={classes.legend}
@@ -1457,7 +1488,7 @@ const InternalNoteForm = () => {
                   )}
                 </Grid>
                 <FormLabel className={classes.legend} component='legend'>
-                  Attendees / Participant
+                  Attendees / Participants
                 </FormLabel>
                 <Grid item xs={12}>
                   <FileBase64
