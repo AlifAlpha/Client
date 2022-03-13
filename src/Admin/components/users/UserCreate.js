@@ -23,6 +23,7 @@ const UserCreate = (props) => {
             { id: "dgoffice", name: "DGoffice" },
             { id: "participation", name: "Participation" },
             { id: "travelinfo", name: "Travel information" },
+            { id: "legal", name: "legal" },
           ]}
         />
         <BooleanInput source='isActivated' />

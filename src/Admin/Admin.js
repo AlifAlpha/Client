@@ -1,5 +1,5 @@
 import React from "react";
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource} from "react-admin";
 import restProvider from "ra-data-simple-rest";
 import { ListLeaveType } from "./components/leaveTypes/ListLeaveType";
 import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
@@ -25,6 +25,7 @@ import CityList from "./components/cities/CityList";
 import CityCreate from "./components/cities/CityCreate";
 import UpdateCity from "./components/cities/UpdateCity";
 import { BiListPlus } from "react-icons/bi";
+import { GiTargetPrize } from "react-icons/gi";
 import {
   AiOutlineUser,
   AiOutlinePauseCircle,
@@ -42,6 +43,7 @@ import { NotedgList } from "./components/InternalNote/InternalnoteList";
 import { TravelinfoList } from "./components/Travelinfo/ListTravelinfo";
 import { NotedgEdit } from "./components/InternalNote/EditInternal";
 import ParticipationList from "./components/participation/participationList";
+import { nominationList } from "./components/Nomination/nominationList";
 
 const Dashboard = () => {
   return (
@@ -68,6 +70,7 @@ const Dashboard = () => {
             icon={BsFillPlugFill}
           />
         ) : null,
+
         permissions === "admin" || permissions === "dgoffice" ? (
           <Resource
             name='dgapp'
@@ -176,6 +179,15 @@ const Dashboard = () => {
             icon={AiOutlineCalendar}
           />
         ) : null,
+
+        permissions === "admin" || permissions === "legal" ? (
+          <Resource
+            name='nomination'
+            list={nominationList}
+            icon={GiTargetPrize}
+          />
+        ) : null,
+
       ]}
     </Admin>
   );

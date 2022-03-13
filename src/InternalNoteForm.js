@@ -1166,17 +1166,17 @@ const InternalNoteForm = () => {
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
                       label='Governmental organization'
-                      value='A: Governmental organization'
+                      value='Governmental organization'
                     />
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
                       label='International Organization'
-                      value='B: International Organization'
+                      value='International Organization'
                     />
                     <FormControlLabel
                       control={<TealCheckbox name='partnership' />}
                       label='Non-Governmental Organization'
-                      value='C: Non-Governmental Organization'
+                      value='Non-Governmental Organization'
                     />
                   </FormGroup>
                   {eventPartnersError && (
