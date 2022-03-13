@@ -142,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: "16px",
   },
   left: {
+    marginTop: theme.spacing(6),
     backgroundColor: "#fff",
     width: "50%",
   },
@@ -364,7 +365,7 @@ const Nomination = () => {
               <Hidden only={["xs"]}>
                 <Grid className={classes.left} container sm={6}>
                   {/* <Grid item xs={12} sm={12}></Grid> */}
-                  <Grid item xs={12}>
+                  <Grid className={classes.mar} item xs={12}>
                     <CardMedia
                       component='img'
                       alt='Contemplative Reptile'
