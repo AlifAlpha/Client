@@ -14,16 +14,24 @@ import {
   TextareaAutosize,
   FormHelperText,
   Checkbox,
+  InputLabel,
+  Select,
+  FormControl,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import {
+  MuiThemeProvider,
+  createTheme,
+  jssPreset,
+  StylesProvider,
+} from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo2 from "./img/ICESCOYouth.png";
-import logo from "./img/logoISESCO.png";
+// import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageYouth.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core";
@@ -37,6 +45,8 @@ import "./translate/config";
 // import MenuItem from "@material-ui/core/MenuItem";
 import { grey, teal } from "@material-ui/core/colors";
 import FileBase64 from "react-file-base64";
+import rtl from "jss-rtl";
+import { create } from "jss";
 
 import { useTranslation } from "react-i18next";
 import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
@@ -62,6 +72,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 // ];
 
 const background = createTheme({
+  direction: "rtl",
   overrides: {
     MuiCssBaseline: {
       "@global": {
@@ -178,6 +189,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const Nomination = () => {
   const classes = useStyles();
   //   const [age, setAge] = React.useState("");
@@ -185,7 +197,7 @@ const Nomination = () => {
   //   const handleChange = (event) => {
   //     setAge(event.target.value);
   //   };
-
+  // const rtlTheme = createTheme({ direction: "rtl" });
   const [modal, setModal] = useState(false);
   const [category, setCategory] = React.useState();
   const [start, setStart] = React.useState("");
@@ -194,11 +206,13 @@ const Nomination = () => {
   const [idetite, setidetite] = useState("");
   const [cv, setcv] = useState("");
   const [exp, setexp] = useState("");
+  const [recommand, setrecommand] = useState("");
 
   const [certifError, setcertifError] = useState(false);
   const [idetiteError, setidetiteError] = useState(false);
   const [cvError, setcvError] = useState(false);
   const [expError, setexpError] = useState(false);
+  const [recommandError, setrecommandError] = useState(false);
 
   const [checkError, setcheckError] = useState(false);
 
@@ -248,6 +262,10 @@ const Nomination = () => {
       setexpError(true);
       x++;
     }
+    if (recommand === "") {
+      setrecommandError(true);
+      x++;
+    }
     // if (!formData.get("country")) {
     //   setcountryError(true);
     //   x++;
@@ -268,7 +286,7 @@ const Nomination = () => {
     //   setCategoryError(true);
     //   x++;
     // }
-
+    document.body.setAttribute("dir", "rtl");
     const obj = {
       firstname: formData.get("firstname"),
       lastname: formData.get("lastname"),
@@ -281,17 +299,15 @@ const Nomination = () => {
       certificates: formData.get("certificates"),
       reason: formData.get("reason"),
       experience: formData.get("experience"),
-      currentField: formData.get("currentField"),
-      currentWork: formData.get("currentWork"),
-      employer: formData.get("employer"),
-      workAddress: formData.get("workAddress"),
-      employerPhone: formData.get("employerPhone"),
-      employerWebsite: formData.get("employerWebsite"),
-      employerEmail: formData.get("employerEmail"),
+      recommandName: formData.get("recommandName"),
+      recommandPhone: formData.get("recommandPhone"),
+      recommandEmail: formData.get("recommandEmail"),
+
       certif: certif,
       idetite: idetite,
       cv: cv,
       exp: exp,
+      recommand: recommand,
     };
 
     console.log(x, obj);
@@ -318,6 +334,7 @@ const Nomination = () => {
         setcv("");
         setidetite("");
         setexp("");
+        setrecommand("");
       });
     }
   };
@@ -329,474 +346,454 @@ const Nomination = () => {
   };
   const { t } = useTranslation();
   return (
-    <MuiThemeProvider theme={background}>
-      <Container component='main' maxWidth='md'>
-        <CssBaseline />
-        <div className={classes.paper}>
-          {/* <FormControl variant='outlined' className={classes.lang}>
-            <InputLabel id='demo-simple-select-outlined-label'>
-              languages
-            </InputLabel>
-            <Select
-              labelId='demo-simple-select-outlined-label'
-              id='lang'
-              value={age}
-              onChange={handleChange}
-              label='languages'
-            >
-              <MenuItem value=''>
-                <em>languages</em>
-              </MenuItem>
-              {languages.map(({ code, name, country_code }) => (
-                <MenuItem
-                  onClick={() => {
-                    i18next.changeLanguage(code);
-                  }}
-                  key={country_code}
-                  value={code}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
-          <form className={classes.form} onSubmit={handleSubmit} noValidate>
-            <Grid container className={classes.container}>
-              <Hidden only={["xs"]}>
-                <Grid className={classes.left} container sm={6}>
-                  {/* <Grid item xs={12} sm={12}></Grid> */}
-                  <Grid className={classes.mar} item xs={12}>
-                    <CardMedia
-                      component='img'
-                      alt='Contemplative Reptile'
-                      image={logo2}
+    <StylesProvider jss={jss}>
+      <MuiThemeProvider theme={background}>
+        {/* <ThemeProvider theme={rtlTheme}> */}
+        <Container component='main' maxWidth='md'>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <Grid container className={classes.container}>
+                <Hidden only={["xs"]}>
+                  <Grid className={classes.left} container sm={6}>
+                    {/* <Grid item xs={12} sm={12}></Grid> */}
+                    <Grid className={classes.mar} item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo2}
+                      />
+                    </Grid>
+                    <Grid className={classes.mar} item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo2}
+                      />
+                    </Grid>
+                    <Grid className={classes.mar} item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo2}
+                      />
+                    </Grid>
+                  </Grid>
+                </Hidden>
+                <Grid dir='rtl' className={classes.right} container sm={6}>
+                  <Grid item xs={12}>
+                    <Typography
+                      color='textSecondary'
+                      align='center'
+                      component='h1'
+                      variant='h3'
+                    >
+                      {t("titln")}
+                    </Typography>
+                    <Typography
+                      color='textSecondary'
+                      align='center'
+                      component='h1'
+                      variant='h4'
+                    >
+                      دورة 2022
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      dir='rtl'
+                      color='textSecondary'
+                      // align='center'
+                      component='h1'
+                      variant='h5'
+                    >
+                      {t("info1")}
+                    </Typography>
+                  </Grid>
+                  <Grid dir='rtl' item xs={12}>
+                    <CustomField
+                      name='firstname'
+                      variant='outlined'
+                      required
+                      id='name'
+                      label={t("firstname")}
+                      fullWidth
+                      // error={nameError}
+                      // helperText={nameError && "Field required"}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='lastname'
+                      variant='outlined'
+                      required
+                      id='name'
+                      label={t("lastname")}
+                      fullWidth
+                      // error={nameError}
+                      // helperText={nameError && "Field required"}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <CardMedia
-                      component='img'
-                      alt='Contemplative Reptile'
-                      image={logo}
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <MobileDatePicker
+                        label={t("birth")}
+                        inputFormat='MM/dd/yyyy'
+                        value={start}
+                        onChange={(newValue) => {
+                          setStart(newValue);
+                        }}
+                        renderInput={(params) => (
+                          <CustomField
+                            {...params}
+                            fullWidth
+                            name='birth'
+                            variant='outlined'
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='nationality'
+                      variant='outlined'
+                      required
+                      id='title'
+                      label={t("nationalityn")}
+                      fullWidth
+                      // error={nationalityError}
+                      // helperText={nationalityError && "Field required"}
                     />
                   </Grid>
-                </Grid>
-              </Hidden>
-              <Grid className={classes.right} container sm={6}>
-                <Grid item xs={12}>
-                  <Typography
-                    color='textSecondary'
-                    align='center'
-                    component='h1'
-                    variant='h5'
-                  >
-                    {t("titln")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography
-                    dir='rtl'
-                    color='textSecondary'
-                    // align='center'
-                    component='h1'
-                    variant='h5'
-                  >
-                    {t("info1")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='firstname'
-                    variant='outlined'
-                    required
-                    id='name'
-                    label={t("firstname")}
-                    fullWidth
-                    // error={nameError}
-                    // helperText={nameError && "Field required"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <CustomField
-                    name='lastname'
-                    variant='outlined'
-                    required
-                    id='name'
-                    label={t("lastname")}
-                    fullWidth
-                    // error={nameError}
-                    // helperText={nameError && "Field required"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MobileDatePicker
-                      label={t("birth")}
-                      inputFormat='MM/dd/yyyy'
-                      value={start}
-                      onChange={(newValue) => {
-                        setStart(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='birth'
-                          variant='outlined'
-                          // required
-                        />
-                      )}
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='residence'
+                      variant='outlined'
+                      required
+                      label={t("residence")}
+                      fullWidth
+                      // error={occupationError}
+                      // helperText={occupationError && "Field required"}
                     />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='nationality'
-                    variant='outlined'
-                    required
-                    id='title'
-                    label={t("nationalityn")}
-                    fullWidth
-                    // error={nationalityError}
-                    // helperText={nationalityError && "Field required"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='residence'
-                    variant='outlined'
-                    required
-                    label={t("residence")}
-                    fullWidth
-                    // error={occupationError}
-                    // helperText={occupationError && "Field required"}
-                  />
-                </Grid>
-                <FormLabel
-                  className={classes.legend}
-                  //   error={categoryError}
-                  component='legend'
-                >
-                  {t("sex")}
-                </FormLabel>
-                <Grid xs={12} container>
-                  <RadioGroup
-                    aria-label='sex'
-                    name='sex'
-                    value={category}
-                    className={classes.checks2}
-                    onChange={handleChangeCategory}
+                  </Grid>
+                  <FormLabel
+                    className={classes.legend}
+                    //   error={categoryError}
+                    component='legend'
                   >
-                    <FormControlLabel
-                      control={<CustomRadio name='sex' />}
-                      label={t("man")}
-                      value={t("man")}
-                    />
-                    <FormControlLabel
-                      control={<CustomRadio name='sex' />}
-                      value={t("women")}
-                      label={t("women")}
-                    />
-                    {/* {categoryError && (
+                    {t("sex")}
+                  </FormLabel>
+                  <Grid xs={12} container>
+                    <RadioGroup
+                      aria-label='sex'
+                      name='sex'
+                      value={category}
+                      className={classes.checks2}
+                      onChange={handleChangeCategory}
+                    >
+                      <FormControlLabel
+                        control={<CustomRadio name='sex' />}
+                        label={t("man")}
+                        value={t("man")}
+                      />
+                      <FormControlLabel
+                        control={<CustomRadio name='sex' />}
+                        value={t("women")}
+                        label={t("women")}
+                      />
+                      {/* {categoryError && (
                       <FormHelperText error>
                         this information is required!
                       </FormHelperText>
                     )} */}
-                  </RadioGroup>
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='phone'
-                    variant='outlined'
-                    required
-                    label={t("phone")}
-                    fullWidth
-                    // error={countryError}
-                    // helperText={countryError && "Field required"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='email'
-                    variant='outlined'
-                    required
-                    id='FlightComing'
-                    label={t("email")}
-                    fullWidth
-                    // error={addressError}
-                    // helperText={addressError && "Field required"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography
+                    </RadioGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='phone'
+                      variant='outlined'
+                      required
+                      label={t("phone")}
+                      fullWidth
+                      // error={countryError}
+                      // helperText={countryError && "Field required"}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='email'
+                      variant='outlined'
+                      required
+                      id='FlightComing'
+                      label={t("email")}
+                      fullWidth
+                      // error={addressError}
+                      // helperText={addressError && "Field required"}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      dir='rtl'
+                      color='textSecondary'
+                      // align='center'
+                      component='h1'
+                      variant='h5'
+                    >
+                      {t("info2")}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl
+                      fullWidth
+                      variant='outlined'
+                      className={classes.formControl}
+                    >
+                      <InputLabel htmlFor='outlined-age-native-simple'>
+                        {t("certificates")}
+                      </InputLabel>
+                      <Select
+                        name='certificates'
+                        native
+                        inputProps={{
+                          id: "ERRRRRR",
+                        }}
+                        fullWidth
+                        label={t("certificates")}
+                      >
+                        <option value=''></option>
+                        <option value='البكالوريوس'>البكالوريوس</option>
+                        <option value='الماستر'>الماستر</option>
+                        <option value='دكتوراه'>دكتوراه</option>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <FormLabel
+                    className={classes.legend}
+                    //   error={categoryError}
+                    component='legend'
                     dir='rtl'
-                    color='textSecondary'
-                    // align='center'
-                    component='h1'
-                    variant='h5'
                   >
-                    {t("info2")}
-                  </Typography>
-                </Grid>
-                <FormLabel
-                  className={classes.legend}
-                  //   error={categoryError}
-                  component='legend'
-                  dir='rtl'
-                >
-                  {t("certificates")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <TextareaAutosize
-                    // placeholder={t("certificates")}
-                    name='certificates'
-                    aria-label='minimum height'
-                    minRows={3}
-                    style={{ width: "100%" }}
-                    inputStyle={{ width: "100%" }}
-                  />
-                </Grid>
-                <FormLabel
-                  className={classes.legend}
-                  //   error={categoryError}
-                  component='legend'
-                  dir='rtl'
-                >
-                  {t("reason")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <TextareaAutosize
-                    name='reason'
-                    placeholder={t("reasoninfo")}
-                    aria-label='minimum height'
-                    minRows={3}
-                    style={{ width: "100%" }}
-                    inputStyle={{ width: "100%" }}
+                    {t("reason")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <TextareaAutosize
+                      name='reason'
+                      placeholder={t("reasoninfo")}
+                      aria-label='minimum height'
+                      minRows={3}
+                      style={{ width: "100%" }}
+                      inputStyle={{ width: "100%" }}
+                      dir='rtl'
+                    />
+                  </Grid>
+                  <FormLabel
                     dir='rtl'
-                  />
-                </Grid>
-                <FormLabel
-                  className={classes.legend}
-                  //   error={categoryError}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("experience")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <TextareaAutosize
+                      name='experience'
+                      placeholder={t("experienceinfo")}
+                      aria-label='minimum height'
+                      minRows={3}
+                      style={{ width: "100%" }}
+                      inputStyle={{ width: "100%" }}
+                      dir='rtl'
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      dir='rtl'
+                      color='textSecondary'
+                      component='h1'
+                      variant='h5'
+                    >
+                      {t("info3")}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='recommandName'
+                      variant='outlined'
+                      id='title'
+                      label={t("recommandName")}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='recommandPhone'
+                      variant='outlined'
+                      id='title'
+                      label={t("recommandPhone")}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      // autoComplete='departureFlightNum'
+                      name='recommandEmail'
+                      variant='outlined'
+                      label={t("recommandEmail")}
+                      fullWidth
+                    />
+                  </Grid>
 
-                  component='legend'
-                >
-                  {t("experience")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <TextareaAutosize
-                    name='experience'
-                    placeholder={t("experienceinfo")}
-                    aria-label='minimum height'
-                    minRows={3}
-                    style={{ width: "100%" }}
-                    inputStyle={{ width: "100%" }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography
+                  <Grid dir='rtl' item xs={12}>
+                    <Typography
+                      dir='rtl'
+                      color='textSecondary'
+                      // align='center'
+                      component='h1'
+                      variant='h5'
+                    >
+                      {t("attr")}
+                    </Typography>
+                  </Grid>
+                  <FormLabel
                     dir='rtl'
-                    color='textSecondary'
-                    // align='center'
-                    component='h1'
-                    variant='h5'
+                    className={classes.legend}
+                    component='legend'
                   >
-                    {t("info3")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='currentField'
-                    variant='outlined'
-                    id='title'
-                    label={t("currentField")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    name='currentWork'
-                    variant='outlined'
-                    id='title'
-                    label={t("currentWork")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    // autoComplete='departureFlightNum'
-                    name='employer'
-                    variant='outlined'
-                    label={t("employer")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    // autoComplete='departureFlightNum'
-                    name='workAddress'
-                    variant='outlined'
-                    label={t("workAddress")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    // autoComplete='departureFlightNum'
-                    name='employerPhone'
-                    variant='outlined'
-                    label={t("employerPhone")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    // autoComplete='departureFlightNum'
-                    name='employerWebsite'
-                    variant='outlined'
-                    label={t("employerWebsite")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    // autoComplete='departureFlightNum'
-                    name='employerEmail'
-                    variant='outlined'
-                    label={t("employerEmail")}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography
+                    {t("attr5")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setrecommand(base64);
+                      }}
+                    />
+                    {recommandError && (
+                      <FormHelperText error>{t("attrError")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
                     dir='rtl'
-                    color='textSecondary'
-                    // align='center'
-                    component='h1'
-                    variant='h5'
+                    className={classes.legend}
+                    component='legend'
                   >
-                    {t("attr")}
-                  </Typography>
-                </Grid>
-                <FormLabel
-                  dir='rtl'
-                  className={classes.legend}
-                  component='legend'
-                >
-                  {t("attr1")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <FileBase64
-                    multiple={false}
-                    onDone={(base64) => {
-                      setcetif(base64);
-                    }}
-                  />
-                  {certifError && (
-                    <FormHelperText error>{t("attrError")}</FormHelperText>
-                  )}
-                </Grid>
-                <FormLabel
-                  dir='rtl'
-                  className={classes.legend}
-                  component='legend'
-                >
-                  {t("attr2")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <FileBase64
-                    multiple={false}
-                    onDone={(base64) => {
-                      setidetite(base64);
-                    }}
-                  />
-                  {idetiteError && (
-                    <FormHelperText error>{t("attrError")}</FormHelperText>
-                  )}
-                </Grid>
-                <FormLabel
-                  dir='rtl'
-                  className={classes.legend}
-                  component='legend'
-                >
-                  {t("attr3")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <FileBase64
-                    multiple={false}
-                    onDone={(base64) => {
-                      setcv(base64);
-                    }}
-                  />
-                  {cvError && (
-                    <FormHelperText error>{t("attrError")}</FormHelperText>
-                  )}
-                </Grid>
-                <FormLabel
-                  dir='rtl'
-                  className={classes.legend}
-                  component='legend'
-                >
-                  {t("attr4")}
-                </FormLabel>
-                <Grid item xs={12}>
-                  <FileBase64
-                    multiple={false}
-                    onDone={(base64) => {
-                      setexp(base64);
-                    }}
-                  />
-                  {expError && (
-                    <FormHelperText error>{t("attrError")}</FormHelperText>
-                  )}
-                </Grid>
-                <Grid xs={12} className={classes.checks4} container>
-                  <FormControlLabel
-                    control={<TealCheckbox id='ok' />}
-                    label={
-                      <FormHelperText required error={checkError}>
-                        أقر بأن جميع المعلومات التي ذكرتها في الاستمارة صحيحة
-                        ودقيقة. يتحمل المترشح كامل المسؤولية القانونية عن صحة
-                        الوثائق المرفقة و دقتها
-                      </FormHelperText>
-                    }
-                  />
-                </Grid>
+                    {t("attr1")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setcetif(base64);
+                      }}
+                    />
+                    {certifError && (
+                      <FormHelperText error>{t("attrError")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    dir='rtl'
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("attr2")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setidetite(base64);
+                      }}
+                    />
+                    {idetiteError && (
+                      <FormHelperText error>{t("attrError")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    dir='rtl'
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("attr3")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setcv(base64);
+                      }}
+                    />
+                    {cvError && (
+                      <FormHelperText error>{t("attrError")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    dir='rtl'
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("attr4")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setexp(base64);
+                      }}
+                    />
+                    {expError && (
+                      <FormHelperText error>{t("attrError")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <Grid xs={12} className={classes.checks4} container>
+                    <FormControlLabel
+                      control={<TealCheckbox id='ok' />}
+                      label={
+                        <FormHelperText required error={checkError}>
+                          أقر بأن جميع المعلومات التي ذكرتها في الاستمارة صحيحة
+                          ودقيقة. أتحمل كامل المسؤولية القانونية عن صحة الوثائق
+                          المرفقة و دقتها
+                        </FormHelperText>
+                      }
+                    />
+                  </Grid>
 
-                <Grid item xs={12}>
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    className={classes.submit}
-                    component='button'
-                    disabled={loading}
-                  >
-                    {loading && <CircularProgress size={20} />}
-                    {!loading && t("button")}
-                  </Button>
+                  <Grid item xs={12}>
+                    <Button
+                      type='submit'
+                      variant='contained'
+                      color='primary'
+                      className={classes.submit}
+                      component='button'
+                      disabled={loading}
+                    >
+                      {loading && <CircularProgress size={20} />}
+                      {!loading && t("button")}
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Snackbar
-          open={feedback.open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <MuiAlert
-            elevation={6}
-            variant='filled'
+            </form>
+          </div>
+          <Snackbar
+            open={feedback.open}
+            autoHideDuration={6000}
             onClose={handleClose}
-            severity={feedback.status}
           >
-            {feedback.message}
-          </MuiAlert>
-        </Snackbar>
-      </Container>
-      <Modal open={modal} setModal={setModal} />
-    </MuiThemeProvider>
+            <MuiAlert
+              elevation={6}
+              variant='filled'
+              onClose={handleClose}
+              severity={feedback.status}
+            >
+              {feedback.message}
+            </MuiAlert>
+          </Snackbar>
+        </Container>
+        <Modal open={modal} setModal={setModal} />
+        {/* </ThemeProvider> */}
+      </MuiThemeProvider>
+    </StylesProvider>
   );
 };
 
