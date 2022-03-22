@@ -15,13 +15,10 @@ export const nominationList = (props) => (
         <TextField source="certificates" label="Certificate"/>
         <TextField source="reason" label="Objective"/>
         <TextField source="experience" label="Experience"/>
-        <TextField source="currentField" label="Current Field"/>
-        <TextField source="currentWork" label="Current Job"/>
-        <TextField source="employer" label="Employer"/>
-        <TextField source="workAddress" label="Pro Adress"/>
-        <TextField source="employerPhone" label="Employer phone"/>
-        <TextField source="employerEmail" label="Employer mail"/>
-        <TextField source="employerWebsite" label="Employer site"/>
+        <TextField source="recommandName" label="recommander Name"/>
+        <TextField source="recommandPhone" label="recommander Phone"/>
+        <TextField source="recommandEmail" label="recommander Email"/>
+       
     </Datagrid>
 </List>
 );
