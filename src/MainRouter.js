@@ -3,13 +3,13 @@ import { Switch, Route } from "react-router-dom";
 import Admin from "./Admin/Admin";
 // import Home from "../src/HomeComponent/Home";
 import Mainmenu from "../src/MainMenuCompenent/MainMenu";
-
 import LeaveRequest from "./leaveRequest";
 import ITRequirementsForm from "./ITRequirementsForm";
 import internalNoteForm from "./InternalNoteForm";
 import dgAppointments from "./dgAppointments";
 import travelinfo from "./travelinfo";
 import Participation from "./participation";
+import Nomination from "./Nomination";
 
 const MainRouter = () => {
   return (
@@ -23,6 +23,7 @@ const MainRouter = () => {
       <Route exact path='/dgrdv' component={dgAppointments}></Route>
       <Route exact path='/travelinfo' component={travelinfo}></Route>
       <Route exact path='/participation' component={Participation}></Route>
+      <Route exact path='/nomination' component={Nomination}></Route>
     </Switch>
   );
 };
