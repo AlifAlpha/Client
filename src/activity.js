@@ -1,4 +1,5 @@
-import React, { useState } from "react";import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -29,7 +30,7 @@ import { CardMedia } from "@material-ui/core";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
 // import { teal, grey, lightBlue } from "@material-ui/core/colors";
-import "./translate/tansConfg";
+import "./translate/activityConfig";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 // import FormHelperText from "@material-ui/core/FormHelperText";
