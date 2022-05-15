@@ -1,5 +1,4 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from "i18next";import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -31,8 +30,8 @@ i18n
             "Required action from the Commission",
           virtualParticipationOfTheCommission:
             "Virtual participation of the Commission",
-          uggestionOfParticipants:
-            "uggestion of  participants (face to face or virutally)",
+          suggestionOfParticipants:
+            "Suggestion of participants (face to face or virutally)",
           disseminationAmongConcernedParties:
             "Dissemination among concerned parties",
           contactParty: "Contact Party",
@@ -66,7 +65,7 @@ i18n
             "Required action from the Commission",
           virtualParticipationOfTheCommission:
             "Virtual participation of the Commission",
-          uggestionOfParticipants:
+          suggestionOfParticipants:
             "uggestion of  participants (face to face or virutally)",
           disseminationAmongConcernedParties:
             "Dissemination among concerned parties",
@@ -102,7 +101,7 @@ i18n
             "Required action from the Commission",
           virtualParticipationOfTheCommission:
             "Virtual participation of the Commission",
-          uggestionOfParticipants:
+          suggestionOfParticipants:
             "uggestion of  participants (face to face or virutally)",
           disseminationAmongConcernedParties:
             "Dissemination among concerned parties",
@@ -113,7 +112,7 @@ i18n
           workingPaper: "Working paper",
           agenda: "Agenda",
           programme: "Programme",
-          ZoomLink: "zoomLink",
+          ZoomLink: "ZoomLink",
         },
       },
     },

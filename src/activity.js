@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import {
-  // Checkbox,
+  Checkbox,
   CircularProgress,
-  // FormControlLabel,
-  // FormLabel,
-  //   Radio,
-  //   RadioGroup,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
   Snackbar,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -29,7 +30,7 @@ import { CardMedia } from "@material-ui/core";
 // import { Pattern } from "./pattern";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
-// import { teal, grey, lightBlue } from "@material-ui/core/colors";
+import { teal, grey } from "@material-ui/core/colors";
 import "./translate/activityConfig";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -38,6 +39,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import FileBase64 from "react-file-base64";
+
 const languages = [
   {
     code: "fr",
@@ -91,16 +94,15 @@ const background = createTheme({
 //     },
 //   },
 //   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
-// const TealCheckbox = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
+const TealCheckbox = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color='default' {...props} />);
 // const CustomRadio = withStyles({
 //   root: {
 //     color: grey[400],
@@ -110,15 +112,15 @@ const background = createTheme({
 //   },
 //   checked: {},
 // })((props) => <Radio color='default' {...props} />);
-// const TealRadio = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Radio color='default' {...props} />);
+const TealRadio = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color='default' {...props} />);
 // const BlueRadio = withStyles({
 //   root: {
 //     color: lightBlue[400],
@@ -187,8 +189,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1em",
   },
   checks: {
+    display: "flex",
+    justifyContent: "space-evenly",
+  },
+  checks2: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr ",
+  },
+  att: {
+    color: grey[600],
+  },
+  checks3: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
   },
   right: {
     background: "#fff",
@@ -234,17 +247,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Activity = () => {
   const classes = useStyles();
+  const [value, setValue] = React.useState("internal");
   const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
 
+  const handleTranslationChange = (event) => {
+    setValue(event.target.value);
+    console.log(value);
+  };
   const [modal, setModal] = useState(false);
   // const [value, setValue] = React.useState("Virtual");
   // const [app, setApp] = React.useState("Virtual");
   const [value1, setValue1] = React.useState("");
-  const [value2, setValue2] = React.useState("");
+  const [paperAttendance, setpaperAttendance] = React.useState();
+  const [agendaAttendance, setagendaAttendance] = React.useState();
+  const [prottendance, setproAttendance] = React.useState();
   // const [value3, setValue3] = React.useState("");
   // const handleChange = (event) => {
   //   // console.log(event.target.value);
@@ -404,86 +424,17 @@ const Activity = () => {
                     color='textSecondary'
                     align='center'
                     component='h1'
-                    variant='h4'
+                    variant='h6'
                   >
                     {t("title")}
                   </Typography>
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <RadioGroup
-                    aria-label='meeting'
-                    name='meeting'
-                    value={value}
-                    className={classes.checks}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value='Virtual'
-                      control={<CustomRadio name='meeting' />}
-                      label='Virtual'
-                    />
-                    <FormControlLabel
-                      value='In-Person'
-                      control={<CustomRadio name='meeting' />}
-                      label='In Person'
-                    />
-                  </RadioGroup>
-                </Grid> */}
-                {/* <Grid item xs={12}>
-                  {value === "In-Person" ? (
-                    <RadioGroup
-                      value={app}
-                      className={classes.checks}
-                      onChange={handleChangeApp}
-                    >
-                      <FormControlLabel
-                        value='Personal-Meeting'
-                        control={<TealRadio name='apptype' />}
-                        label='Meeting'
-                      />
-                      <FormControlLabel
-                        value='Personal-Visit'
-                        control={<TealRadio name='apptype' />}
-                        label='Visit'
-                      />
-                      <FormControlLabel
-                        value='Personal-Signing-Mou'
-                        control={<TealRadio name='apptype' />}
-                        label='Signing Mou'
-                      />
-                    </RadioGroup>
-                  ) : (
-                    <RadioGroup
-                      value={app}
-                      className={classes.checks}
-                      onChange={handleChangeApp}
-                    >
-                      <FormControlLabel
-                        value='Virtual-Visit'
-                        control={<BlueRadio name='apptype' />}
-                        label='Visit'
-                      />
-                      <FormControlLabel
-                        value='Virtual-Signing-Mou'
-                        control={<BlueRadio name='apptype' />}
-                        label='Signing Mou'
-                      />
-                    </RadioGroup>
-                  )}
-                </Grid>
-                {apptype && (
-                  <FormHelperText error>
-                    At least one must be checked.
-                  </FormHelperText>
-                )} */}
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='country'
-                    name='country'
+                    name='name'
                     variant='outlined'
                     required
-                    id='name'
-                    label={t("country")}
+                    label={t("activityName")}
                     autoFocus
                     fullWidth
                     error={countryError}
@@ -491,22 +442,9 @@ const Activity = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='name'
-                    name='name'
-                    variant='outlined'
-                    required
-                    id='name'
-                    label={t("Name")}
-                    fullWidth
-                    error={nameError}
-                    helperText={nameError && "Invalid name"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      label={t("arDate")}
+                      label={t("Date")}
                       // inputFormat='MM/dd/yyyy'
                       value={value1}
                       onChange={(newValue) => {
@@ -516,7 +454,7 @@ const Activity = () => {
                         <CustomField
                           {...params}
                           fullWidth
-                          name='arrivalDate'
+                          name='date'
                           variant='outlined'
                           required
                           error={arrDateError}
@@ -526,76 +464,253 @@ const Activity = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
-
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='title'
-                    name='arrivalFlightNum'
+                    name='lieu'
                     variant='outlined'
                     required
                     id='title'
-                    label={t("arFlight")}
+                    label={t("venue")}
                     fullWidth
                     error={flightnumError}
                     helperText={flightnumError && "Invalid Flight number"}
                   />
                 </Grid>
-
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='FlightComing'
-                    name='FlightComing'
-                    variant='outlined'
-                    required
-                    id='FlightComing'
-                    label={t("lfightComing")}
-                    fullWidth
-                    error={flightComingError}
-                    helperText={flightComingError && "This field is required"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      label={t("depDat")}
-                      // inputFormat='MM/dd/yyyy'
-                      value={value2}
-                      onChange={(newValue) => {
-                        setValue2(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='departureDate'
-                          variant='outlined'
-                          required
-                          error={departDateError}
-                          helperText={departDateError && "Invalid date"}
-                        />
-                      )}
+                <FormLabel
+                  //   error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
+                  {t("Format")}
+                </FormLabel>
+                <Grid xs={12} container>
+                  <FormGroup name='format' className={classes.checks2}>
+                    <FormControlLabel
+                      control={<TealCheckbox name='format' />}
+                      label={t("facetoface")}
+                      value={t("facetoface")}
                     />
-                  </LocalizationProvider>
+
+                    <FormControlLabel
+                      control={<TealCheckbox name='format' />}
+                      label={t("virtual")}
+                      value={t("virtual")}
+                    />
+                  </FormGroup>
+                  {/* {eventPartnersError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )} */}
                 </Grid>
+
                 <Grid item xs={12}>
                   <CustomField
-                    autoComplete='departureFlightNum'
-                    name='departureFlightNum'
+                    name='organisation'
                     variant='outlined'
                     required
                     id='title'
-                    label={t("depFlight")}
+                    label={t("organizingParties")}
                     fullWidth
-                    error={deparFlighttDateError}
-                    helperText={
-                      deparFlighttDateError && "Flight number is required"
-                    }
+                    error={flightnumError}
+                    helperText={flightnumError && "Invalid Flight number"}
+                  />
+                </Grid>
+                <FormLabel
+                  //   error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
+                  {t("workinglanguages")}
+                </FormLabel>
+                <Grid xs={12} container>
+                  <FormGroup name='language' className={classes.checks3}>
+                    <FormControlLabel
+                      control={<TealCheckbox name='language' />}
+                      label={t("arabic")}
+                      value={t("arabic")}
+                    />
+
+                    <FormControlLabel
+                      control={<TealCheckbox name='language' />}
+                      label={t("French")}
+                      value={t("French")}
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='language' />}
+                      label={t("English")}
+                      value={t("English")}
+                    />
+                  </FormGroup>
+                  {/* {eventPartnersError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )} */}
+                </Grid>
+                <FormLabel
+                  //   error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
+                  {t("simultaneousInterpretation")}
+                </FormLabel>
+                <Grid item xs={12}>
+                  <RadioGroup
+                    aria-label='translation'
+                    name='translation'
+                    value={value}
+                    className={classes.checks2}
+                    onChange={handleTranslationChange}
+                  >
+                    <FormControlLabel
+                      value={t("yes")}
+                      control={<TealRadio name='translation' />}
+                      label={t("yes")}
+                    />
+                    <FormControlLabel
+                      value={t("no")}
+                      control={<TealRadio name='translation' />}
+                      label={t("no")}
+                    />
+                  </RadioGroup>
+                </Grid>
+                <FormLabel
+                  //   error={initiative}
+                  className={classes.legend}
+                  component='legend'
+                >
+                  {t("tequiredActionFromTheCommission")}
+                </FormLabel>
+                <Grid xs={12} container>
+                  <FormGroup name='actionRequired'>
+                    <FormControlLabel
+                      control={<TealCheckbox name='actionRequired' />}
+                      label={t("virtualParticipationOfTheCommission")}
+                      value={t("virtualParticipationOfTheCommission")}
+                    />
+
+                    <FormControlLabel
+                      control={<TealCheckbox name='actionRequired' />}
+                      label={t("suggestionOfParticipants")}
+                      value={t("suggestionOfParticipants")}
+                    />
+                    <FormControlLabel
+                      control={<TealCheckbox name='actionRequired' />}
+                      label={t("disseminationAmongConcernedParties")}
+                      value={t("disseminationAmongConcernedParties")}
+                    />
+                  </FormGroup>
+                  {/* {eventPartnersError && (
+                    <FormHelperText error>
+                      this information is required!
+                    </FormHelperText>
+                  )} */}
+                </Grid>
+
+                <Grid item xs={12}>
+                  <CustomField
+                    name='contact'
+                    variant='outlined'
+                    required
+                    id='contact'
+                    label={t("contactParty")}
+                    fullWidth
+                    // error={flightComingError}
+                    // helperText={flightComingError && "This field is required"}
                   />
                 </Grid>
 
-                {/* sselect section */}
-
+                <Grid item xs={12}>
+                  <CustomField
+                    name='email'
+                    variant='outlined'
+                    required
+                    label={t("email")}
+                    fullWidth
+                    // error={deparFlighttDateError}
+                    // helperText={
+                    //   deparFlighttDateError && "Flight number is required"
+                    // }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <CustomField
+                    name='phone'
+                    variant='outlined'
+                    required
+                    label={t("mobile")}
+                    fullWidth
+                    // error={deparFlighttDateError}
+                    // helperText={
+                    //   deparFlighttDateError && "Flight number is required"
+                    // }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    className={classes.att}
+                    component='h1'
+                    variant='h5'
+                  >
+                    {t("attachments")}
+                  </Typography>
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  {t("workingPaper")}
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setpaperAttendance(base64);
+                    }}
+                  />
+                  {/* {fileThreeError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )} */}
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  {t("agenda")}
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setagendaAttendance(base64);
+                    }}
+                  />
+                  {/* {fileThreeError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )} */}
+                </Grid>
+                <FormLabel className={classes.legend} component='legend'>
+                  {t("programme")}
+                </FormLabel>
+                <Grid item xs={12}>
+                  <FileBase64
+                    multiple={false}
+                    onDone={(base64) => {
+                      setproAttendance(base64);
+                    }}
+                  />
+                  {/* {fileThreeError && (
+                    <FormHelperText error>The file is required!</FormHelperText>
+                  )} */}
+                </Grid>
+                <Grid item xs={12}>
+                  <CustomField
+                    name='phone'
+                    variant='outlined'
+                    required
+                    label={t("ZoomLink")}
+                    fullWidth
+                    // error={deparFlighttDateError}
+                    // helperText={
+                    //   deparFlighttDateError && "Flight number is required"
+                    // }
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <Button
                     type='submit'
