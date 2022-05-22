@@ -1,4 +1,5 @@
-import React, { useState } from "react";import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -397,7 +398,7 @@ const Activity = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/activities", {
+      fetch("https://icescoapi.herokuapp.com/activities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
