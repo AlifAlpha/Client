@@ -43,7 +43,9 @@ i18n
           agenda: "Agenda",
           programme: "Program",
           ZoomLink: "Zoom link",
+          meetingpassword: "Zoom passcode",
           error: "required information",
+          button: "Submit",
         },
       },
       ar: {
@@ -75,7 +77,9 @@ i18n
           agenda: "جدول الأعمال",
           programme: "البرنامج الزمني",
           ZoomLink: "رابط زووم",
-          error: "information required",
+          meetingpassword: "رمز المرور زوم",
+          error: "معلومة  إلزامية",
+          button: "إرسال",
         },
       },
       fr: {
@@ -111,8 +115,9 @@ i18n
           agenda: "Agenda",
           programme: "Programme",
           ZoomLink: "Lien Zoom",
-
+          meetingpassword: "Zoom passcode",
           error: "information required",
+          button: "Envoyer",
         },
       },
     },
