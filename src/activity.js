@@ -461,7 +461,13 @@ const Activity = () => {
               <Grid container className={classes.container}>
                 <Hidden only={["xs"]}>
                   <Grid className={classes.left} container sm={6}>
-                    <Grid item xs={12} sm={12}></Grid>
+                    <Grid item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo}
+                      />
+                    </Grid>
                     <Grid item xs={12}>
                       <CardMedia
                         component='img'
