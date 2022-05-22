@@ -193,6 +193,7 @@ const useStyles = makeStyles((theme) => ({
   gridcolumn: {},
   legend: {
     marginTop: "1em",
+    display: "block",
   },
   checks: {
     display: "flex",
@@ -597,9 +598,12 @@ const Activity = () => {
                       />
                     </FormGroup>
                     {languageError && (
-                      <FormHelperText error>{t("error")}</FormHelperText>
+                      <FormHelperText className={classes.legend} error>
+                        {t("error")}
+                      </FormHelperText>
                     )}
                   </Grid>
+
                   <FormLabel
                     error={translationError}
                     className={classes.legend}
