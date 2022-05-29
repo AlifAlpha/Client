@@ -5,12 +5,14 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import {
-  // Checkbox,
+  Checkbox,
   CircularProgress,
-  // FormControlLabel,
-  // FormLabel,
-  //   Radio,
-  //   RadioGroup,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
   Snackbar,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -18,18 +20,22 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import {
+  MuiThemeProvider,
+  createTheme,
+  jssPreset,
+  StylesProvider,
+} from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageleaveform.png";
 import { withStyles } from "@material-ui/core/styles";
-import { CardMedia } from "@material-ui/core";
-// import Select from "@material-ui/core/Select";
+import { CardMedia } from "@material-ui/core"; // import Select from "@material-ui/core/Select";
 // import InputLabel from "@material-ui/core/InputLabel";
 // import { Pattern } from "./pattern";
 import Modal from "./Modal";
 import { DateTimePicker } from "@mui/lab";
-// import { teal, grey, lightBlue } from "@material-ui/core/colors";
+import { teal, grey } from "@material-ui/core/colors";
 import "./translate/activityConfig";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -38,6 +44,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import FileBase64 from "react-file-base64";
+import rtl from "jss-rtl";
+import { create } from "jss";
+
 const languages = [
   {
     code: "fr",
@@ -91,16 +101,15 @@ const background = createTheme({
 //     },
 //   },
 //   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
-// const TealCheckbox = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Checkbox color='default' {...props} />);
+const TealCheckbox = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color='default' {...props} />);
 // const CustomRadio = withStyles({
 //   root: {
 //     color: grey[400],
@@ -110,15 +119,15 @@ const background = createTheme({
 //   },
 //   checked: {},
 // })((props) => <Radio color='default' {...props} />);
-// const TealRadio = withStyles({
-//   root: {
-//     color: teal[400],
-//     "&$checked": {
-//       color: teal[600],
-//     },
-//   },
-//   checked: {},
-// })((props) => <Radio color='default' {...props} />);
+const TealRadio = withStyles({
+  root: {
+    color: teal[400],
+    "&$checked": {
+      color: teal[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color='default' {...props} />);
 // const BlueRadio = withStyles({
 //   root: {
 //     color: lightBlue[400],
@@ -185,10 +194,22 @@ const useStyles = makeStyles((theme) => ({
   gridcolumn: {},
   legend: {
     marginTop: "1em",
+    display: "block",
   },
   checks: {
+    display: "flex",
+    justifyContent: "space-evenly",
+  },
+  checks2: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr ",
+  },
+  att: {
+    color: grey["600"],
+  },
+  checks3: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
   },
   right: {
     background: "#fff",
@@ -231,42 +252,45 @@ const useStyles = makeStyles((theme) => ({
     marginBotton: "20px",
   },
 }));
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const Activity = () => {
   const classes = useStyles();
+  const [value, setValue] = React.useState("internal");
   const [age, setAge] = React.useState("");
-
+  const [rlt, setrlt] = useState(true);
   const handleChange = (event) => {
     setAge(event.target.value);
   };
 
+  const handleTranslationChange = (event) => {
+    setValue(event.target.value);
+    console.log(value);
+  };
   const [modal, setModal] = useState(false);
   // const [value, setValue] = React.useState("Virtual");
   // const [app, setApp] = React.useState("Virtual");
   const [value1, setValue1] = React.useState("");
-  const [value2, setValue2] = React.useState("");
-  // const [value3, setValue3] = React.useState("");
-  // const handleChange = (event) => {
-  //   // console.log(event.target.value);
-  //   setValue(event.target.value);
-  // };
-  // const handleChangeApp = (event) => {
-  //   // console.log(event.target.value);
-  //   setApp(event.target.value);
-  // };
+  const [paperAttendance, setpaperAttendance] = React.useState();
+  const [agendaAttendance, setagendaAttendance] = React.useState();
+  const [prottendance, setproAttendance] = React.useState();
 
-  // const [departments, setDepartments] = useState([]);
-  // const [employees, setEmployees] = useState([]);
-  // const [itreq, setItreq] = useState([]);
-
-  // const [apptype, setAppTypeError] = useState(false);
-  const [countryError, setcountryError] = useState(false);
   const [nameError, setnameError] = useState(false);
-  const [arrDateError, setarrDateError] = useState(false);
-  const [flightnumError, setflightnumError] = useState(false);
-  const [flightComingError, setflightComingError] = useState(false);
-  const [departDateError, setdepartDateError] = useState(false);
-  const [deparFlighttDateError, setdeparFlighttDateError] = useState(false);
+  const [DateError, setDateError] = useState(false);
+  const [placeError, setplaceError] = useState(false);
+  const [organisationError, setorganisationError] = useState(false);
+  const [organizerError, setorganizerError] = useState(false);
+  const [languageError, setlanguageError] = useState(false);
+  const [translationError, settranslationError] = useState(false);
+  const [actionError, setactionError] = useState(false);
+  const [contactError, setcontactError] = useState(false);
+  const [phoneError, setphoneError] = useState(false);
+  const [emailError, setemailError] = useState(false);
+  const [att1Error, setatt1Error] = useState(false);
+  const [att2Error, setatt2Error] = useState(false);
+  const [att3Error, setatt3Error] = useState(false);
+  const [zoomLinkError, setzoomLinkError] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
 
@@ -274,59 +298,107 @@ const Activity = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     setnameError(false);
-    setcountryError(false);
-    setarrDateError(false);
-    setflightnumError(false);
-    setflightComingError(false);
-    setdepartDateError(false);
-    setdeparFlighttDateError(false);
+    setDateError(false);
+    setplaceError(false);
+    setactionError(false);
+    setorganisationError(false);
+    setorganizerError(false);
+    setlanguageError(false);
+    settranslationError(false);
+    setcontactError(false);
+    setemailError(false);
+    setphoneError(false);
+    setzoomLinkError(false);
+    setatt1Error(false);
+    setatt2Error(false);
+    setatt3Error(false);
 
     let x = 0;
-    if (!formData.get("country")) {
-      setcountryError(true);
-      x++;
-    }
     if (!formData.get("name")) {
       setnameError(true);
       x++;
     }
-    if (!formData.get("arrivalDate")) {
-      setarrDateError(true);
+    if (!formData.get("date")) {
+      setDateError(true);
       x++;
     }
-    if (!formData.get("arrivalFlightNum")) {
-      setflightnumError(true);
+    if (!formData.get("lieu")) {
+      setplaceError(true);
       x++;
     }
-    if (!formData.get("FlightComing")) {
-      setflightComingError(true);
+    if (!formData.getAll("format").join(",")) {
+      setorganisationError(true);
       x++;
     }
-    if (!formData.get("departureDate")) {
-      setdepartDateError(true);
+    if (!formData.get("organizer")) {
+      setorganizerError(true);
       x++;
     }
-    if (!formData.get("departureFlightNum")) {
-      setdeparFlighttDateError(true);
+    if (!formData.getAll("language").join(",")) {
+      setlanguageError(true);
       x++;
     }
-
+    if (!formData.get("translation")) {
+      settranslationError(true);
+      x++;
+    }
+    if (!formData.getAll("actionRequired").join(",")) {
+      setactionError(true);
+      x++;
+    }
+    if (!formData.get("contact")) {
+      setcontactError(true);
+      x++;
+    }
+    if (!formData.get("phone")) {
+      setphoneError(true);
+      x++;
+    }
+    if (!formData.get("email")) {
+      setemailError(true);
+      x++;
+    }
+    if (!paperAttendance) {
+      setatt1Error(true);
+      x++;
+    }
+    if (!agendaAttendance) {
+      setatt2Error(true);
+      x++;
+    }
+    if (!prottendance) {
+      setatt3Error(true);
+      x++;
+    }
+    if (!formData.get("zoomlink")) {
+      setzoomLinkError(true);
+      x++;
+    }
+    document.body.setAttribute("dir", rlt ? "rlt" : "");
     const obj = {
-      country: formData.get("country"),
-
       name: formData.get("name"),
-      arrivalDate: formData.get("arrivalDate"),
-      arrivalFlightNum: formData.get("arrivalFlightNum"),
-      FlightComing: formData.get("FlightComing"),
-      departureDate: formData.get("departureDate"),
-      departureFlightNum: formData.get("departureFlightNum"),
+      date: formData.get("date"),
+      lieu: formData.get("lieu"),
+      organisation: formData.getAll("format").join(","),
+      organizer: formData.get("organizer"),
+      language: formData.getAll("language").join(","),
+      translation: formData.get("translation"),
+      actionRequired: formData.getAll("actionRequired").join(","),
+      contact: formData.get("contact"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      zoomLink: formData.get("zoomlink"),
+      meetingpassword: formData.get("meetingpassword"),
+      workingPaper: paperAttendance,
+      agenda: agendaAttendance,
+      programme: prottendance,
     };
-
+    setrlt("rlt");
     console.log(x, obj);
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("https://icescoapi.herokuapp.com/travelinfo", {
+      fetch("https://icescoapi.herokuapp.com/activities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -353,283 +425,404 @@ const Activity = () => {
   };
   const { t } = useTranslation();
   return (
-    <MuiThemeProvider theme={background}>
-      <Container component='main' maxWidth='md'>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <FormControl variant='outlined' className={classes.lang}>
-            <InputLabel id='demo-simple-select-outlined-label'>
-              languages
-            </InputLabel>
-            <Select
-              labelId='demo-simple-select-outlined-label'
-              id='lang'
-              value={age}
-              onChange={handleChange}
-              label='languages'
-            >
-              <MenuItem value=''>
-                <em>languages</em>
-              </MenuItem>
-              {languages.map(({ code, name, country_code }) => (
-                <MenuItem
-                  onClick={() => {
-                    i18next.changeLanguage(code);
-                  }}
-                  key={country_code}
-                  value={code}
-                >
-                  {name}
+    <StylesProvider jss={jss}>
+      <MuiThemeProvider theme={background}>
+        <Container component='main' maxWidth='md'>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <FormControl variant='outlined' className={classes.lang}>
+              <InputLabel id='demo-simple-select-outlined-label'>
+                languages
+              </InputLabel>
+              <Select
+                labelId='demo-simple-select-outlined-label'
+                id='lang'
+                value={age}
+                onChange={handleChange}
+                label='languages'
+              >
+                <MenuItem value=''>
+                  <em>languages</em>
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <form className={classes.form} onSubmit={handleSubmit} noValidate>
-            <Grid container className={classes.container}>
-              <Hidden only={["xs"]}>
-                <Grid className={classes.left} container sm={6}>
-                  <Grid item xs={12} sm={12}></Grid>
+                {languages.map(({ code, name, country_code }) => (
+                  <MenuItem
+                    onClick={() => {
+                      i18next.changeLanguage(code);
+                    }}
+                    key={country_code}
+                    value={code}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <Grid container className={classes.container}>
+                <Hidden only={["xs"]}>
+                  <Grid className={classes.left} container sm={6}>
+                    <Grid item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo}
+                      />
+                    </Grid>
+                  </Grid>
+                </Hidden>
+                <Grid
+                  dir={rlt ? "rlt" : ""}
+                  className={classes.right}
+                  container
+                  sm={6}
+                >
+                  <Grid dir={rlt ? "rlt" : ""} item xs={12}>
+                    <Typography
+                      color='textSecondary'
+                      align='center'
+                      component='h1'
+                      variant='h6'
+                    >
+                      {t("title")}
+                    </Typography>
+                  </Grid>
                   <Grid item xs={12}>
-                    <CardMedia
-                      component='img'
-                      alt='Contemplative Reptile'
-                      image={logo}
+                    <CustomField
+                      name='name'
+                      variant='outlined'
+                      required
+                      label={t("activityName")}
+                      autoFocus
+                      fullWidth
+                      error={nameError}
+                      helperText={nameError && t("error")}
                     />
                   </Grid>
-                </Grid>
-              </Hidden>
-              <Grid className={classes.right} container sm={6}>
-                <Grid item xs={12}>
-                  <Typography
-                    color='textSecondary'
-                    align='center'
-                    component='h1'
-                    variant='h4'
-                  >
-                    {t("title")}
-                  </Typography>
-                </Grid>
-                {/* <Grid item xs={12}>
-                  <RadioGroup
-                    aria-label='meeting'
-                    name='meeting'
-                    value={value}
-                    className={classes.checks}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value='Virtual'
-                      control={<CustomRadio name='meeting' />}
-                      label='Virtual'
+                  <Grid item xs={12}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DateTimePicker
+                        label={t("date")}
+                        // inputFormat='MM/dd/yyyy'
+                        value={value1}
+                        onChange={(newValue) => {
+                          setValue1(newValue);
+                        }}
+                        renderInput={(params) => (
+                          <CustomField
+                            dir={rlt ? "rlt" : ""}
+                            {...params}
+                            fullWidth
+                            name='date'
+                            variant='outlined'
+                            required
+                            error={DateError}
+                            helperText={DateError && t("error")}
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='lieu'
+                      variant='outlined'
+                      required
+                      id='title'
+                      label={t("venue")}
+                      fullWidth
+                      error={placeError}
+                      helperText={placeError && t("error")}
                     />
-                    <FormControlLabel
-                      value='In-Person'
-                      control={<CustomRadio name='meeting' />}
-                      label='In Person'
-                    />
-                  </RadioGroup>
-                </Grid> */}
-                {/* <Grid item xs={12}>
-                  {value === "In-Person" ? (
-                    <RadioGroup
-                      value={app}
-                      className={classes.checks}
-                      onChange={handleChangeApp}
-                    >
+                  </Grid>
+                  <FormLabel
+                    error={organisationError}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("format")}
+                  </FormLabel>
+                  <Grid xs={12} container>
+                    <FormGroup name='format' className={classes.checks2}>
                       <FormControlLabel
-                        value='Personal-Meeting'
-                        control={<TealRadio name='apptype' />}
-                        label='Meeting'
+                        control={<TealCheckbox name='format' />}
+                        label={t("facetoface")}
+                        value={t("facetoface")}
                       />
+
                       <FormControlLabel
-                        value='Personal-Visit'
-                        control={<TealRadio name='apptype' />}
-                        label='Visit'
+                        control={<TealCheckbox name='format' />}
+                        label={t("virtual")}
+                        value={t("virtual")}
                       />
-                      <FormControlLabel
-                        value='Personal-Signing-Mou'
-                        control={<TealRadio name='apptype' />}
-                        label='Signing Mou'
-                      />
-                    </RadioGroup>
-                  ) : (
-                    <RadioGroup
-                      value={app}
-                      className={classes.checks}
-                      onChange={handleChangeApp}
-                    >
-                      <FormControlLabel
-                        value='Virtual-Visit'
-                        control={<BlueRadio name='apptype' />}
-                        label='Visit'
-                      />
-                      <FormControlLabel
-                        value='Virtual-Signing-Mou'
-                        control={<BlueRadio name='apptype' />}
-                        label='Signing Mou'
-                      />
-                    </RadioGroup>
+                    </FormGroup>
+                  </Grid>
+                  {organisationError && (
+                    <FormHelperText error>{t("error")}</FormHelperText>
                   )}
-                </Grid>
-                {apptype && (
-                  <FormHelperText error>
-                    At least one must be checked.
-                  </FormHelperText>
-                )} */}
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='country'
-                    name='country'
-                    variant='outlined'
-                    required
-                    id='name'
-                    label={t("country")}
-                    autoFocus
-                    fullWidth
-                    error={countryError}
-                    helperText={countryError && "Invalid country"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='name'
-                    name='name'
-                    variant='outlined'
-                    required
-                    id='name'
-                    label={t("Name")}
-                    fullWidth
-                    error={nameError}
-                    helperText={nameError && "Invalid name"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      label={t("arDate")}
-                      // inputFormat='MM/dd/yyyy'
-                      value={value1}
-                      onChange={(newValue) => {
-                        setValue1(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='arrivalDate'
-                          variant='outlined'
-                          required
-                          error={arrDateError}
-                          helperText={arrDateError && "Invalid date"}
-                        />
-                      )}
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='organizer'
+                      variant='outlined'
+                      required
+                      id='title'
+                      label={t("organizingParties")}
+                      fullWidth
+                      error={organizerError}
+                      helperText={organizerError && t("error")}
                     />
-                  </LocalizationProvider>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='title'
-                    name='arrivalFlightNum'
-                    variant='outlined'
-                    required
-                    id='title'
-                    label={t("arFlight")}
-                    fullWidth
-                    error={flightnumError}
-                    helperText={flightnumError && "Invalid Flight number"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='FlightComing'
-                    name='FlightComing'
-                    variant='outlined'
-                    required
-                    id='FlightComing'
-                    label={t("lfightComing")}
-                    fullWidth
-                    error={flightComingError}
-                    helperText={flightComingError && "This field is required"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      label={t("depDat")}
-                      // inputFormat='MM/dd/yyyy'
-                      value={value2}
-                      onChange={(newValue) => {
-                        setValue2(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <CustomField
-                          {...params}
-                          fullWidth
-                          name='departureDate'
-                          variant='outlined'
-                          required
-                          error={departDateError}
-                          helperText={departDateError && "Invalid date"}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomField
-                    autoComplete='departureFlightNum'
-                    name='departureFlightNum'
-                    variant='outlined'
-                    required
-                    id='title'
-                    label={t("depFlight")}
-                    fullWidth
-                    error={deparFlighttDateError}
-                    helperText={
-                      deparFlighttDateError && "Flight number is required"
-                    }
-                  />
-                </Grid>
-
-                {/* sselect section */}
-
-                <Grid item xs={12}>
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    className={classes.submit}
-                    component='button'
-                    disabled={loading}
+                  </Grid>
+                  <FormLabel
+                    error={languageError}
+                    className={classes.legend}
+                    component='legend'
                   >
-                    {loading && <CircularProgress size={20} />}
-                    {!loading && t("button")}
-                  </Button>
+                    {t("workinglanguages")}
+                  </FormLabel>
+                  <Grid xs={12} container>
+                    <FormGroup name='language' className={classes.checks3}>
+                      <FormControlLabel
+                        control={<TealCheckbox name='language' />}
+                        label={t("arabic")}
+                        value={t("arabic")}
+                      />
+
+                      <FormControlLabel
+                        control={<TealCheckbox name='language' />}
+                        label={t("french")}
+                        value={t("french")}
+                      />
+                      <FormControlLabel
+                        control={<TealCheckbox name='language' />}
+                        label={t("english")}
+                        value={t("english")}
+                      />
+                    </FormGroup>
+                    {languageError && (
+                      <FormHelperText className={classes.legend} error>
+                        {t("error")}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <FormLabel
+                    error={translationError}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("simultaneousInterpretation")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <RadioGroup
+                      aria-label='translation'
+                      name='translation'
+                      value={value}
+                      className={classes.checks2}
+                      onChange={handleTranslationChange}
+                    >
+                      <FormControlLabel
+                        value={t("yes")}
+                        control={<TealRadio name='translation' />}
+                        label={t("yes")}
+                      />
+                      <FormControlLabel
+                        value={t("no")}
+                        control={<TealRadio name='translation' />}
+                        label={t("no")}
+                      />
+                    </RadioGroup>
+                    {translationError && (
+                      <FormHelperText error>{t("error")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    error={actionError}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("tequiredActionFromTheCommission")}
+                  </FormLabel>
+                  <Grid xs={12} container>
+                    <FormGroup name='actionRequired'>
+                      <FormControlLabel
+                        control={<TealCheckbox name='actionRequired' />}
+                        label={t("virtualParticipationOfTheCommission")}
+                        value={t("virtualParticipationOfTheCommission")}
+                      />
+
+                      <FormControlLabel
+                        control={<TealCheckbox name='actionRequired' />}
+                        label={t("suggestionOfParticipants")}
+                        value={t("suggestionOfParticipants")}
+                      />
+                      <FormControlLabel
+                        control={<TealCheckbox name='actionRequired' />}
+                        label={t("disseminationAmongConcernedParties")}
+                        value={t("disseminationAmongConcernedParties")}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  {actionError && (
+                    <FormHelperText error>{t("error")}</FormHelperText>
+                  )}
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='contact'
+                      variant='outlined'
+                      required
+                      id='contact'
+                      label={t("contactParty")}
+                      fullWidth
+                      error={contactError}
+                      helperText={contactError && t("error")}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='email'
+                      variant='outlined'
+                      required
+                      label={t("email")}
+                      fullWidth
+                      error={emailError}
+                      helperText={emailError && t("error")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='phone'
+                      variant='outlined'
+                      required
+                      label={t("mobile")}
+                      fullWidth
+                      error={phoneError}
+                      helperText={phoneError && t("error")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      className={classes.att}
+                      component='h1'
+                      variant='h5'
+                    >
+                      {t("attachments")}
+                    </Typography>
+                  </Grid>
+                  <FormLabel
+                    error={att1Error}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("workingPaper")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setpaperAttendance(base64);
+                      }}
+                    />
+                    {att1Error && (
+                      <FormHelperText error>{t("error")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    error={att2Error}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("agenda")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setagendaAttendance(base64);
+                      }}
+                    />
+                    {att2Error && (
+                      <FormHelperText error>{t("error")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <FormLabel
+                    error={att1Error}
+                    className={classes.legend}
+                    component='legend'
+                  >
+                    {t("programme")}
+                  </FormLabel>
+                  <Grid item xs={12}>
+                    <FileBase64
+                      multiple={false}
+                      onDone={(base64) => {
+                        setproAttendance(base64);
+                      }}
+                    />
+                    {att3Error && (
+                      <FormHelperText error>{t("error")}</FormHelperText>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='zoomlink'
+                      variant='outlined'
+                      required
+                      label={t("ZoomLink")}
+                      fullWidth
+                      error={zoomLinkError}
+                      helperText={zoomLinkError && t("error")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomField
+                      name='meetingpassword'
+                      variant='outlined'
+                      label={t("meetingpassword")}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      type='submit'
+                      variant='contained'
+                      color='primary'
+                      className={classes.submit}
+                      component='button'
+                      disabled={loading}
+                    >
+                      {loading && <CircularProgress size={20} />}
+                      {!loading && t("button")}
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Snackbar
-          open={feedback.open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <MuiAlert
-            elevation={6}
-            variant='filled'
+            </form>
+          </div>
+          <Snackbar
+            open={feedback.open}
+            autoHideDuration={6000}
             onClose={handleClose}
-            severity={feedback.status}
           >
-            {feedback.message}
-          </MuiAlert>
-        </Snackbar>
-      </Container>
-      <Modal open={modal} setModal={setModal} />
-    </MuiThemeProvider>
+            <MuiAlert
+              elevation={6}
+              variant='filled'
+              onClose={handleClose}
+              severity={feedback.status}
+            >
+              {feedback.message}
+            </MuiAlert>
+          </Snackbar>
+        </Container>
+        <Modal open={modal} setModal={setModal} />
+      </MuiThemeProvider>
+    </StylesProvider>
   );
 };
 

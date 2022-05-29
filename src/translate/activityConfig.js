@@ -31,8 +31,8 @@ i18n
             "Required action from the Commission",
           virtualParticipationOfTheCommission:
             "Virtual participation of the Commission",
-          uggestionOfParticipants:
-            "uggestion of  participants (face to face or virutally)",
+          suggestionOfParticipants:
+            "Suggestion of participants (face to face or virutally)",
           disseminationAmongConcernedParties:
             "Dissemination among concerned parties",
           contactParty: "Contact Party",
@@ -43,6 +43,9 @@ i18n
           agenda: "Agenda",
           programme: "Program",
           ZoomLink: "Zoom link",
+          meetingpassword: "Zoom passcode",
+          error: "required information",
+          button: "Submit",
         },
       },
       ar: {
@@ -62,14 +65,10 @@ i18n
           simultaneousInterpretation: "الترجمة الفورية",
           yes: "نعم",
           no: "لا",
-          tequiredActionFromTheCommission:
-            "المطلوب من اللجنة",
-          virtualParticipationOfTheCommission:
-            "مشاركة اللجنة  عن بعد",
-          uggestionOfParticipants:
-            "اقتراح مشاركين حضورياً أو عن بعد",
-          disseminationAmongConcernedParties:
-            "تعميمها على الجهات المختصة",
+          tequiredActionFromTheCommission: "المطلوب من اللجنة",
+          virtualParticipationOfTheCommission: "مشاركة اللجنة  عن بعد",
+          suggestionOfParticipants: "اقتراح مشاركين حضورياً أو عن بعد",
+          disseminationAmongConcernedParties: "تعميمها على الجهات المختصة",
           contactParty: "جهة التواصل",
           email: "البريد الإلكتروني",
           mobile: "الجوال",
@@ -78,6 +77,9 @@ i18n
           agenda: "جدول الأعمال",
           programme: "البرنامج الزمني",
           ZoomLink: "رابط زووم",
+          meetingpassword: "رمز المرور زوم",
+          error: "معلومة  إلزامية",
+          button: "إرسال",
         },
       },
       fr: {
@@ -98,11 +100,10 @@ i18n
           simultaneousInterpretation: "Interprétariat",
           yes: "Oui",
           no: "Non",
-          tequiredActionFromTheCommission:
-            "Action requise de la commission",
+          tequiredActionFromTheCommission: "Action requise de la commission",
           virtualParticipationOfTheCommission:
             "Participation de la Commission à distance",
-          uggestionOfParticipants:
+          suggestionOfParticipants:
             "Proposition de participants (présentiel ou à distance)",
           disseminationAmongConcernedParties:
             "Diffusion parmi les parties compétentes",
@@ -114,6 +115,9 @@ i18n
           agenda: "Agenda",
           programme: "Programme",
           ZoomLink: "Lien Zoom",
+          meetingpassword: "Zoom passcode",
+          error: "information required",
+          button: "Envoyer",
         },
       },
     },
