@@ -6,7 +6,7 @@ import LeaveRequest from "./leaveRequest";
 import ITRequirementsForm from "./ITRequirementsForm";
 import internalNoteForm from "./InternalNoteForm";
 import dgAppointments from "./dgAppointments";
-import travelinfo from "./travelinfo";
+// import travelinfo from "./travelinfo";
 import Participation from "./participation";
 import Activity from "./activity";
 import Ltips from "./ltips";
@@ -22,7 +22,7 @@ const MainRouter = () => {
       <Route exact path='/it' component={ITRequirementsForm}></Route>
       <Route exact path='/dashboard' component={Admin}></Route>
       <Route exact path='/dgrdv' component={dgAppointments}></Route>
-      <Route exact path='/travelinfo' component={travelinfo}></Route>
+      {/* <Route exact path='/travelinfo' component={travelinfo}></Route> */}
       <Route exact path='/participation' component={Participation}></Route>
       <Route exact path='/activity' component={Activity}></Route>
       <Route exact path='/ltips' component={Ltips}></Route>
