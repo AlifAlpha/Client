@@ -606,9 +606,11 @@ const Ltips = () => {
                           label={t("certificates")}
                         >
                           <option value=''></option>
-                          <option value='البكالوريوس'>البكالوريوس</option>
-                          <option value='الماستر'>الماستر</option>
-                          <option value='دكتوراه'>دكتوراه</option>
+                          <option value='Bachelor'>{t("Bachelor")}</option>
+                          <option value='Master'>{t("Master")}</option>
+                          <option value='PhD'>{t("PhD")}</option>
+                   
+                      
                         </Select>
                       </FormControl>
                     </Grid>
