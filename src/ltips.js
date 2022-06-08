@@ -54,6 +54,8 @@ import { useTranslation } from "react-i18next";
 import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import i18next from "i18next";
+import concept from "./3.4 LTIPS CN No budget no Incub Camp.pdf";
+import code from "./LTIPS Terms of Engagement - Arabic.pdf";
 const languages = [
   {
     code: "fr",
@@ -312,6 +314,7 @@ const Ltips = () => {
       recommandName: formData.get("recommandName"),
       recommandPhone: formData.get("recommandPhone"),
       recommandEmail: formData.get("recommandEmail"),
+      recommandTitle: formData.get("recommandTitle"),
       certif: certif,
       idetite: idetite,
       cv: cv,
@@ -323,7 +326,7 @@ const Ltips = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
-      fetch("http://localhost:8080/ltips", {
+      fetch("https://icescoapi.herokuapp.com/ltips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -422,17 +425,9 @@ const Ltips = () => {
                         color='textSecondary'
                         align='center'
                         component='h1'
-                        variant='h3'
+                        variant=''
                       >
                         {t("title")}
-                      </Typography>
-                      <Typography
-                        color='textSecondary'
-                        align='center'
-                        component='h1'
-                        variant='h4'
-                      >
-                        دورة 2022
                       </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -440,8 +435,8 @@ const Ltips = () => {
                         dir={lang}
                         color='textSecondary'
                         // align='center'
-                        component='h1'
-                        variant='h5'
+                        component='h3'
+                        variant='h6'
                       >
                         {t("info1")}
                       </Typography>
@@ -566,6 +561,13 @@ const Ltips = () => {
                         fullWidth
                       />
                     </Grid>
+                    <FormLabel
+                      className={classes.legend}
+                      //   error={categoryError}
+                      component='legend'
+                    >
+                      {t("language")}
+                    </FormLabel>
                     <Grid xs={12} container>
                       <FormGroup name='language' className={classes.checks3}>
                         <FormControlLabel
@@ -592,17 +594,6 @@ const Ltips = () => {
                       )}
                     </Grid>
                     <Grid item xs={12}>
-                      <Typography
-                        dir={lang}
-                        color='textSecondary'
-                        // align='center'
-                        component='h1'
-                        variant='h5'
-                      >
-                        {t("info2")}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
                       <FormControl
                         fullWidth
                         variant='outlined'
@@ -624,10 +615,19 @@ const Ltips = () => {
                           <option value='Bachelor'>{t("Bachelor")}</option>
                           <option value='Master'>{t("Master")}</option>
                           <option value='PhD'>{t("PhD")}</option>
-                   
-                      
                         </Select>
                       </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        dir={lang}
+                        color='textSecondary'
+                        // align='center'
+                        component='h1'
+                        variant='h5'
+                      >
+                        {t("info2")}
+                      </Typography>
                     </Grid>
                     <FormLabel
                       className={classes.legend}
@@ -666,6 +666,23 @@ const Ltips = () => {
                         dir={lang}
                       />
                     </Grid>
+                    <FormLabel
+                      dir={lang}
+                      className={classes.legend}
+                      component='legend'
+                    >
+                      {t("leadershipcredentials")}
+                    </FormLabel>
+                    <Grid item xs={12}>
+                      <TextareaAutosize
+                        name='leadershipcredentials'
+                        placeholder={t("leadershipcredentialsinfo")}
+                        aria-label='minimum height'
+                        minRows={3}
+                        style={{ width: "100%" }}
+                        inputStyle={{ width: "100%" }}
+                      />
+                    </Grid>
                     <Grid item xs={12}>
                       <Typography
                         dir={lang}
@@ -676,21 +693,23 @@ const Ltips = () => {
                         {t("info3")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <CustomField
-                        name='leadershipcredentials'
-                        variant='outlined'
-                        id='title'
-                        label={t("leadershipcredentials")}
-                        fullWidth
-                      />
-                    </Grid>
+
                     <Grid item xs={12}>
                       <CustomField
                         name='recommandName'
                         variant='outlined'
                         id='title'
                         label={t("recommandName")}
+                        fullWidth
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <CustomField
+                        name='recommandTitle'
+                        variant='outlined'
+                        id='title'
+                        label={t("recommandTitle")}
                         fullWidth
                       />
                     </Grid>
@@ -721,6 +740,16 @@ const Ltips = () => {
                         variant='h5'
                       >
                         {t("attr")}
+                      </Typography>
+                    </Grid>
+                    <Grid dir={lang} item xs={12}>
+                      <Typography
+                        dir={lang}
+                        color='textSecondary'
+                        className={classes.legend}
+                        component='legend'
+                      >
+                        {t("attrinfo")}
                       </Typography>
                     </Grid>
                     <FormLabel
@@ -813,18 +842,32 @@ const Ltips = () => {
                         <FormHelperText error>{t("attrError")}</FormHelperText>
                       )}
                     </Grid>
+
+                    <ul>
+                      <li>
+                        <a target='_blank' href={concept} rel='noreferrer'>
+                          {" "}
+                          {t("link1")}
+                        </a>
+                      </li>
+                      <li>
+                        <a target='_blank' href={code} rel='noreferrer'>
+                          {" "}
+                          {t("link2")}
+                        </a>
+                      </li>
+                    </ul>
                     <Grid xs={12} className={classes.checks4} container>
                       <FormControlLabel
                         control={<TealCheckbox id='ok' />}
                         label={
                           <FormHelperText required error={checkError}>
-                            أُقِرّ بموجب هذه الوثيقة أنني اطلعت على الورقة
-                            المفاهيمية لهذا البرنامج والقانون المنظم له، كما
-                            أؤكد التزامي بمضامينهما في حال تم انتقائي.
+                            {t("attr6")}
                           </FormHelperText>
                         }
                       />
                     </Grid>
+
                     <Grid item xs={12}>
                       <Button
                         type='submit'
