@@ -150,7 +150,7 @@ i18n
           attr2: "Diplômes ou certificats universitaires",
           attr3: "Preuve de leadership et d’engagement dans la société civile",
           attr4:
-            "•	Tout document pouvant aider à évaluer vos compétences en matière de leadership (5 maximum)",
+            "Tout document pouvant aider à évaluer vos compétences en matière de leadership",
           attr6:
             "I hereby confirm that I have read the Concept note and Code of Conduct and will abide by it if I am selected in the program",
           button: "Envoyer",
