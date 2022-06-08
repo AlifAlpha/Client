@@ -92,7 +92,7 @@ i18n
           recommandPhone: "الهاتف",
           recommandEmail: "البريد الالكتروني",
           attr: "المرفقات ",
-          attrinfo: " (PDF files only - 15 Mo maximum)",
+          attrinfo: "( فقط بي دي إف 15 ميغا كحد أقصى)",
           attr5: "السيرة الذاتية",
           attr1: "وثائق التعريف",
           attr2: "المؤهلات العلمية",
