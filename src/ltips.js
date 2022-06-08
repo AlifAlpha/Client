@@ -307,7 +307,7 @@ const Ltips = () => {
       phone: formData.get("phone"),
       email: formData.get("email"),
       certificates: formData.get("certificates"),
-      languages: formData.get("languages"),
+      languages: formData.getAll("language").join(","),
       reason: formData.get("reason"),
       experience: formData.get("experience"),
       leadershipcredentials: formData.get("leadershipcredentials"),
