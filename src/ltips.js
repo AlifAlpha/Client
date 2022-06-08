@@ -17,6 +17,7 @@ import {
   Checkbox,
   CircularProgress,
   Snackbar,
+  FormGroup,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
@@ -31,8 +32,8 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-import logo2 from "./img/ICESCOYouth.png";
-// import logo from "./img/logoISESCO.png";
+// import logo2 from "./img/ICESCOYouth.png";
+import logo2 from "./img/logoISESCO.png";
 import bginsc from "./img/backgroundimageYouth.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core";
@@ -223,6 +224,7 @@ const Ltips = () => {
   const [checkError, setcheckError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ open: false });
+  const [languageError, setlanguageError] = useState(false);
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -238,6 +240,7 @@ const Ltips = () => {
     setexpError(false);
     setcvError(false);
     setcheckError(false);
+    setlanguageError(false);
     // setcountryError(false);
     // setAddressError(false);
     // setTelOfficeError(false);
@@ -561,20 +564,32 @@ const Ltips = () => {
                         id='FlightComing'
                         label={t("email")}
                         fullWidth
-                        // error={addressError}
-                        // helperText={addressError && "Field required"}
                       />
                     </Grid>
-                    <Grid item xs={12}>
-                      <CustomField
-                        name='languages'
-                        variant='outlined'
-                        required
-                        label={t("languages")}
-                        fullWidth
-                        // error={addressError}
-                        // helperText={addressError && "Field required"}
-                      />
+                    <Grid xs={12} container>
+                      <FormGroup name='language' className={classes.checks3}>
+                        <FormControlLabel
+                          control={<TealCheckbox name='language' />}
+                          label={t("arabic")}
+                          value={t("arabic")}
+                        />
+
+                        <FormControlLabel
+                          control={<TealCheckbox name='language' />}
+                          label={t("french")}
+                          value={t("french")}
+                        />
+                        <FormControlLabel
+                          control={<TealCheckbox name='language' />}
+                          label={t("english")}
+                          value={t("english")}
+                        />
+                      </FormGroup>
+                      {languageError && (
+                        <FormHelperText className={classes.legend} error>
+                          {t("error")}
+                        </FormHelperText>
+                      )}
                     </Grid>
                     <Grid item xs={12}>
                       <Typography
