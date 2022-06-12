@@ -155,7 +155,6 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: "16px",
   },
   left: {
-    marginTop: theme.spacing(6),
     backgroundColor: "#fff",
     width: "50%",
   },
