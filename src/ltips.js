@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import {
@@ -34,7 +33,7 @@ import {
 import Hidden from "@material-ui/core/Hidden";
 // import logo2 from "./img/ICESCOYouth.png";
 import logo2 from "./img/logoISESCO.png";
-import bginsc from "./img/backgroundimageYouth.png";
+import bginsc from "./img/bgltips.jpg";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core";
 // import Select from "@material-ui/core/Select";
@@ -76,18 +75,16 @@ const languages = [
 ];
 
 const background = createTheme({
-  direction: "rtl",
   overrides: {
     MuiCssBaseline: {
       "@global": {
         body: {
           // backgroundColor: "#d3d3d3",
           background: `url(${bginsc}) `,
-          // opacity: "20%",
-          // backgroundPosition: "center",
-          // backgroundRepeat: "no-repeat",
-          // backgroundSize: " cover",
-          // backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: " cover",
+          backgroundAttachment: "fixed",
         },
       },
     },
@@ -153,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
   right: {
     background: "#fff",
     padding: "40px 30px",
+
     // width: "50%",
     gridRowGap: "16px",
   },
@@ -191,6 +189,9 @@ const useStyles = makeStyles((theme) => ({
     left: "10px",
     marginBotton: "20px",
   },
+  img: {
+    background: "#fff",
+  },
 }));
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -198,7 +199,7 @@ const Ltips = () => {
   const classes = useStyles();
   const [age, setAge] = React.useState("");
   const [lang, setlang] = React.useState("rtl");
-
+  console.log(bginsc);
   const handleChange = (event) => {
     setAge(event.target.value);
     console.log(age);
@@ -208,7 +209,23 @@ const Ltips = () => {
     }
     setlang("ltr");
   };
-  const rtlTheme = createTheme({ direction: lang });
+  const rtlTheme = createTheme({
+    direction: lang,
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          body: {
+            // backgroundColor: "#d3d3d3",
+            background: `url(${bginsc}) `,
+            backgroundPosition: "center",
+            // backgroundRepeat: "no-repeat",
+            backgroundSize: " cover",
+            // backgroundAttachment: "fixed",
+          },
+        },
+      },
+    },
+  });
   const [modal, setModal] = useState(false);
   const [category, setCategory] = React.useState();
   const [start, setStart] = React.useState("");
@@ -358,8 +375,8 @@ const Ltips = () => {
   };
   const { t } = useTranslation();
   return (
-    <StylesProvider jss={jss}>
-      <MuiThemeProvider theme={background}>
+    <MuiThemeProvider theme={background}>
+      <StylesProvider jss={jss}>
         <ThemeProvider theme={rtlTheme}>
           <Container component='main' maxWidth='md'>
             <CssBaseline />
@@ -395,7 +412,6 @@ const Ltips = () => {
                 <Grid container className={classes.container}>
                   <Hidden only={["xs"]}>
                     <Grid className={classes.left} container sm={6}>
-                      {/* <Grid item xs={12} sm={12}></Grid> */}
                       <Grid className={classes.mar} item xs={12}>
                         <CardMedia
                           component='img'
@@ -902,8 +918,8 @@ const Ltips = () => {
           </Container>
           <Modal open={modal} setModal={setModal} />
         </ThemeProvider>
-      </MuiThemeProvider>
-    </StylesProvider>
+      </StylesProvider>
+    </MuiThemeProvider>
   );
 };
 

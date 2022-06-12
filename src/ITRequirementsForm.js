@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useEffect, useState } from "react";import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -536,7 +535,6 @@ const LeaveRequist = () => {
                       name='company'
                       // autoComplete='phone'
                       fullWidth
-                   
                     />
                   </Grid>
                 ) : (
@@ -548,17 +546,16 @@ const LeaveRequist = () => {
                   </FormHelperText>
                 )} */}
                 <Grid item xs={12}>
-                    <CustomField
-                      variant='outlined'
-                      required
-                      id='info'
-                      label='Meeting link / comment'
-                      name='info'
-                      // autoComplete='phone'
-                      fullWidth
-                   
-                    />
-                  </Grid>
+                  <CustomField
+                    variant='outlined'
+                    required
+                    id='info'
+                    label='Meeting link / comment'
+                    name='info'
+                    // autoComplete='phone'
+                    fullWidth
+                  />
+                </Grid>
                 <Grid container>
                   <FormLabel className={classes.legend} component='legend'>
                     IT requirements
