@@ -74,22 +74,22 @@ const languages = [
   },
 ];
 
-const background = createTheme({
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        body: {
-          // backgroundColor: "#d3d3d3",
-          background: `url(${bginsc}) `,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: " cover",
-          backgroundAttachment: "fixed",
-        },
-      },
-    },
-  },
-});
+// const background = createTheme({
+//   overrides: {
+//     MuiCssBaseline: {
+//       "@global": {
+//         body: {
+//           // backgroundColor: "#d3d3d3",
+//           background: `url(${bginsc}) `,
+//           backgroundPosition: "center",
+//           backgroundRepeat: "no-repeat",
+//           backgroundSize: " cover",
+//           backgroundAttachment: "fixed",
+//         },
+//       },
+//     },
+//   },
+// });
 
 const CustomField = withStyles({
   root: {
@@ -211,20 +211,6 @@ const Ltips = () => {
   };
   const rtlTheme = createTheme({
     direction: lang,
-    overrides: {
-      MuiCssBaseline: {
-        "@global": {
-          body: {
-            // backgroundColor: "#d3d3d3",
-            background: `url(${bginsc}) `,
-            backgroundPosition: "center",
-            // backgroundRepeat: "no-repeat",
-            backgroundSize: " cover",
-            // backgroundAttachment: "fixed",
-          },
-        },
-      },
-    },
   });
   const [modal, setModal] = useState(false);
   const [category, setCategory] = React.useState();
@@ -375,7 +361,7 @@ const Ltips = () => {
   };
   const { t } = useTranslation();
   return (
-    <MuiThemeProvider theme={background}>
+    <MuiThemeProvider>
       <StylesProvider jss={jss}>
         <ThemeProvider theme={rtlTheme}>
           <Container component='main' maxWidth='md'>
@@ -416,7 +402,7 @@ const Ltips = () => {
                         <CardMedia
                           component='img'
                           alt='Contemplative Reptile'
-                          image={logo2}
+                          image={bginsc}
                         />
                       </Grid>
                       <Grid className={classes.mar} item xs={12}>
@@ -430,7 +416,7 @@ const Ltips = () => {
                         <CardMedia
                           component='img'
                           alt='Contemplative Reptile'
-                          image={logo2}
+                          image={bginsc}
                         />
                       </Grid>
                     </Grid>
