@@ -1,5 +1,5 @@
 import React from "react";
-import { Admin, Resource} from "react-admin";
+import { Admin, Resource } from "react-admin";
 import restProvider from "ra-data-simple-rest";
 import { ListLeaveType } from "./components/leaveTypes/ListLeaveType";
 import { CreateLeavetype } from "./components/leaveTypes/CreateLeavetype";
@@ -44,6 +44,7 @@ import { TravelinfoList } from "./components/Travelinfo/ListTravelinfo";
 import { NotedgEdit } from "./components/InternalNote/EditInternal";
 import ParticipationList from "./components/participation/participationList";
 import { nominationList } from "./components/Nomination/nominationList";
+import { InvitationList } from "./components/invitation/InvitationList";
 
 const Dashboard = () => {
   return (
@@ -187,7 +188,13 @@ const Dashboard = () => {
             icon={GiTargetPrize}
           />
         ) : null,
-
+        permissions === "admin" || permissions === "dgoffice" ? (
+          <Resource
+            name='events'
+            options={{ label: "Invitations" }}
+            list={InvitationList}
+          />
+        ) : null,
       ]}
     </Admin>
   );

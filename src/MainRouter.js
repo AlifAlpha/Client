@@ -1,4 +1,5 @@
-import React from "react";import { Switch, Route } from "react-router-dom";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 import Admin from "./Admin/Admin";
 // import Home from "../src/HomeComponent/Home";
 import Mainmenu from "../src/MainMenuCompenent/MainMenu";
@@ -10,6 +11,7 @@ import dgAppointments from "./dgAppointments";
 import Participation from "./participation";
 import Activity from "./activity";
 import Ltips from "./ltips";
+import Invitation from "./invitation";
 // import Nomination from "./Nomination";
 
 const MainRouter = () => {
@@ -26,6 +28,7 @@ const MainRouter = () => {
       <Route exact path='/participation' component={Participation}></Route>
       <Route exact path='/activity' component={Activity}></Route>
       <Route exact path='/ltips' component={Ltips}></Route>
+      <Route exact path='/invitation' component={Invitation}></Route>
       {/* <Route exact path='/nomination' component={Nomination}></Route>/ */}
     </Switch>
   );
