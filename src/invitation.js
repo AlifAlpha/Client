@@ -254,7 +254,7 @@ const Invitation = () => {
                   error={categoryError}
                   component='legend'
                 >
-                  Are you ettending the event ?{" "}
+                  Will you be attending the event ?{" "}
                 </FormLabel>
                 <Grid xs={12} container>
                   <RadioGroup
