@@ -1,4 +1,5 @@
-import React, { useState } from "react";import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import {
@@ -231,7 +232,7 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                    Title
+                    Participation form
                   </Typography>
                 </Grid>
 
@@ -253,7 +254,7 @@ const Invitation = () => {
                   error={categoryError}
                   component='legend'
                 >
-                  Your choice is
+                  Are you ettending the event ?{" "}
                 </FormLabel>
                 <Grid xs={12} container>
                   <RadioGroup
