@@ -232,7 +232,11 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                    Participation form
+                    تتشرف
+منظمة العالم الإسلامي للتربية والعلوم والثقافة
+- إيسيسكو - 
+بدعوتكم لحضور حفل إطلاق 
+مشروع الشهادات الدولية المهنية في التدريس
                   </Typography>
                 </Grid>
 
@@ -266,12 +270,12 @@ const Invitation = () => {
                   >
                     <FormControlLabel
                       control={<CustomRadio name='category' />}
-                      label='Yes'
+                      label='نعم'
                       value='Yes'
                     />
                     <FormControlLabel
                       control={<CustomRadio name='category' />}
-                      value='No'
+                      value='لا'
                       label='No'
                     />
                     {categoryError && (
