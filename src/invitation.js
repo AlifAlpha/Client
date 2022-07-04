@@ -20,7 +20,7 @@ import Container from "@material-ui/core/Container";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logos.png";
-import bginsc from "./img/backgroundimageleaveform.png";
+import bginsc from "./img/backgroundinvitation.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core";
 // import Select from "@material-ui/core/Select";
