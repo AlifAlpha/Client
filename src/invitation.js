@@ -232,11 +232,11 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                    تتشرف
+                  تتشرف
 منظمة العالم الإسلامي للتربية والعلوم والثقافة
 - إيسيسكو - 
 بدعوتكم لحضور حفل إطلاق 
-مشروع الشهادات الدولية المهنية في التدريس
+مشروع الشهادات الدولية المهنية في التدريس - الأربعاء 13 يوليو 2022 من الساعة الواحدة إلى الساعة الثانية والنصف ظهراً
                   </Typography>
                 </Grid>
 
@@ -275,8 +275,8 @@ const Invitation = () => {
                     />
                     <FormControlLabel
                       control={<CustomRadio name='category' />}
-                      value='لا'
-                      label='No'
+                      value='No'
+                      label='لا'
                     />
                     {categoryError && (
                       <FormHelperText error>
