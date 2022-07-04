@@ -19,7 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-import logo from "./img/logoISESCO.png";
+import logo from "./img/logos.png";
 import bginsc from "./img/backgroundimageleaveform.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core";
@@ -234,7 +234,7 @@ const Invitation = () => {
                   >
                   تتشرف
 منظمة العالم الإسلامي للتربية والعلوم والثقافة
-- إيسيسكو - 
+-- إيسيسكو -- 
 بدعوتكم لحضور حفل إطلاق 
 مشروع الشهادات الدولية المهنية في التدريس - الأربعاء 13 يوليو 2022 من الساعة الواحدة إلى الساعة الثانية والنصف ظهراً
                   </Typography>
