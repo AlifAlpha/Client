@@ -240,6 +240,19 @@ const Invitation = () => {
                   </Typography>
                 </Grid>
 
+                <Grid className={classes.right} container sm={6}>
+                <Grid item xs={12}>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h2'
+                    variant='h5'
+                  >
+                  بدعوتكم لحضور حفل إطلاق 
+مشروع الشهادات الدولية المهنية في التدريس
+                  </Typography>
+                </Grid>
+
                 <Grid item xs={12}>
                   <CustomField
                     autoComplete='name'
