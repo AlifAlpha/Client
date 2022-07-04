@@ -243,7 +243,7 @@ const Invitation = () => {
                     variant='outlined'
                     required
                     id='name'
-                    label='Full name'
+                    label='الاسم الكامل'
                     fullWidth
                     error={nameError}
                     helperText={nameError && "Field required"}
