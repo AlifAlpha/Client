@@ -10,7 +10,7 @@ import dgAppointments from "./dgAppointments";
 // import travelinfo from "./travelinfo";
 import Participation from "./participation";
 import Activity from "./activity";
-import Ltips from "./ltips";
+// import Ltips from "./ltips";
 import Invitation from "./invitation";
 // import Nomination from "./Nomination";
 
@@ -27,7 +27,7 @@ const MainRouter = () => {
       {/* <Route exact path='/travelinfo' component={travelinfo}></Route> */}
       <Route exact path='/participation' component={Participation}></Route>
       <Route exact path='/activity' component={Activity}></Route>
-      <Route exact path='/ltips' component={Ltips}></Route>
+      {/* <Route exact path='/ltips' component={Ltips}></Route> */}
       <Route exact path='/invitation' component={Invitation}></Route>
       {/* <Route exact path='/nomination' component={Nomination}></Route>/ */}
     </Switch>
