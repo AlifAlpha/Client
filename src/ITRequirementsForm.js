@@ -18,7 +18,7 @@ import Container from "@material-ui/core/Container";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
-import bginsc from "./img/backgroundimageleaveform.png";
+import bginsc from "./img/backgroundimageactivity.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia, FormControl, FormHelperText } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
@@ -27,6 +27,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Modal from "./Modal";
 import { MobileDatePicker, TimePicker } from "@mui/lab";
 import { teal } from "@material-ui/core/colors";
+import Loading from "./LoadingPage";
 
 const background = createTheme({
   overrides: {
@@ -138,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -155,9 +156,20 @@ const useStyles = makeStyles((theme) => ({
   formside: {},
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background: "#282828",
+    background: "#008484",
     width: "30%",
     height: "40px",
+  },
+  title: {
+    color:"#008484",
+    fontWeight:"bold"
+  },
+  logophone: {
+    position: "absolute",
+    width: "40px",
+    top: "10px",
+    right: "20px",
+    marginBotton: "20px",
   },
 }));
 
@@ -287,7 +299,15 @@ const LeaveRequist = () => {
     setFeedback({ open: false });
   };
 
-  return (
+  const [loadingPage, setLoadingPage] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingPage(false);
+    }, 4000);
+  }, []);
+
+  return  loadingPage ? <Loading/> : (
     <MuiThemeProvider theme={background}>
       <Container component='main' maxWidth='md'>
         <CssBaseline />
@@ -304,17 +324,21 @@ const LeaveRequist = () => {
                       image={logo}
                     />
                   </Grid>
+
+
                 </Grid>
               </Hidden>
+
               <Grid className={classes.right} container sm={6}>
                 <Grid item xs={12}>
                   <Typography
                     color='textSecondary'
                     align='center'
+                    className={classes.title}
                     component='h1'
                     variant='h4'
                   >
-                    IT requirements
+                    IT requirements form
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -590,6 +614,17 @@ const LeaveRequist = () => {
             </Grid>
           </form>
         </div>
+        <Hidden only={['md', 'xl', 'lg','sm']}> 
+            <div className={classes.logophone}>
+              
+            <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo}
+                      />
+
+            </div>
+            </Hidden> 
         <Snackbar
           open={feedback.open}
           autoHideDuration={6000}

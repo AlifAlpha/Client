@@ -35,7 +35,7 @@ i18n
             "Suggestion of participants (face to face or virutally)",
           disseminationAmongConcernedParties:
             "Dissemination among concerned parties",
-          contactParty: "Contact Party",
+          contactParty: "ICESCO Contact Party",
           email: "Email",
           mobile: "Mobile",
           attachments: "Attachments",
@@ -50,10 +50,12 @@ i18n
       },
       ar: {
         translation: {
-          title: `استمارة إخبارية بشأن البرامج والأنشطة المقبلة`,
+          title: `استمارة إخبارية 
+          بشأن البرامج والأنشطة المقبلة في الإيسيسكو
+          `,
           activityName: "اسم النشاط",
           date: "الزمان",
-          venue: "المكان",
+          venue: "المكان (باللاتيني)",
           format: "التنظيم",
           facetoface: "حضوري",
           virtual: "عن بعد",
@@ -69,7 +71,7 @@ i18n
           virtualParticipationOfTheCommission: "مشاركة اللجنة  عن بعد",
           suggestionOfParticipants: "اقتراح مشاركين حضورياً أو عن بعد",
           disseminationAmongConcernedParties: "تعميمها على الجهات المختصة",
-          contactParty: "جهة التواصل",
+          contactParty: "جهة التواصل في الإيسيسكو (بالاتيني)",
           email: "البريد الإلكتروني",
           mobile: "الجوال",
           attachments: "المرفقات",
@@ -107,7 +109,7 @@ i18n
             "Proposition de participants (présentiel ou à distance)",
           disseminationAmongConcernedParties:
             "Diffusion parmi les parties compétentes",
-          contactParty: "Partie de contact",
+          contactParty: "Partie de contact à l'ICESCO",
           email: "Email",
           mobile: "Mobile",
           attachments: "Pièces jointes",

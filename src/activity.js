@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -28,7 +28,7 @@ import {
 } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "./img/logoISESCO.png";
-import bginsc from "./img/backgroundimageleaveform.png";
+import bginsc from "./img/backgroundimageactivity.png";
 import { withStyles } from "@material-ui/core/styles";
 import { CardMedia } from "@material-ui/core"; // import Select from "@material-ui/core/Select";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -47,6 +47,7 @@ import i18next from "i18next";
 import FileBase64 from "react-file-base64";
 import rtl from "jss-rtl";
 import { create } from "jss";
+import Loading from "./LoadingPage";
 
 const languages = [
   {
@@ -223,7 +224,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   paper: {
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(10),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -240,7 +241,7 @@ const useStyles = makeStyles((theme) => ({
   formside: {},
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background: "#282828",
+    background: "#008484",
     width: "30%",
     height: "40px",
   },
@@ -249,6 +250,27 @@ const useStyles = makeStyles((theme) => ({
     width: "200px",
     top: "10px",
     left: "10px",
+    marginBotton: "20px",
+  },
+
+
+  title:{
+    fontWeight: "bold",
+    color: "#008484"
+  },
+  regexinput:{
+    "&:invalid":{
+      color:"red",
+      fontWeight:"bold"
+    }
+    
+  },
+
+  logophone: {
+    position: "absolute",
+    width: "50px",
+    top: "-5px",
+    right: "10px",
     marginBotton: "20px",
   },
 }));
@@ -271,9 +293,9 @@ const Activity = () => {
   // const [value, setValue] = React.useState("Virtual");
   // const [app, setApp] = React.useState("Virtual");
   const [value1, setValue1] = React.useState("");
-  const [paperAttendance, setpaperAttendance] = React.useState();
-  const [agendaAttendance, setagendaAttendance] = React.useState();
-  const [prottendance, setproAttendance] = React.useState();
+  const [paperAttendance, setpaperAttendance] = React.useState("");
+  const [agendaAttendance, setagendaAttendance] = React.useState("");
+  const [prottendance, setproAttendance] = React.useState("");
 
   const [nameError, setnameError] = useState(false);
   const [DateError, setDateError] = useState(false);
@@ -286,9 +308,9 @@ const Activity = () => {
   const [contactError, setcontactError] = useState(false);
   const [phoneError, setphoneError] = useState(false);
   const [emailError, setemailError] = useState(false);
-  const [att1Error, setatt1Error] = useState(false);
-  const [att2Error, setatt2Error] = useState(false);
-  const [att3Error, setatt3Error] = useState(false);
+  // const [att1Error, setatt1Error] = useState(false);
+  // const [att2Error, setatt2Error] = useState(false);
+  // const [att3Error, setatt3Error] = useState(false);
   const [zoomLinkError, setzoomLinkError] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -309,9 +331,9 @@ const Activity = () => {
     setemailError(false);
     setphoneError(false);
     setzoomLinkError(false);
-    setatt1Error(false);
-    setatt2Error(false);
-    setatt3Error(false);
+    // setatt1Error(false);
+    // setatt2Error(false);
+    // setatt3Error(false);
 
     let x = 0;
     if (!formData.get("name")) {
@@ -358,18 +380,18 @@ const Activity = () => {
       setemailError(true);
       x++;
     }
-    if (!paperAttendance) {
-      setatt1Error(true);
-      x++;
-    }
-    if (!agendaAttendance) {
-      setatt2Error(true);
-      x++;
-    }
-    if (!prottendance) {
-      setatt3Error(true);
-      x++;
-    }
+    // if (!paperAttendance) {
+    //   setatt1Error(true);
+    //   x++;
+    // }
+    // if (!agendaAttendance) {
+    //   setatt2Error(true);
+    //   x++;
+    // }
+    // if (!prottendance) {
+    //   setatt3Error(true);
+    //   x++;
+    // }
     if (!formData.get("zoomlink")) {
       setzoomLinkError(true);
       x++;
@@ -398,6 +420,7 @@ const Activity = () => {
     if (!x) {
       setLoading(true);
       console.log(obj);
+      
       fetch("https://icescoapi.herokuapp.com/activities", {
         method: "POST",
         headers: {
@@ -424,7 +447,15 @@ const Activity = () => {
     setFeedback({ open: false });
   };
   const { t } = useTranslation();
-  return (
+  const [loadingPage, setLoadingPage] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingPage(false);
+    }, 4000);
+  }, []);
+
+  return loadingPage ?<Loading/> : (
     <StylesProvider jss={jss}>
       <MuiThemeProvider theme={background}>
         <Container component='main' maxWidth='md'>
@@ -457,6 +488,17 @@ const Activity = () => {
                 ))}
               </Select>
             </FormControl>
+          <Hidden only={['md', 'xl', 'lg','sm']}> 
+            <div className={classes.logophone}>
+              
+            <CardMedia
+                        component='img'
+                        alt='Contemplative Reptile'
+                        image={logo}
+                      />
+
+            </div>
+            </Hidden> 
             <form className={classes.form} onSubmit={handleSubmit} noValidate>
               <Grid container className={classes.container}>
                 <Hidden only={["xs"]}>
@@ -487,8 +529,9 @@ const Activity = () => {
                     <Typography
                       color='textSecondary'
                       align='center'
+                      className={classes.title}
                       component='h1'
-                      variant='h6'
+                      variant='h5'
                     >
                       {t("title")}
                     </Typography>
@@ -538,6 +581,7 @@ const Activity = () => {
                       label={t("venue")}
                       fullWidth
                       error={placeError}
+                      inputProps={{ className: classes.regexinput, pattern:"[a-zA-Z]+"}}
                       helperText={placeError && t("error")}
                     />
                   </Grid>
@@ -679,6 +723,7 @@ const Activity = () => {
                       id='contact'
                       label={t("contactParty")}
                       fullWidth
+                      inputProps={{ className: classes.regexinput, pattern:"[a-zA-Z]+"}}
                       error={contactError}
                       helperText={contactError && t("error")}
                     />
@@ -716,7 +761,7 @@ const Activity = () => {
                     </Typography>
                   </Grid>
                   <FormLabel
-                    error={att1Error}
+                    // error={att1Error}
                     className={classes.legend}
                     component='legend'
                   >
@@ -729,12 +774,12 @@ const Activity = () => {
                         setpaperAttendance(base64);
                       }}
                     />
-                    {att1Error && (
+                    {/* {att1Error && (
                       <FormHelperText error>{t("error")}</FormHelperText>
-                    )}
+                    )} */}
                   </Grid>
                   <FormLabel
-                    error={att2Error}
+                    // error={att2Error}
                     className={classes.legend}
                     component='legend'
                   >
@@ -747,12 +792,12 @@ const Activity = () => {
                         setagendaAttendance(base64);
                       }}
                     />
-                    {att2Error && (
+                    {/* {att2Error && (
                       <FormHelperText error>{t("error")}</FormHelperText>
-                    )}
+                    )} */}
                   </Grid>
                   <FormLabel
-                    error={att1Error}
+                    // error={att1Error}
                     className={classes.legend}
                     component='legend'
                   >
@@ -765,9 +810,9 @@ const Activity = () => {
                         setproAttendance(base64);
                       }}
                     />
-                    {att3Error && (
+                    {/* {att3Error && (
                       <FormHelperText error>{t("error")}</FormHelperText>
-                    )}
+                    )} */}
                   </Grid>
                   <Grid item xs={12}>
                     <CustomField
