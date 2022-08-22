@@ -136,6 +136,15 @@ const useStyles = makeStyles((theme) => ({
     left: "10px",
     marginBotton: "20px",
   },
+  titleInvitation: {
+    color:"#008484",
+    fontWeight:"bold",
+    margin: "20px 0"
+  },
+  titleInvitation2: {
+
+    margin: "30px 0"
+  },
 }));
 
 const Invitation = () => {
@@ -233,7 +242,41 @@ const Invitation = () => {
                     variant='h5'
                   >
                   تتشرف وزارة التعليم العالي و البحث العلمي و منظمة العالم الاسلامي للتربية و العلوم و الثقافة ـإيسيسكوـ بدعوة سيادتكم لحضور حفل إطلاق
-مشروع الشهادات الدولية المهنية في التدريس - الأربعاء 13 يوليو 2022 من الساعة الواحدة إلى الساعة الثانية والنصف ظهراً
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h4'
+                    className={classes.titleInvitation}
+                  >
+مشروع الشهادات الدولية المهنية في التدريس 
+
+                  </Typography>
+
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                  >
+الثلاثاء 30 أغسطس 2022 
+
+
+
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                    className={classes.titleInvitation2}
+
+                  >
+ 
+على الساعة 3 زوالا 
+
+
                   </Typography>
                 </Grid>
 
