@@ -197,6 +197,12 @@ const Nomination = () => {
   //     setAge(event.target.value);
   //   };
   // const rtlTheme = createTheme({ direction: "rtl" });
+  //   const [age, setAge] = React.useState("");
+
+  //   const handleChange = (event) => {
+  //     setAge(event.target.value);
+  //   };
+  // const rtlTheme = createTheme({ direction: "rtl" });
   const [modal, setModal] = useState(false);
   const [category, setCategory] = React.useState();
   const [start, setStart] = React.useState("");
