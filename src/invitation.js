@@ -249,7 +249,7 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                       و منظمة العالم الاسلامي للتربية و العلوم و الثقافة
+                       ومنظمة العالم الاسلامي للتربية و العلوم و الثقافة
                   </Typography>
                   <Typography
                     color='textSecondary'
@@ -303,8 +303,7 @@ const Invitation = () => {
 
                   >
  
-   Four Season Hotel
- 
+ فندق فور سيزون 
 
                   </Typography>
                   <Typography
@@ -354,7 +353,7 @@ const Invitation = () => {
                   error={categoryError}
                   component='legend'
                 >
-                  هل ستحضر حفل التوقيع؟{" "}
+                  هل ستحضرون حفل التوقيع؟{" "}
                 </FormLabel>
                 <Grid xs={12} container>
                   <RadioGroup
