@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleInvitation2: {
 
-    margin: "30px 0"
+    margin: "0 0 30px 0"
   },
 }));
 
@@ -241,7 +241,23 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                  تتشرف وزارة التعليم العالي و البحث العلمي و منظمة العالم الاسلامي للتربية و العلوم و الثقافة ـإيسيسكوـ بدعوة سيادتكم لحضور حفل إطلاق
+               تتشرف وزارة التعليم العالي و البحث العلمي       
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                  >
+                       و منظمة العالم الاسلامي للتربية و العلوم و الثقافة
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                  >
+                        ـ إيسيسكوـ بدعوة سيادتكم لحضور حفل إطلاق
                   </Typography>
                   <Typography
                     color='textSecondary'
@@ -276,6 +292,44 @@ const Invitation = () => {
  
 على الساعة 3 زوالا 
 
+
+                  </Typography>
+                 
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+
+                  >
+ 
+   Four Season Hotel
+ 
+
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+
+                  >
+ 
+ جاردن سيتي
+ 
+
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                    className={classes.titleInvitation2}
+
+                  >
+ 
+ - القاهرة -
+ 
 
                   </Typography>
                 </Grid>
