@@ -249,7 +249,14 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                       ومنظمة العالم الاسلامي للتربية و العلوم و الثقافة
+    ومنظمة العالم الاسلامي للتربية و العلوم و الثقافة
+
+    
+
+    إيسيسكو
+
+      
+
                   </Typography>
                   <Typography
                     color='textSecondary'
@@ -257,7 +264,15 @@ const Invitation = () => {
                     component='h1'
                     variant='h5'
                   >
-                        ـ إيسيسكوـ بدعوة سيادتكم لحضور حفل إطلاق
+ومؤسسة صالح عبد الله كامل الإنسانية    
+              </Typography>
+                  <Typography
+                    color='textSecondary'
+                    align='center'
+                    component='h1'
+                    variant='h5'
+                  >
+                         بدعوة سيادتكم لحضور حفل إطلاق
                   </Typography>
                   <Typography
                     color='textSecondary'
